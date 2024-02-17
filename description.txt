@@ -1,0 +1,13 @@
+Case sensitive lexical tokens:
+  One-line comments starting with // 
+  Multiple-line comments starting with /* and ending with */
+  Identifiers starting with a letter or _ and followed by letter, digit or _
+  Integer constants without sign. Only base 10 constants are supported; neither octal nor hexadecimal numbers are allowed.
+  Real constants with floating point (without sign). Examples:
+	12.3, 2., .34
+  Real constants with mantissa and exponent. Examples:
+	34.12E-3, 3e3, .3E+3, 2.e23
+  Char constants between ' and '. Examples: 
+  'a' '.' '~'
+  Char constants identifying the ASCII code, e.g. '\126' (any integer constant without sign can be written between ' and ')
+  The two special char constants '\n' and '\t'
