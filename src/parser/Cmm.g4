@@ -1,6 +1,6 @@
 grammar Cmm;	
 
-program: (INT_CONSTANT | REAL_CONSTANT | ID | CHAR_CONSTANT)+
+program: (INT_CONSTANT | REAL_CONSTANT | ID | CHAR_CONSTANT)+ EOF
        ;
 
 fragment
