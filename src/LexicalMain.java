@@ -2,7 +2,7 @@ import parser.*;
 
 import org.antlr.v4.runtime.*;
 
-public class Main {
+public class LexicalMain {
 
 	public static void main(String... args) throws Exception {
 

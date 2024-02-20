@@ -1,7 +1,87 @@
-grammar Cmm;	
+grammar Cmm;
 
-program: (INT_CONSTANT | REAL_CONSTANT | ID | CHAR_CONSTANT)+ EOF
-       ;
+// Program, statement, expression, type
+
+program: (definition)+ EOF;
+
+definition: variable_definition
+          | function_definition
+          ;
+
+function_definition: type ID '(' parameters ')' function_body
+                   ;
+
+variable_definition: type variables ';'
+                   ;
+
+variables: ID ',' variables
+         | ID
+         ;
+
+statement: expression '=' expression ';'
+         | function_invocation ';'
+         | 'while' '(' expression ')' block
+         | 'if' '(' expression ')' block
+         | 'if' '(' expression ')' block 'else' block
+         | 'write' arguments ';'
+         | 'read' arguments ';'
+         | 'return' expression ';'
+         ;
+
+expression: function_invocation
+          | '(' expression ')'
+          | expression '[' expression ']'
+          | expression '.' ID
+          | '(' type ')' expression
+          | '-' expression
+          | '!' expression
+          | expression ('*' | '/' | '%') expression
+          | expression ('+' | '-') expression
+          | expression ('>' | '>=' | '<=' | '<' | '!='| '==') expression
+          | expression ('&&' | '||') expression
+          | ID
+          | INT_CONSTANT
+          | CHAR_CONSTANT
+          | REAL_CONSTANT
+          ;
+
+type: 'int'
+    | 'char'
+    | 'double'
+    | 'struct' '{' struct_field+ '}'
+    | 'void'
+    | type ('[' INT_CONSTANT ']')+
+    | type ID '(' variable_definition ')'
+    ;
+
+// Extra parser prodctions
+
+parameters: parameter ',' parameters
+          | parameter
+          |
+          ;
+
+parameter: type ID
+         ;
+
+function_body: '{' (statement | variable_definition)* '}'
+    ;
+
+block: statement
+     | '{' statement* '}'
+     ;
+
+function_invocation: ID '(' arguments? ')'
+                   ;
+
+arguments: expression (',' expression)*
+          ;
+
+struct_field: type ID ';'
+            ;
+
+// LEXER
+// -----
 
 fragment
 LETTER: [a-zA-Z]
