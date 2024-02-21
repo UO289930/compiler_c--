@@ -8,15 +8,11 @@ definition: variable_definition
           | function_definition
           ;
 
-function_definition: type ID '(' parameters ')' function_body
+function_definition: type ID '(' parameters ')' '{' (statement | variable_definition)* '}'
                    ;
 
-variable_definition: type variables ';'
+variable_definition: type ID (',' ID)* ';'
                    ;
-
-variables: ID ',' variables
-         | ID
-         ;
 
 statement: expression '=' expression ';'
          | function_invocation ';'
@@ -51,21 +47,12 @@ type: 'int'
     | 'struct' '{' struct_field+ '}'
     | 'void'
     | type ('[' INT_CONSTANT ']')+
-    | type ID '(' variable_definition ')'
     ;
 
-// Extra parser prodctions
+// Extra parser productions
 
-parameters: parameter ',' parameters
-          | parameter
-          |
-          ;
-
-parameter: type ID
+parameters: type ID (',' type ID)*
          ;
-
-function_body: '{' (statement | variable_definition)* '}'
-    ;
 
 block: statement
      | '{' statement* '}'

@@ -48,16 +48,6 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitVariable_definition(CmmParser.Variable_definitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#variables}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariables(CmmParser.VariablesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CmmParser#variables}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariables(CmmParser.VariablesContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CmmParser#statement}.
 	 * @param ctx the parse tree
 	 */
@@ -97,26 +87,6 @@ public interface CmmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParameters(CmmParser.ParametersContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CmmParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameter(CmmParser.ParameterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CmmParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameter(CmmParser.ParameterContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CmmParser#function_body}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction_body(CmmParser.Function_bodyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CmmParser#function_body}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction_body(CmmParser.Function_bodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CmmParser#block}.
 	 * @param ctx the parse tree

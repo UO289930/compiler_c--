@@ -35,12 +35,6 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariable_definition(CmmParser.Variable_definitionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#variables}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariables(CmmParser.VariablesContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CmmParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -64,18 +58,6 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParameters(CmmParser.ParametersContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CmmParser#parameter}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParameter(CmmParser.ParameterContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CmmParser#function_body}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction_body(CmmParser.Function_bodyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CmmParser#block}.
 	 * @param ctx the parse tree
