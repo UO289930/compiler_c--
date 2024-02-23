@@ -2,7 +2,7 @@ grammar Cmm;
 
 // Program, statement, expression, type
 
-program: (definition)+ EOF;
+program: definition+ EOF;
 
 definition: variable_definition
           | function_definition
@@ -52,6 +52,7 @@ type: 'int'
 // Extra parser productions
 
 parameters: type ID (',' type ID)*
+          |
          ;
 
 block: statement
