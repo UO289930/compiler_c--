@@ -95,12 +95,6 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_invocation(CmmParser.Function_invocationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#arguments}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArguments(CmmParser.ArgumentsContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CmmParser#struct_field}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

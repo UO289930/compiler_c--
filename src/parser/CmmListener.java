@@ -148,16 +148,6 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitFunction_invocation(CmmParser.Function_invocationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#arguments}.
-	 * @param ctx the parse tree
-	 */
-	void enterArguments(CmmParser.ArgumentsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CmmParser#arguments}.
-	 * @param ctx the parse tree
-	 */
-	void exitArguments(CmmParser.ArgumentsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CmmParser#struct_field}.
 	 * @param ctx the parse tree
 	 */
