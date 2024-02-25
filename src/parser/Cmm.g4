@@ -2,13 +2,16 @@ grammar Cmm;
 
 // Program, statement, expression, type
 
-program: definition+ EOF;
+program: definition* main_function_definition definition* EOF;
 
 definition: variable_definition
           | function_definition
           ;
 
-function_definition: type ID '(' parameters ')' '{' (statement | variable_definition)* '}'
+main_function_definition: 'void' 'main' '(' ')' function_body
+                        ;
+
+function_definition: type ID '(' parameters? ')' function_body
                    ;
 
 variable_definition: type ID (',' ID)* ';'
@@ -51,9 +54,11 @@ type: 'int'
 
 // Extra parser productions
 
+function_body: '{' (statement | variable_definition)* '}'
+             ;
+
 parameters: type ID (',' type ID)*
-          |
-         ;
+          ;
 
 block: statement
      | '{' statement* '}'
@@ -63,7 +68,7 @@ function_invocation: ID '(' arguments? ')'
                    ;
 
 arguments: expression (',' expression)*
-          ;
+         ;
 
 struct_field: type ID ';'
             ;
