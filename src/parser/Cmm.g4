@@ -11,7 +11,8 @@ definition: variable_definition
 main_function_definition: 'void' 'main' '(' ')' function_body
                         ;
 
-function_definition: type ID '(' parameters? ')' function_body
+function_definition: function_return_type ID '(' ')' function_body
+                   | function_return_type ID '(' parameters ')' function_body
                    ;
 
 variable_definition: type ID (',' ID)* ';'
@@ -44,27 +45,35 @@ expression: function_invocation
           | REAL_CONSTANT
           ;
 
-type: 'int'
-    | 'char'
-    | 'double'
+type: built_in_type
     | 'struct' '{' struct_field+ '}'
     | 'void'
-    | type ('[' INT_CONSTANT ']')+
+    | built_in_type ('[' INT_CONSTANT ']')+
     ;
 
 // Extra parser productions
 
+function_return_type: built_in_type
+                    | 'void'
+                    ;
+
 function_body: '{' (statement | variable_definition)* '}'
              ;
 
-parameters: type ID (',' type ID)*
+parameters: built_in_type ID (',' built_in_type ID)*
           ;
+
+built_in_type: 'int'
+             | 'char'
+             | 'double'
+             ;
 
 block: statement
      | '{' statement* '}'
      ;
 
-function_invocation: ID '(' arguments? ')'
+function_invocation: ID '(' ')'
+                   | ID '(' arguments ')'
                    ;
 
 arguments: expression (',' expression)*

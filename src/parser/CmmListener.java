@@ -88,6 +88,16 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitType(CmmParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CmmParser#function_return_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_return_type(CmmParser.Function_return_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CmmParser#function_return_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_return_type(CmmParser.Function_return_typeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CmmParser#function_body}.
 	 * @param ctx the parse tree
 	 */
@@ -107,6 +117,16 @@ public interface CmmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParameters(CmmParser.ParametersContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CmmParser#built_in_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterBuilt_in_type(CmmParser.Built_in_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CmmParser#built_in_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitBuilt_in_type(CmmParser.Built_in_typeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CmmParser#block}.
 	 * @param ctx the parse tree
