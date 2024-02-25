@@ -23,8 +23,8 @@ statement: expression '=' expression ';'
          | 'while' '(' expression ')' block
          | 'if' '(' expression ')' block
          | 'if' '(' expression ')' block 'else' block
-         | 'write' arguments ';'
-         | 'read' arguments ';'
+         | 'write' expression (',' expression)* ';'
+         | 'read' expression (',' expression)* ';'
          | 'return' expression ';'
          ;
 
@@ -73,11 +73,8 @@ block: statement
      ;
 
 function_invocation: ID '(' ')'
-                   | ID '(' arguments ')'
+                   | ID '(' expression (',' expression)* ')'
                    ;
-
-arguments: expression (',' expression)*
-         ;
 
 struct_field: type ID ';'
             ;
