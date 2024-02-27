@@ -1,5 +1,11 @@
 // Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
+
+    import ast.types.*;
+    import ast.expressions.*;
+    import ast.statements.*;
+    import ast.program.*;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -65,12 +71,6 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_return_type(CmmParser.Function_return_typeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#function_body}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction_body(CmmParser.Function_bodyContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CmmParser#parameters}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -95,9 +95,15 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_invocation(CmmParser.Function_invocationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#struct_field}.
+	 * Visit a parse tree produced by {@link CmmParser#arguments}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStruct_field(CmmParser.Struct_fieldContext ctx);
+	T visitArguments(CmmParser.ArgumentsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CmmParser#struct_fields}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStruct_fields(CmmParser.Struct_fieldsContext ctx);
 }

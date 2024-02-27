@@ -1,5 +1,11 @@
 // Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
+
+    import ast.types.*;
+    import ast.expressions.*;
+    import ast.statements.*;
+    import ast.program.*;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -98,16 +104,6 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitFunction_return_type(CmmParser.Function_return_typeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#function_body}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction_body(CmmParser.Function_bodyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CmmParser#function_body}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction_body(CmmParser.Function_bodyContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CmmParser#parameters}.
 	 * @param ctx the parse tree
 	 */
@@ -148,13 +144,23 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitFunction_invocation(CmmParser.Function_invocationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#struct_field}.
+	 * Enter a parse tree produced by {@link CmmParser#arguments}.
 	 * @param ctx the parse tree
 	 */
-	void enterStruct_field(CmmParser.Struct_fieldContext ctx);
+	void enterArguments(CmmParser.ArgumentsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CmmParser#struct_field}.
+	 * Exit a parse tree produced by {@link CmmParser#arguments}.
 	 * @param ctx the parse tree
 	 */
-	void exitStruct_field(CmmParser.Struct_fieldContext ctx);
+	void exitArguments(CmmParser.ArgumentsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CmmParser#struct_fields}.
+	 * @param ctx the parse tree
+	 */
+	void enterStruct_fields(CmmParser.Struct_fieldsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CmmParser#struct_fields}.
+	 * @param ctx the parse tree
+	 */
+	void exitStruct_fields(CmmParser.Struct_fieldsContext ctx);
 }
