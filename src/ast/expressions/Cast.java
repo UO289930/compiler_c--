@@ -22,4 +22,13 @@ public class Cast extends AbstractASTNode implements Expression {
     public Expression getExpression() {
         return expression;
     }
+
+    @Override
+    public String toString() {
+        return "Cast{" +
+                super.toString() +
+                ", type=" + type +
+                ", expression=" + expression +
+                '}';
+    }
 }

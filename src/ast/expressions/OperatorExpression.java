@@ -27,4 +27,12 @@ public abstract class OperatorExpression extends AbstractASTNode implements Expr
     public Expression getOperand2() {
         return operand2;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", operator='" + operator + '\'' +
+                ", operand1=" + operand1 +
+                ", operand2=" + operand2;
+    }
 }

@@ -9,39 +9,46 @@ grammar Cmm;
 
 // Program, statement, expression, type
 
-program: // returns [Program ast]
-        //locals[ List<Definition> defs = new ArrayList<>() ]:
-          (di=definition )* main=main_function_definition (dj=definition )* EOF
+program returns [Program ast]
+        locals[ List<Definition> defs = new ArrayList<>() ]:
+          (di=definition { $defs.addAll($di.ast); })* main=main_function_definition { $defs.add($main.ast); } (dj=definition { $defs.addAll($di.ast); } )* EOF
+          { $ast = new Program( $main.ast.getLine(), $main.ast.getColumn(), $defs ); }
         ;
 
-definition : //returns [Defintiion ast]:
-            v=variable_definition //{ $ast = $v.ast; }
-          | f=function_definition //{ $ast = $f.ast; }
+definition returns [List<Definition> ast = new ArrayList<>()]:
+            v=variable_definition { $ast.addAll( $v.ast ); }
+          | f=function_definition { $ast.add( $f.ast ); }
           ;
 
-main_function_definition: // returns [Definition ast]:
-                          'void' 'main' '(' ')' '{' (statement | variable_definition)* '}'
+main_function_definition returns [Definition ast]
+                         locals[List<Statement> ss = new ArrayList<>(), List<VariableDefinition> vs = new ArrayList<>()]:
+                          VOID='void' MAIN='main' '(' ')' '{' (s=statement { $ss.addAll( $s.ast ); } | v=variable_definition { $vs.addAll( $v.ast ); } )* '}'
+                          { $ast = new FunctionDefinition( $VOID.getLine(), $VOID.getCharPositionInLine()+1, new VoidType($VOID.getLine(), $VOID.getCharPositionInLine()+1),
+                                                           $MAIN.text, null, $ss, $vs); }
                         ;
 
-function_definition: // returns [Definition ast]:
-                     t=function_return_type ID '(' params=parameters ')' '{' (statement | variable_definition)* '}'
-                     //{ $ast = new FunctionDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $params.ast, $b.ast); }
+function_definition returns [Definition ast]
+                    locals[List<Statement> ss = new ArrayList<>(), List<VariableDefinition> vs = new ArrayList<>()]:
+                     t=function_return_type ID '(' params=parameters ')' '{' (s=statement { $ss.addAll( $s.ast ); } | v=variable_definition { $vs.addAll( $v.ast ); } )* '}'
+                     { $ast = new FunctionDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $params.ast, $ss, $vs); }
                    ;
 
-variable_definition: // returns [Definition ast]:
-                     // { $ast = new VariableDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, new Variable( $v1.text ) ); }
-                     t=type v1=ID (',' vi=ID )* ';'
+variable_definition returns [List<VariableDefinition> ast = new ArrayList<>()]:
+                     t=type v1=ID { $ast.add( new VariableDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $v1.text ) ); }
+                      (',' vi=ID { $ast.add( new VariableDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $vi.text ) );  } )* ';'
                    ;
 
-statement returns [Statement ast]:
-           e1=expression '=' e2=expression ';'    { $ast = new Assignment( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ); }
-         | fi=function_invocation ';'   { $ast = $fi.ast; }
-         | WHILE='while' '(' e=expression ')' b=block { $ast = new While( $WHILE.getLine(), $WHILE.getCharPositionInLine()+1, $e.ast, $b.ast ); }
-         | IF='if' '(' e=expression ')' b=block    { $ast = new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b.ast, null ); }
-         | IF='if' '(' e=expression ')' b1=block 'else' b2=block { $ast = new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b1.ast, $b2.ast ); }
-         | 'write' expression (',' expression)* ';'
-         | 'read' expression (',' expression)* ';'
-         | RET='return' e=expression ';'  { $ast = new Return( $RET.getLine(), $RET.getCharPositionInLine()+1, $e.ast ); }
+statement returns [List<Statement> ast = new ArrayList<>()]:
+           e1=expression '=' e2=expression ';'    { $ast.add( new Assignment( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ) ); }
+         | fi=function_invocation ';'   { $ast.add( $fi.ast ); }
+         | WHILE='while' '(' e=expression ')' b=block { $ast.add( new While( $WHILE.getLine(), $WHILE.getCharPositionInLine()+1, $e.ast, $b.ast ) ); }
+         | IF='if' '(' e=expression ')' b=block    { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b.ast, null ) ); }
+         | IF='if' '(' e=expression ')' b1=block 'else' b2=block { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b1.ast, $b2.ast ) ); }
+         | WRITE='write' e1=expression { $ast.add( new Write( $WRITE.getLine(), $WRITE.getCharPositionInLine()+1, $e1.ast) ); }
+            (',' ei=expression { $ast.add( new Write( $WRITE.getLine(), $WRITE.getCharPositionInLine()+1, $ei.ast) ); } )* ';'
+         | READ='read' e1=expression { $ast.add( new Read( $READ.getLine(), $READ.getCharPositionInLine()+1, $e1.ast) ); }
+            (',' ei=expression { $ast.add( new Read( $READ.getLine(), $READ.getCharPositionInLine()+1, $ei.ast) ); } )* ';'
+         | RET='return' e=expression ';'  { $ast.add( new Return( $RET.getLine(), $RET.getCharPositionInLine()+1, $e.ast ) ); }
          ;
 
 expression returns [Expression ast]:
@@ -61,8 +68,8 @@ expression returns [Expression ast]:
                                                            $OP.text, $e1.ast, $e2.ast ); }
           | ID  { $ast = new Variable( $ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text ); }
           | IC=INT_CONSTANT { $ast = new IntLiteral( $IC.getLine(), $IC.getCharPositionInLine()+1, LexerHelper.lexemeToInt($IC.text) ); }
-          | CC=CHAR_CONSTANT { $ast = new CharLiteral( $IC.getLine(), $IC.getCharPositionInLine()+1, LexerHelper.lexemeToChar($IC.text) ); }
-          | REAL_CONSTANT { $ast = new RealLiteral( $IC.getLine(), $IC.getCharPositionInLine()+1, LexerHelper.lexemeToReal($IC.text) ); }
+          | CC=CHAR_CONSTANT { $ast = new CharLiteral( $CC.getLine(), $CC.getCharPositionInLine()+1, LexerHelper.lexemeToChar($CC.text) ); }
+          | RC=REAL_CONSTANT { $ast = new RealLiteral( $RC.getLine(), $RC.getCharPositionInLine()+1, LexerHelper.lexemeToReal($RC.text) ); }
           ;
 
 type returns [Type ast]:
@@ -81,6 +88,7 @@ function_return_type returns [Type ast]:
 parameters returns [List<VariableDefinition> ast = new ArrayList<>()]:
             b1=built_in_type ID { $ast.add( new VariableDefinition( $b1.ast.getLine(), $b1.ast.getColumn(), $b1.ast, $ID.text ) ); }
              (',' bi=built_in_type ID { $ast.add( new VariableDefinition( $bi.ast.getLine(), $bi.ast.getColumn(), $bi.ast, $ID.text ) ); } )*
+            |
           ;
 
 built_in_type returns [Type ast]:
@@ -90,8 +98,8 @@ built_in_type returns [Type ast]:
              ;
 
 block returns [List<Statement> ast = new ArrayList<>()]:
-       s1=statement    { $ast.add($s1.ast); }
-     | '{' (si=statement { $ast.add($si.ast); } )* '}'
+       s1=statement    { $ast.addAll($s1.ast); }
+     | '{' (si=statement { $ast.addAll($si.ast); } )* '}'
      ;
 
 function_invocation returns [FunctionInvocation ast]:

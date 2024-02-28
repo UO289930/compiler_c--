@@ -8,4 +8,10 @@ public class IntType extends AbstractASTNode implements Type {
         super(line, column);
     }
 
+    @Override
+    public String toString() {
+        return "IntType{" +
+                super.toString() +
+                "}";
+    }
 }

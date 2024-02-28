@@ -22,4 +22,13 @@ public class FieldAccess extends AbstractASTNode implements Expression{
     public String getFieldName() {
         return fieldName;
     }
+
+    @Override
+    public String toString() {
+        return "FieldAccess{" +
+                super.toString() +
+                ", accessed=" + accessed +
+                ", fieldName='" + fieldName + '\'' +
+                '}';
+    }
 }

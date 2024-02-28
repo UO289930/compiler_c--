@@ -13,4 +13,10 @@ public class UnaryExpression extends AbstractASTNode implements Expression{
     public Expression getOperand() {
         return operand;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", operand=" + operand;
+    }
 }

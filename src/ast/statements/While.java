@@ -25,4 +25,13 @@ public class While extends AbstractASTNode implements Statement {
     public List<Statement> getWhileStatements() {
         return new ArrayList<>(whileStatements);
     }
+
+    @Override
+    public String toString() {
+        return "While{" +
+                super.toString() +
+                ", condition=" + condition +
+                ", whileStatements=" + whileStatements +
+                '}';
+    }
 }

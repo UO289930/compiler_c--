@@ -22,4 +22,13 @@ public class Assignment extends AbstractASTNode implements Statement {
     public Expression getExpression2() {
         return expression2;
     }
+
+    @Override
+    public String toString() {
+        return "Assignment{" +
+                super.toString() +
+                ", expression1=" + expression1 +
+                ", expression2=" + expression2 +
+                '}';
+    }
 }

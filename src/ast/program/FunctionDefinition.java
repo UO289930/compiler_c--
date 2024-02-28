@@ -31,4 +31,14 @@ public class FunctionDefinition extends AbstractDefinition {
 	public List<VariableDefinition> getVarDefinitions() {
 		return new ArrayList<>(varDefinitions);
 	}
+
+	@Override
+	public String toString() {
+		return "FunctionDefinition{" +
+				super.toString()+
+				", parameters=" + parameters +
+				", statements=" + statements +
+				", varDefinitions=" + varDefinitions +
+				'}';
+	}
 }

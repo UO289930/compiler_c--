@@ -8,4 +8,11 @@ public class Write extends AbstractStatement {
     public Write(int line, int column, Expression expression) {
         super(line, column, expression);
     }
+
+    @Override
+    public String toString() {
+        return "Write{" +
+                super.toString() +
+                "}";
+    }
 }

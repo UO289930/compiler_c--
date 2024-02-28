@@ -30,4 +30,14 @@ public class IfElse extends AbstractASTNode implements Statement {
     public List<Statement> getElseStatements() {
         return new ArrayList<>(elseStatements);
     }
+
+    @Override
+    public String toString() {
+        return "IfElse{" +
+                super.toString() +
+                ", condition=" + condition +
+                ", ifStatements=" + ifStatements +
+                ", elseStatements=" + elseStatements +
+                '}';
+    }
 }
