@@ -17,7 +17,6 @@ public class AbstractLiteralExpression<T> extends AbstractASTNode implements Exp
 
     @Override
     public String toString() {
-        return super.toString() +
-                ", value=" + value;
+        return value.toString();
     }
 }

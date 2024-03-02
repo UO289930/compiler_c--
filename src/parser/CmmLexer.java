@@ -1,6 +1,7 @@
 // Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
 
+    import dto.*;
     import ast.types.*;
     import ast.expressions.*;
     import ast.statements.*;

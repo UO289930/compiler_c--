@@ -5,7 +5,7 @@ import ast.AbstractASTNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StructType extends AbstractASTNode implements Type {
+public class StructType extends AbstractType {
 
     private final List<StructField> fields;
 
@@ -26,9 +26,19 @@ public class StructType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return "StructType{" +
-                super.toString() +
-                ", fields=" + fields +
-                '}';
+        StringBuilder sb = new StringBuilder("struct{\n");
+
+        fields.forEach(field -> sb.append('\t').append(field.toString()).append('\n'));
+
+        sb.append("}\n");
+
+        return sb.toString();
     }
+
+    @Override
+    public boolean isStruct() {
+        return true;
+    }
+
+
 }

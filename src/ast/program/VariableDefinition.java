@@ -8,10 +8,4 @@ public class VariableDefinition extends AbstractDefinition{
         super(line, column, type, name);
     }
 
-    @Override
-    public String toString() {
-        return "VariableDefinition{" +
-                    super.toString() +
-                "}";
-    }
 }

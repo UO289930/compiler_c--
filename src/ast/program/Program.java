@@ -7,10 +7,12 @@ import java.util.List;
 
 public class Program extends AbstractASTNode {
 
+	private static final int COLUMN = 1;
+	private static final int LINE = 1;
 	private final List<Definition> definitions;
 
-	public Program(int line, int column, List<Definition> definitions) {
-		super(line, column);
+	public Program(List<Definition> definitions) {
+		super(LINE, COLUMN);
 
 		// ANTLR should have caught this before
 		if(definitions== null || definitions.isEmpty()){
@@ -26,9 +28,8 @@ public class Program extends AbstractASTNode {
 
 	@Override
 	public String toString() {
-		return "Program{" +
-				super.toString() +
-				", definitions=" + definitions +
-				'}';
+		StringBuilder sb = new StringBuilder();
+		definitions.forEach(definition -> sb.append(definition.toString()).append("\n"));
+		return sb.toString();
 	}
 }

@@ -14,10 +14,4 @@ public class AbstractStatement extends AbstractASTNode implements Statement{
     public Expression getExpression() {
         return expression;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-                ", expression=" + expression;
-    }
 }

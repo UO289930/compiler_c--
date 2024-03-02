@@ -1,6 +1,7 @@
 // Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
 
+    import dto.*;
     import ast.types.*;
     import ast.expressions.*;
     import ast.statements.*;
@@ -23,11 +24,11 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(CmmParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#definition}.
+	 * Visit a parse tree produced by {@link CmmParser#definitions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDefinition(CmmParser.DefinitionContext ctx);
+	T visitDefinitions(CmmParser.DefinitionsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CmmParser#main_function_definition}.
 	 * @param ctx the parse tree
@@ -41,17 +42,23 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_definition(CmmParser.Function_definitionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#variable_definition}.
+	 * Visit a parse tree produced by {@link CmmParser#function_body}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariable_definition(CmmParser.Variable_definitionContext ctx);
+	T visitFunction_body(CmmParser.Function_bodyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#statement}.
+	 * Visit a parse tree produced by {@link CmmParser#variable_definitions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(CmmParser.StatementContext ctx);
+	T visitVariable_definitions(CmmParser.Variable_definitionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CmmParser#statements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatements(CmmParser.StatementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CmmParser#expression}.
 	 * @param ctx the parse tree
@@ -65,11 +72,17 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(CmmParser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#function_return_type}.
+	 * Visit a parse tree produced by {@link CmmParser#built_in_or_record}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_return_type(CmmParser.Function_return_typeContext ctx);
+	T visitBuilt_in_or_record(CmmParser.Built_in_or_recordContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CmmParser#return_type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn_type(CmmParser.Return_typeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CmmParser#parameters}.
 	 * @param ctx the parse tree

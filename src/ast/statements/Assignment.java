@@ -25,10 +25,6 @@ public class Assignment extends AbstractASTNode implements Statement {
 
     @Override
     public String toString() {
-        return "Assignment{" +
-                super.toString() +
-                ", expression1=" + expression1 +
-                ", expression2=" + expression2 +
-                '}';
+        return expression1 + " = " + expression2;
     }
 }

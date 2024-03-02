@@ -1,44 +1,24 @@
 package ast.program;
 
-import ast.statements.Statement;
 import ast.types.Type;
-
-import java.util.ArrayList;
-import java.util.List;
+import dto.FunctionBody;
 
 public class FunctionDefinition extends AbstractDefinition {
 
 
-	private final List<VariableDefinition> parameters;
+	private final FunctionBody body;
 
-	private final List<Statement> statements;
-	
-	private final List<VariableDefinition> varDefinitions;
-
-	public FunctionDefinition(int line, int column, Type type, String name, List<VariableDefinition> parameters, List<Statement> statements, List<VariableDefinition> varDefinitions) {
+	public FunctionDefinition(int line, int column, Type type, String name, FunctionBody body) {
 		super(line, column, type, name);
-
-		this.parameters = parameters==null ? new ArrayList<>() : new ArrayList<>(parameters);
-		this.statements = statements==null ? new ArrayList<>() : new ArrayList<>(statements);
-		this.varDefinitions = varDefinitions==null ? new ArrayList<>() : new ArrayList<>(varDefinitions);
+		this.body = body;
 	}
 
-	public List<VariableDefinition> getParameters() { return parameters; }
-	public List<Statement> getStatements() {
-		return new ArrayList<>(statements);
-	}
-
-	public List<VariableDefinition> getVarDefinitions() {
-		return new ArrayList<>(varDefinitions);
+	public FunctionBody getBody() {
+		return body;
 	}
 
 	@Override
 	public String toString() {
-		return "FunctionDefinition{" +
-				super.toString()+
-				", parameters=" + parameters +
-				", statements=" + statements +
-				", varDefinitions=" + varDefinitions +
-				'}';
+		return super.toString() + " {\n" + body + "\n}";
 	}
 }

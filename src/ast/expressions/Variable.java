@@ -17,9 +17,6 @@ public class Variable extends AbstractASTNode implements Expression{
 
     @Override
     public String toString() {
-        return "Variable{" +
-                super.toString() +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

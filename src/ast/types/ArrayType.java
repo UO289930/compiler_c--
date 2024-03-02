@@ -2,7 +2,7 @@ package ast.types;
 
 import ast.AbstractASTNode;
 
-public class ArrayType extends AbstractASTNode implements Type {
+public class ArrayType extends AbstractType {
 
     private final Type type;
 
@@ -24,10 +24,6 @@ public class ArrayType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return "ArrayType{" +
-                super.toString() +
-                ", type=" + type +
-                ", size=" + size +
-                '}';
+        return type + "[" + size + "]";
     }
 }

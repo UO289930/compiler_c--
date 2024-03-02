@@ -33,11 +33,23 @@ public class IfElse extends AbstractASTNode implements Statement {
 
     @Override
     public String toString() {
-        return "IfElse{" +
-                super.toString() +
-                ", condition=" + condition +
-                ", ifStatements=" + ifStatements +
-                ", elseStatements=" + elseStatements +
-                '}';
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("if( ").
+           append(condition).
+           append(" ) {\n");
+
+        ifStatements.forEach(stmt -> sb.append('\t').append(stmt).append('\n'));
+
+        sb.append("}");
+
+        if(!elseStatements.isEmpty()){
+            sb.append("\nelse{\n");
+            elseStatements.forEach(stmt -> sb.append('\t').append(stmt).append('\n'));
+            sb.append("}");
+        }
+
+
+        return  sb.toString();
     }
 }

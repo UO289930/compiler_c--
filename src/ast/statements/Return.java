@@ -11,8 +11,6 @@ public class Return extends AbstractStatement {
 
     @Override
     public String toString() {
-        return "Return{" +
-                super.toString() +
-                "}";
+        return "return " + getExpression();
     }
 }

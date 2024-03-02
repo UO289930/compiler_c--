@@ -28,10 +28,17 @@ public class While extends AbstractASTNode implements Statement {
 
     @Override
     public String toString() {
-        return "While{" +
-                super.toString() +
-                ", condition=" + condition +
-                ", whileStatements=" + whileStatements +
-                '}';
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("while( ").
+                append(condition).
+                append(" ) {\n");
+
+        whileStatements.forEach(stmt -> sb.append('\t').append(stmt).append('\n'));
+
+        sb.append("}\n");
+
+        return sb.toString();
     }
 }

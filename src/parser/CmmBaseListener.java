@@ -1,6 +1,7 @@
 // Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
 
+    import dto.*;
     import ast.types.*;
     import ast.expressions.*;
     import ast.statements.*;
@@ -35,13 +36,13 @@ public class CmmBaseListener implements CmmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDefinition(CmmParser.DefinitionContext ctx) { }
+	@Override public void enterDefinitions(CmmParser.DefinitionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDefinition(CmmParser.DefinitionContext ctx) { }
+	@Override public void exitDefinitions(CmmParser.DefinitionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -71,25 +72,37 @@ public class CmmBaseListener implements CmmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariable_definition(CmmParser.Variable_definitionContext ctx) { }
+	@Override public void enterFunction_body(CmmParser.Function_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariable_definition(CmmParser.Variable_definitionContext ctx) { }
+	@Override public void exitFunction_body(CmmParser.Function_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(CmmParser.StatementContext ctx) { }
+	@Override public void enterVariable_definitions(CmmParser.Variable_definitionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(CmmParser.StatementContext ctx) { }
+	@Override public void exitVariable_definitions(CmmParser.Variable_definitionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStatements(CmmParser.StatementsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatements(CmmParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -119,13 +132,25 @@ public class CmmBaseListener implements CmmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_return_type(CmmParser.Function_return_typeContext ctx) { }
+	@Override public void enterBuilt_in_or_record(CmmParser.Built_in_or_recordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_return_type(CmmParser.Function_return_typeContext ctx) { }
+	@Override public void exitBuilt_in_or_record(CmmParser.Built_in_or_recordContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReturn_type(CmmParser.Return_typeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturn_type(CmmParser.Return_typeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

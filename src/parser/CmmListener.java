@@ -1,6 +1,7 @@
 // Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
 
+    import dto.*;
     import ast.types.*;
     import ast.expressions.*;
     import ast.statements.*;
@@ -24,15 +25,15 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitProgram(CmmParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#definition}.
+	 * Enter a parse tree produced by {@link CmmParser#definitions}.
 	 * @param ctx the parse tree
 	 */
-	void enterDefinition(CmmParser.DefinitionContext ctx);
+	void enterDefinitions(CmmParser.DefinitionsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CmmParser#definition}.
+	 * Exit a parse tree produced by {@link CmmParser#definitions}.
 	 * @param ctx the parse tree
 	 */
-	void exitDefinition(CmmParser.DefinitionContext ctx);
+	void exitDefinitions(CmmParser.DefinitionsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CmmParser#main_function_definition}.
 	 * @param ctx the parse tree
@@ -54,25 +55,35 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitFunction_definition(CmmParser.Function_definitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#variable_definition}.
+	 * Enter a parse tree produced by {@link CmmParser#function_body}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariable_definition(CmmParser.Variable_definitionContext ctx);
+	void enterFunction_body(CmmParser.Function_bodyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CmmParser#variable_definition}.
+	 * Exit a parse tree produced by {@link CmmParser#function_body}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariable_definition(CmmParser.Variable_definitionContext ctx);
+	void exitFunction_body(CmmParser.Function_bodyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#statement}.
+	 * Enter a parse tree produced by {@link CmmParser#variable_definitions}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(CmmParser.StatementContext ctx);
+	void enterVariable_definitions(CmmParser.Variable_definitionsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CmmParser#statement}.
+	 * Exit a parse tree produced by {@link CmmParser#variable_definitions}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(CmmParser.StatementContext ctx);
+	void exitVariable_definitions(CmmParser.Variable_definitionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CmmParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatements(CmmParser.StatementsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CmmParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatements(CmmParser.StatementsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CmmParser#expression}.
 	 * @param ctx the parse tree
@@ -94,15 +105,25 @@ public interface CmmListener extends ParseTreeListener {
 	 */
 	void exitType(CmmParser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CmmParser#function_return_type}.
+	 * Enter a parse tree produced by {@link CmmParser#built_in_or_record}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunction_return_type(CmmParser.Function_return_typeContext ctx);
+	void enterBuilt_in_or_record(CmmParser.Built_in_or_recordContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CmmParser#function_return_type}.
+	 * Exit a parse tree produced by {@link CmmParser#built_in_or_record}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunction_return_type(CmmParser.Function_return_typeContext ctx);
+	void exitBuilt_in_or_record(CmmParser.Built_in_or_recordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CmmParser#return_type}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn_type(CmmParser.Return_typeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CmmParser#return_type}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn_type(CmmParser.Return_typeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CmmParser#parameters}.
 	 * @param ctx the parse tree

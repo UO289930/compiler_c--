@@ -2,7 +2,7 @@ package ast.types;
 
 import ast.AbstractASTNode;
 
-public class VoidType extends AbstractASTNode implements Type {
+public class VoidType extends AbstractType {
 
     public VoidType(int line, int column) {
         super(line, column);
@@ -10,8 +10,6 @@ public class VoidType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return "VoidType{" +
-                super.toString() +
-                "}";
+        return "void";
     }
 }

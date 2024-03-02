@@ -24,10 +24,6 @@ public class Indexing extends AbstractASTNode implements Expression{
 
     @Override
     public String toString() {
-        return "Indexing{" +
-                super.toString() +
-                ", accessed=" + accessed +
-                ", position=" + position +
-                '}';
+        return accessed + "[" + position + "]";
     }
 }

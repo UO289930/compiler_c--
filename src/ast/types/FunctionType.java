@@ -6,7 +6,7 @@ import ast.program.VariableDefinition;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionType extends AbstractASTNode implements Type {
+public class FunctionType extends AbstractType {
 
     private final Type returnType;
     private final List<VariableDefinition> parameters;
@@ -28,10 +28,15 @@ public class FunctionType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return "FunctionType{" +
-                super.toString() +
-                ", returnType=" + returnType +
-                ", parameters=" + parameters +
-                '}';
+        StringBuilder sb = new StringBuilder(returnType.toString()).append(" (");
+
+        if(!parameters.isEmpty()){
+            sb.append(parameters.get(0));
+        }
+        parameters.forEach(p -> sb.append(", ").append(p));
+
+        sb.append(") ");
+
+        return sb.toString();
     }
 }

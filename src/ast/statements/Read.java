@@ -11,8 +11,6 @@ public class Read extends AbstractStatement {
 
     @Override
     public String toString() {
-        return "Read{" +
-                super.toString() +
-                "}";
+        return "read " + getExpression();
     }
 }

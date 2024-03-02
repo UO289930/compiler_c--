@@ -6,10 +6,4 @@ public class RealLiteral extends AbstractLiteralExpression<Double>{
         super(line, column, value);
     }
 
-    @Override
-    public String toString() {
-        return "RealLiteral{" +
-                super.toString() +
-                "}";
-    }
 }

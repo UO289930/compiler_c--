@@ -10,8 +10,6 @@ public class UnaryMinus extends UnaryExpression{
 
     @Override
     public String toString() {
-        return "UnaryMinus{" +
-                super.toString() +
-                "}";
+        return "-" + getOperand();
     }
 }

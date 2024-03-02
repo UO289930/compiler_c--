@@ -30,9 +30,6 @@ public abstract class OperatorExpression extends AbstractASTNode implements Expr
 
     @Override
     public String toString() {
-        return super.toString() +
-                ", operator='" + operator + '\'' +
-                ", operand1=" + operand1 +
-                ", operand2=" + operand2;
+        return operand1 + " " + operator + " " + operand2;
     }
 }

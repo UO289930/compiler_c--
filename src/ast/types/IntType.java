@@ -2,7 +2,7 @@ package ast.types;
 
 import ast.AbstractASTNode;
 
-public class IntType extends AbstractASTNode implements Type {
+public class IntType extends AbstractType {
 
     public IntType(int line, int column) {
         super(line, column);
@@ -10,8 +10,11 @@ public class IntType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return "IntType{" +
-                super.toString() +
-                "}";
+        return "int";
+    }
+
+    @Override
+    public boolean isBuiltin() {
+        return true;
     }
 }

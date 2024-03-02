@@ -2,7 +2,7 @@ package ast.types;
 
 import ast.AbstractASTNode;
 
-public class DoubleType extends AbstractASTNode implements Type {
+public class DoubleType extends AbstractType {
 
     public DoubleType(int line, int column) {
         super(line, column);
@@ -10,8 +10,6 @@ public class DoubleType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return "DoubleType{" +
-                super.toString() +
-                "}";
+        return "double";
     }
 }

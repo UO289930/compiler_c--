@@ -7,8 +7,6 @@ public class UnaryNot extends UnaryExpression{
 
     @Override
     public String toString() {
-        return "UnaryNot{" +
-                super.toString() +
-                "}";
+        return "!" + getOperand();
     }
 }
