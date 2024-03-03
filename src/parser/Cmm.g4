@@ -22,13 +22,12 @@ definitions returns [List<Definition> ast = new ArrayList<>()]:
 
 main_function_definition returns [FunctionDefinition ast]
                          locals[List<Statement> ss = new ArrayList<>(), List<VariableDefinition> vs = new ArrayList<>()]:
-                          VOID='void' MAIN='main' '(' ')' body=function_body
-                            { $ast = ParserHelper.createFuncDef( $VOID.getLine(), $VOID.getCharPositionInLine()+1, null, $MAIN.text, null, $body.ast ); }
+                          VOID='void' MAIN='main' '(' ')' body=function_body { $ast = ParserHelper.createFuncDef( $VOID.getLine(), $VOID.getCharPositionInLine()+1, null, $MAIN.text, null, $body.ast ); }
                         ;
 
 function_definition returns [FunctionDefinition ast]:
                      t=return_type ID '(' params=parameters ')' body=function_body
-                        { $ast = ParserHelper.createFuncDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $params.ast, $body.ast ); }
+                     { $ast = ParserHelper.createFuncDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $params.ast, $body.ast ); }
                     ;
 
 function_body returns [FunctionBody ast]
@@ -37,13 +36,12 @@ function_body returns [FunctionBody ast]
               ;
 
 variable_definitions returns [List<VariableDefinition> ast = new ArrayList<>()]:
-                     t=type v1=ID { $ast.add( ParserHelper.createVarDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $v1.text ) ); }
-                      (',' vi=ID { $ast.add( ParserHelper.createVarDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $vi.text ) );  } )* ';'
+                     t=type v1=ID { $ast.add( ParserHelper.createVarDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $v1.text ) ); } (',' vi=ID { $ast.add( ParserHelper.createVarDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $vi.text ) );  } )* ';'
                     ;
 
 statements returns [List<Statement> ast = new ArrayList<>()]:
-           e1=expression '=' e2=expression ';'    { $ast.add( new Assignment( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ) ); }
-         | fi=function_invocation ';'   { $ast.add( $fi.ast ); }
+           fi=function_invocation ';'   { $ast.add( $fi.ast ); }
+         | e1=expression '=' e2=expression ';'    { $ast.add( new Assignment( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ) ); }
          | WHILE='while' '(' e=expression ')' b=block { $ast.add( new While( $WHILE.getLine(), $WHILE.getCharPositionInLine()+1, $e.ast, $b.ast ) ); }
          | IF='if' '(' e=expression ')' b=block    { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b.ast, null ) ); }
          | IF='if' '(' e=expression ')' b1=block 'else' b2=block { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b1.ast, $b2.ast ) ); }
@@ -74,8 +72,7 @@ expression returns [Expression ast]:
 
 type returns [Type ast]:
       bt=built_in_or_record { $ast = $bt.ast; }
-    | t=type '[' IC=INT_CONSTANT ']' { $ast = new ArrayType( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($IC.text) ); }
-    //{ $ast = ParserHelper.processArrayType( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($IC.text) ); }
+    | t=type '[' IC=INT_CONSTANT ']' { $ast = ParserHelper.processArrayType( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($IC.text) ); }
     ;
 
 built_in_or_record returns [Type ast]:

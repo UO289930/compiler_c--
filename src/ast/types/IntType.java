@@ -13,8 +13,4 @@ public class IntType extends AbstractType {
         return "int";
     }
 
-    @Override
-    public boolean isBuiltin() {
-        return true;
-    }
 }

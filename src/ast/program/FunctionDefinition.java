@@ -10,6 +10,11 @@ public class FunctionDefinition extends AbstractDefinition {
 
 	public FunctionDefinition(int line, int column, Type type, String name, FunctionBody body) {
 		super(line, column, type, name);
+
+		if(body==null){
+			throw new IllegalStateException("A function definition must provide a function body");
+		}
+
 		this.body = body;
 	}
 

@@ -30,14 +30,9 @@ public class StructType extends AbstractType {
 
         fields.forEach(field -> sb.append('\t').append(field.toString()).append('\n'));
 
-        sb.append("}\n");
+        sb.append("} ");
 
         return sb.toString();
-    }
-
-    @Override
-    public boolean isStruct() {
-        return true;
     }
 
 

@@ -16,9 +16,7 @@ import java.util.*;
 
 public class ParserHelper {
 
-    private static Queue<Integer> arrayTypeSizes = new ArrayDeque<>();
-
-    private static ArrayType arrayType;
+    private static LinkedList<Integer> arrayTypeSizes = new LinkedList<>();
 
     public static VariableDefinition createVarDef(int line,
                                                   int column,
@@ -62,41 +60,12 @@ public class ParserHelper {
         return new FunctionInvocation(line, column, var, arguments);
     }
 
-    public static ArrayType processArrayType(int line,
-                                             int column,
-                                             Type type,
-                                             int size){
+    public static Type processArrayType(int line,
+                                         int column,
+                                         Type type,
+                                         int size) {
 
-        ArrayType array = null;
-
-        if(arrayType==null){
-            arrayType = new ArrayType(line, column, type, size);
-        }
-
-        if( (type.isStruct() || type.isBuiltin()) && !arrayTypeSizes.isEmpty()){
-            array = constructArrayType(type, size);
-            arrayType = null;
-        }
-        else{
-            arrayTypeSizes.offer(size);
-        }
-
-
-
-        return array;
-
-    }
-
-    private static ArrayType constructArrayType(Type type, int size) {
-
-        ArrayType arrayType = new ArrayType(type.getLine(), type.getColumn(), type, size);
-
-        while(!arrayTypeSizes.isEmpty()){
-            arrayType = new ArrayType(type.getLine(), type.getColumn(), arrayType, arrayTypeSizes.poll());
-        }
-
-        return arrayType;
-
+        return new ArrayType(line, column, type, type.passSizeDown(size));
     }
 
 

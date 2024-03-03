@@ -9,12 +9,8 @@ public class AbstractType extends AbstractASTNode implements Type{
     }
 
     @Override
-    public boolean isBuiltin() {
-        return false;
-    }
-
-    @Override
-    public boolean isStruct() {
-        return false;
+    public int passSizeDown(int size) {
+        // Nothing to do with this size
+        return size;
     }
 }
