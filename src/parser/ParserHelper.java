@@ -46,7 +46,7 @@ public class ParserHelper {
                                                         Expression operand2){
 
         if(operator.contentEquals("%")){
-            return new Reminder(line, column, operator, operand1, operand2);
+            return new Reminder(line, column, operand1, operand2);
         }
 
         return new Arithmetic(line, column, operator, operand1, operand2);
