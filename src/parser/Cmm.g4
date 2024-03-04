@@ -8,7 +8,8 @@ grammar Cmm;
     import ast.program.*;
 }
 
-// Program, statement, expression, type
+// PARSER
+// ------
 
 program returns [Program ast]
         locals[ List<Definition> defs = new ArrayList<>() ]:
@@ -26,8 +27,7 @@ main_function_definition returns [FunctionDefinition ast]
                         ;
 
 function_definition returns [FunctionDefinition ast]:
-                     t=return_type ID '(' params=parameters ')' body=function_body
-                     { $ast = ParserHelper.createFuncDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $params.ast, $body.ast ); }
+                     t=return_type ID '(' params=parameters ')' body=function_body { $ast = ParserHelper.createFuncDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $params.ast, $body.ast ); }
                     ;
 
 function_body returns [FunctionBody ast]
@@ -45,10 +45,8 @@ statements returns [List<Statement> ast = new ArrayList<>()]:
          | WHILE='while' '(' e=expression ')' b=block { $ast.add( new While( $WHILE.getLine(), $WHILE.getCharPositionInLine()+1, $e.ast, $b.ast ) ); }
          | IF='if' '(' e=expression ')' b=block    { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b.ast, null ) ); }
          | IF='if' '(' e=expression ')' b1=block 'else' b2=block { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b1.ast, $b2.ast ) ); }
-         | WRITE='write' e1=expression { $ast.add( new Write( $WRITE.getLine(), $WRITE.getCharPositionInLine()+1, $e1.ast) ); }
-            (',' ei=expression { $ast.add( new Write( $WRITE.getLine(), $WRITE.getCharPositionInLine()+1, $ei.ast) ); } )* ';'
-         | READ='read' e1=expression { $ast.add( new Read( $READ.getLine(), $READ.getCharPositionInLine()+1, $e1.ast) ); }
-            (',' ei=expression { $ast.add( new Read( $READ.getLine(), $READ.getCharPositionInLine()+1, $ei.ast) ); } )* ';'
+         | WRITE='write' es=expressions ';' { $ast.addAll( ParserHelper.createWriteStatements($WRITE.getLine(), $WRITE.getCharPositionInLine()+1, $es.ast) ); }
+         | READ='read' es=expressions ';' { $ast.addAll( ParserHelper.createReadStatements($READ.getLine(), $READ.getCharPositionInLine()+1, $es.ast) ); }
          | RET='return' e=expression ';'  { $ast.add( new Return( $RET.getLine(), $RET.getCharPositionInLine()+1, $e.ast ) ); }
          ;
 
@@ -61,7 +59,7 @@ expression returns [Expression ast]:
           | MINUS='-' e=expression    { $ast = new UnaryMinus( $MINUS.getLine(), $MINUS.getCharPositionInLine()+1, $e.ast ); }
           | EXC='!' e=expression    { $ast = new UnaryNot( $EXC.getLine(), $EXC.getCharPositionInLine()+1, $e.ast ); }
           | e1=expression OP=('*' | '/' | '%') e2=expression    { $ast = ParserHelper.createArithmeticOrReminder( $e1.ast.getLine(), $e1.ast.getColumn(), $OP.text, $e1.ast, $e2.ast ); }
-          | e1=expression OP=('+' | '-') e2=expression { $ast = new Arithmetic( $e1.ast.getLine(), $e1.ast.getColumn(), $OP.text, $e1.ast, $e2.ast ); }
+          | e1=expression OP=('+' | '-') e2=expression  { $ast = ParserHelper.createArithmeticOrReminder( $e1.ast.getLine(), $e1.ast.getColumn(), $OP.text, $e1.ast, $e2.ast ); }
           | e1=expression OP=('>' | '>=' | '<=' | '<' | '!='| '==') e2=expression   { $ast = new Comparison( $e1.ast.getLine(), $e1.ast.getColumn(), $OP.text, $e1.ast, $e2.ast ); }
           | e1=expression OP=('&&' | '||') e2=expression { $ast = new Logical( $e1.ast.getLine(), $e1.ast.getColumn(), $OP.text, $e1.ast, $e2.ast ); }
           | ID  { $ast = new Variable( $ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text ); }
@@ -71,14 +69,10 @@ expression returns [Expression ast]:
           ;
 
 type returns [Type ast]:
-      bt=built_in_or_record { $ast = $bt.ast; }
+      b=built_in_type { $ast = $b.ast; }
+    | STRUCT='struct' '{' sf=struct_fields '}' { $ast = new StructType( $STRUCT.getLine(), $STRUCT.getCharPositionInLine()+1, $sf.ast ); }
     | t=type '[' IC=INT_CONSTANT ']' { $ast = ParserHelper.processArrayType( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($IC.text) ); }
     ;
-
-built_in_or_record returns [Type ast]:
-                    b=built_in_type { $ast = $b.ast; }
-                   | STRUCT='struct' '{' sf=struct_fields '}' { $ast = new StructType( $STRUCT.getLine(), $STRUCT.getCharPositionInLine()+1, $sf.ast ); }
-                   ;
 
 // Extra parser productions
 
@@ -88,7 +82,7 @@ return_type returns [Type ast]:
             ;
 
 parameters returns [List<VariableDefinition> ast = new ArrayList<>()]:
-            b1=built_in_type ID { $ast.add( ParserHelper.createVarDef( $b1.ast.getLine(), $b1.ast.getColumn(), $b1.ast, $ID.text ) ); } (',' bi=built_in_type ID { $ast.add( ParserHelper.createVarDef( $bi.ast.getLine(), $bi.ast.getColumn(), $bi.ast, $ID.text ) ); } )*
+              b1=built_in_type ID { $ast.add( ParserHelper.createVarDef( $b1.ast.getLine(), $b1.ast.getColumn(), $b1.ast, $ID.text ) ); } (',' bi=built_in_type ID { $ast.add( ParserHelper.createVarDef( $bi.ast.getLine(), $bi.ast.getColumn(), $bi.ast, $ID.text ) ); } )*
             |
             ;
 
@@ -108,9 +102,13 @@ function_invocation returns [FunctionInvocation ast]:
                    ;
 
 arguments returns [List<Expression> ast = new ArrayList<>()]:
-               e1=expression { $ast.add( $e1.ast ); } (',' ei=expression { $ast.add( $ei.ast ); } )*
-               |
-               ;
+             e1=expression { $ast.add( $e1.ast ); } (',' ei=expression { $ast.add( $ei.ast ); } )*
+           |
+           ;
+
+expressions returns [List<Expression> ast = new ArrayList<>()]:
+            e1=expression { $ast.add( $e1.ast );  } (',' ei=expression { $ast.add( $ei.ast ); } )*
+          ;
 
 struct_fields returns [List<StructField> ast = new ArrayList<>()]:
             (t=type ID ';' { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } )+
@@ -141,6 +139,8 @@ COMMENT: (ONE_LINE_COMMENT | MULTIPLE_LINE_COMMENT) -> skip
 
 WHITESPACE: (BLANKS | NEW_LINE)+ -> skip
           ;
+
+// Fragments
 
 fragment
 LETTER: [a-zA-Z]

@@ -88,13 +88,6 @@ public class CmmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Cm
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBuilt_in_or_record(CmmParser.Built_in_or_recordContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitReturn_type(CmmParser.Return_typeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -131,6 +124,13 @@ public class CmmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Cm
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitArguments(CmmParser.ArgumentsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExpressions(CmmParser.ExpressionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

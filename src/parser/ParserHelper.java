@@ -3,7 +3,9 @@ package parser;
 import ast.expressions.*;
 import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
+import ast.statements.Read;
 import ast.statements.Statement;
+import ast.statements.Write;
 import ast.types.ArrayType;
 import ast.types.FunctionType;
 import ast.types.Type;
@@ -15,8 +17,6 @@ import java.sql.Array;
 import java.util.*;
 
 public class ParserHelper {
-
-    private static LinkedList<Integer> arrayTypeSizes = new LinkedList<>();
 
     public static VariableDefinition createVarDef(int line,
                                                   int column,
@@ -67,6 +67,24 @@ public class ParserHelper {
                                          int size) {
 
         return new ArrayType(line, column, type, type.passSizeDown(size));
+    }
+
+    public static List<Write> createWriteStatements(int line,
+                                             int column,
+                                             List<Expression> expressions){
+
+        List<Write> writeStatements = new ArrayList<>();
+        expressions.forEach(e ->  writeStatements.add(new Write(line, column, e)));
+        return writeStatements;
+    }
+
+    public static List<Read> createReadStatements(int line,
+                                             int column,
+                                             List<Expression> expressions){
+
+        List<Read> readStatements = new ArrayList<>();
+        expressions.forEach(e ->  readStatements.add(new Read(line, column, e)));
+        return readStatements;
     }
 
 

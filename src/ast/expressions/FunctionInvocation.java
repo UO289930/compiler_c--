@@ -34,8 +34,12 @@ public class FunctionInvocation extends AbstractASTNode implements Expression, S
         sb.append("(");
 
         if(!arguments.isEmpty() && arguments.get(0)!=null){
-            sb.append(arguments.get(0));
-            arguments.forEach(arg -> sb.append(", ").append(arg));
+            arguments.forEach(arg -> sb.append(arg).append(", "));
+
+            if(sb.toString().contains(", ")){
+                sb.replace(sb.length()-2, sb.length(), "");
+            }
+
         }
 
         sb.append(")");

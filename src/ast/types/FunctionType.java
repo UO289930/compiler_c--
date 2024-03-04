@@ -29,11 +29,11 @@ public class FunctionType extends AbstractType {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(returnType.toString()).append(" (");
+        parameters.forEach(p -> sb.append(p).append(", "));
 
-        if(!parameters.isEmpty()){
-            sb.append(parameters.get(0));
+        if(sb.toString().contains(", ")){
+            sb.replace(sb.length()-2, sb.length(), "");
         }
-        parameters.forEach(p -> sb.append(", ").append(p));
 
         sb.append(") ");
 

@@ -72,12 +72,6 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(CmmParser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CmmParser#built_in_or_record}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBuilt_in_or_record(CmmParser.Built_in_or_recordContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CmmParser#return_type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -113,6 +107,12 @@ public interface CmmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArguments(CmmParser.ArgumentsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CmmParser#expressions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressions(CmmParser.ExpressionsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CmmParser#struct_fields}.
 	 * @param ctx the parse tree

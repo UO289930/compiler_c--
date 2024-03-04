@@ -25,6 +25,6 @@ public class Cast extends AbstractASTNode implements Expression {
 
     @Override
     public String toString() {
-        return type + " " + expression;
+        return " (" + type + ") " + expression;
     }
 }
