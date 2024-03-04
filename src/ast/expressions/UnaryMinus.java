@@ -1,6 +1,6 @@
 package ast.expressions;
 
-public class UnaryMinus extends UnaryExpression{
+public class UnaryMinus extends AbstractUnaryExpression{
 
 
     public UnaryMinus(int line, int column, Expression operand) {

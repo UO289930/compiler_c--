@@ -2,10 +2,10 @@ package ast.expressions;
 
 import ast.AbstractASTNode;
 
-public class UnaryExpression extends AbstractASTNode implements Expression{
+public class AbstractUnaryExpression extends AbstractASTNode implements Expression{
     private final Expression operand;
 
-    public UnaryExpression(int line, int column, Expression operand) {
+    public AbstractUnaryExpression(int line, int column, Expression operand) {
         super(line, column);
         this.operand = operand;
     }
