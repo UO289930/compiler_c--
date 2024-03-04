@@ -88,8 +88,7 @@ return_type returns [Type ast]:
             ;
 
 parameters returns [List<VariableDefinition> ast = new ArrayList<>()]:
-            b1=built_in_type ID { $ast.add( ParserHelper.createVarDef( $b1.ast.getLine(), $b1.ast.getColumn(), $b1.ast, $ID.text ) ); }
-             (',' bi=built_in_type ID { $ast.add( ParserHelper.createVarDef( $bi.ast.getLine(), $bi.ast.getColumn(), $bi.ast, $ID.text ) ); } )*
+            b1=built_in_type ID { $ast.add( ParserHelper.createVarDef( $b1.ast.getLine(), $b1.ast.getColumn(), $b1.ast, $ID.text ) ); } (',' bi=built_in_type ID { $ast.add( ParserHelper.createVarDef( $bi.ast.getLine(), $bi.ast.getColumn(), $bi.ast, $ID.text ) ); } )*
             |
             ;
 
@@ -105,7 +104,7 @@ block returns [List<Statement> ast = new ArrayList<>()]:
      ;
 
 function_invocation returns [FunctionInvocation ast]:
-                   | ID '(' args=arguments ')' { $ast = ParserHelper.createFuncInvoc( $ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text, $args.ast ); }
+                   ID '(' args=arguments ')' { $ast = ParserHelper.createFuncInvoc( $ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text, $args.ast ); }
                    ;
 
 arguments returns [List<Expression> ast = new ArrayList<>()]:
@@ -120,6 +119,29 @@ struct_fields returns [List<StructField> ast = new ArrayList<>()]:
 // LEXER
 // -----
 
+ID: ('_' | LETTER) ('_' | LETTER | DIGIT)*
+  ;
+
+INT_CONSTANT: [1-9] DIGIT*
+            | '0'
+            ;
+
+REAL_CONSTANT: FLOATING_POINT
+             | MANTISSA_AND_EXPONENT
+             ;
+
+CHAR_CONSTANT: '\'' . '\''
+             | '\'' '\\' INT_CONSTANT '\''
+             | '\'' SPECIAL_CHAR '\''
+             ;
+
+
+COMMENT: (ONE_LINE_COMMENT | MULTIPLE_LINE_COMMENT) -> skip
+       ;
+
+WHITESPACE: (BLANKS | NEW_LINE)+ -> skip
+          ;
+
 fragment
 LETTER: [a-zA-Z]
       ;
@@ -128,12 +150,12 @@ fragment
 DIGIT: [0-9];
 
 fragment
-FLOATING_POINT: INT_CONSTANT* '.' INT_CONSTANT+
-              | INT_CONSTANT+ '.' INT_CONSTANT*
+FLOATING_POINT: INT_CONSTANT? '.' INT_CONSTANT
+              | INT_CONSTANT '.' INT_CONSTANT?
               ;
 
 fragment
-MANTISSA_AND_EXPONENT: (FLOATING_POINT | INT_CONSTANT+) ('E' | 'e') ('+' | '-')? (FLOATING_POINT |INT_CONSTANT+)
+MANTISSA_AND_EXPONENT: (FLOATING_POINT | INT_CONSTANT) ('E' | 'e') ('+' | '-')? (FLOATING_POINT |INT_CONSTANT)
                      ;
 
 fragment
@@ -158,27 +180,3 @@ fragment
 BLANKS: ' '
       | '\t'
       ;
-
-
-ID: ('_' | LETTER) ('_' | LETTER | DIGIT)*
-  ;
-
-INT_CONSTANT: [1-9] DIGIT*
-            | '0'
-            ;
-
-REAL_CONSTANT: FLOATING_POINT
-             | MANTISSA_AND_EXPONENT
-             ;
-
-CHAR_CONSTANT: '\'' . '\''
-             | '\'' '\\' INT_CONSTANT '\''
-             | '\'' SPECIAL_CHAR '\''
-             ;
-
-
-COMMENT: (ONE_LINE_COMMENT | MULTIPLE_LINE_COMMENT) -> skip
-       ;
-
-WHITESPACE: (BLANKS | NEW_LINE)+ -> skip
-          ;
