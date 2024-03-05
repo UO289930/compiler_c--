@@ -71,7 +71,7 @@ expression returns [Expression ast]:
 type returns [Type ast]:
       b=built_in_type { $ast = $b.ast; }
     | STRUCT='struct' '{' sf=struct_fields '}' { $ast = new StructType( $STRUCT.getLine(), $STRUCT.getCharPositionInLine()+1, $sf.ast ); }
-    | t=type '[' IC=INT_CONSTANT ']' { $ast = ParserHelper.processArrayType( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($IC.text) ); }
+    | t=type '[' IC=INT_CONSTANT ']' { $ast = ParserHelper.createArrayType( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($IC.text) ); }
     ;
 
 // Extra parser productions
@@ -111,7 +111,8 @@ expressions returns [List<Expression> ast = new ArrayList<>()]:
           ;
 
 struct_fields returns [List<StructField> ast = new ArrayList<>()]:
-            (t=type ID ';' { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } )+
+            (t=type ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } ';'  )+
+            // (',' ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } )*
             ;
 
 // LEXER

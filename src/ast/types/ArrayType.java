@@ -4,7 +4,7 @@ import ast.AbstractASTNode;
 
 public class ArrayType extends AbstractASTNode implements Type {
 
-    private final Type type;
+    private Type type;
     private int size;
 
     public ArrayType(int line, int column, Type type, int size) {
@@ -15,6 +15,10 @@ public class ArrayType extends AbstractASTNode implements Type {
 
     public Type getType() {
         return type;
+    }
+
+    public void setType(Type type){
+        this.type = type;
     }
 
     public int getSize() {

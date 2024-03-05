@@ -61,12 +61,14 @@ public class ParserHelper {
         return new FunctionInvocation(line, column, var, arguments);
     }
 
-    public static Type processArrayType(int line,
-                                         int column,
-                                         Type type,
-                                         int size) {
 
-        return new ArrayType(line, column, type, type.passSizeDown(size));
+    public static ArrayType createArrayType(int line, int column, int size, Type previousType){
+        if(!(previousType instanceof ArrayType)){
+
+            return new ArrayType(line, column, previousType, size);
+        }
+
+        return ;
     }
 
     public static List<Write> createWriteStatements(int line,
