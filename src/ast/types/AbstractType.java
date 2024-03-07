@@ -8,9 +8,4 @@ public class AbstractType extends AbstractASTNode implements Type{
         super(line, column);
     }
 
-    @Override
-    public int passSizeDown(int size) {
-        // Nothing to do with this size
-        return size;
-    }
 }

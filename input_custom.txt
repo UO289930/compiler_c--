@@ -1,6 +1,6 @@
 int f(int n, double r) {
   struct{
-    int minutes;
+    int minutes, ms;
     int seconds;
     int hours;
   } [20] [15]  [10] a;

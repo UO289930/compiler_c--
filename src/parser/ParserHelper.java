@@ -36,7 +36,7 @@ public class ParserHelper {
         returnType = returnType!=null ? returnType : new VoidType(line, column);
 
         FunctionType type = new FunctionType(line, column, returnType, params);
-        return new FunctionDefinition(line, column, type, name, body);
+        return new FunctionDefinition(line, column, type, name, body.varDefinitions(), body.statements());
     }
 
     public static Expression createArithmeticOrReminder(int line,
@@ -62,13 +62,14 @@ public class ParserHelper {
     }
 
 
-    public static ArrayType createArrayType(int line, int column, int size, Type previousType){
-        if(!(previousType instanceof ArrayType)){
+    public static ArrayType createArrayType(int line, int column, Type previousType, int size){
+        if(!(previousType instanceof ArrayType arrayType)){
 
             return new ArrayType(line, column, previousType, size);
         }
 
-        return ;
+        arrayType.setSize(size);
+        return arrayType;
     }
 
     public static List<Write> createWriteStatements(int line,

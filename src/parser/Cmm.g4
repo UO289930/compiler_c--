@@ -111,8 +111,7 @@ expressions returns [List<Expression> ast = new ArrayList<>()]:
           ;
 
 struct_fields returns [List<StructField> ast = new ArrayList<>()]:
-            (t=type ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } ';'  )+
-            // (',' ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } )*
+            (t=type ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); }  (',' ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } )* ';'  )+
             ;
 
 // LEXER

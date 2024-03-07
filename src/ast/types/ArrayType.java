@@ -2,6 +2,8 @@ package ast.types;
 
 import ast.AbstractASTNode;
 
+import java.lang.reflect.Array;
+
 public class ArrayType extends AbstractASTNode implements Type {
 
     private Type type;
@@ -17,8 +19,13 @@ public class ArrayType extends AbstractASTNode implements Type {
         return type;
     }
 
-    public void setType(Type type){
-        this.type = type;
+    public void setSize(int size){
+        if(type instanceof ArrayType){
+            ((ArrayType)type).setSize(size);
+        }
+        else{
+            this.type = new ArrayType(getLine(), getColumn(), this.type, size);
+        }
     }
 
     public int getSize() {
@@ -28,14 +35,5 @@ public class ArrayType extends AbstractASTNode implements Type {
     @Override
     public String toString() {
         return type + "[" + size + "]";
-    }
-
-    @Override
-    public int passSizeDown(int size) {
-
-        // Take the input size and pass the current one to the next
-        int prevSize = this.size;
-        this.size = type.passSizeDown(size);
-        return prevSize;
     }
 }
