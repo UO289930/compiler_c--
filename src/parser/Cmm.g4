@@ -70,7 +70,7 @@ expression returns [Expression ast]:
 
 type returns [Type ast]:
       b=built_in_type { $ast = $b.ast; }
-    | STRUCT='struct' '{' sf=struct_fields '}' { $ast = new StructType( $STRUCT.getLine(), $STRUCT.getCharPositionInLine()+1, $sf.ast ); }
+    | STRUCT='struct' '{' sf=struct_fields '}' { $ast = ParserHelper.createStructType( $STRUCT.getLine(), $STRUCT.getCharPositionInLine()+1, $sf.ast ); }
     | t=type '[' IC=INT_CONSTANT ']' { $ast = ParserHelper.createArrayType( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($IC.text) ); }
     ;
 

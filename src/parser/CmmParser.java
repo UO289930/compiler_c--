@@ -1118,7 +1118,7 @@ public class CmmParser extends Parser {
 				((TypeContext)_localctx).sf = struct_fields();
 				setState(228);
 				match(T__5);
-				 ((TypeContext)_localctx).ast =  new StructType( ((TypeContext)_localctx).STRUCT.getLine(), ((TypeContext)_localctx).STRUCT.getCharPositionInLine()+1, ((TypeContext)_localctx).sf.ast ); 
+				 ((TypeContext)_localctx).ast =  ParserHelper.createStructType( ((TypeContext)_localctx).STRUCT.getLine(), ((TypeContext)_localctx).STRUCT.getCharPositionInLine()+1, ((TypeContext)_localctx).sf.ast ); 
 				}
 				break;
 			default:

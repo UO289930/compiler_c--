@@ -6,10 +6,7 @@ import ast.program.VariableDefinition;
 import ast.statements.Read;
 import ast.statements.Statement;
 import ast.statements.Write;
-import ast.types.ArrayType;
-import ast.types.FunctionType;
-import ast.types.Type;
-import ast.types.VoidType;
+import ast.types.*;
 import dto.FunctionBody;
 import org.antlr.v4.codegen.model.ArgAction;
 
@@ -70,6 +67,22 @@ public class ParserHelper {
 
         arrayType.setSize(size);
         return arrayType;
+    }
+
+    public static StructType createStructType(int line, int column, List<StructField> fields){
+
+        Map<String, StructField> structFields = new HashMap<>();
+
+        for (StructField field: fields){
+            if(structFields.containsKey(field.getFieldName())){
+                new ErrorType(line, column, "Field '" + field.getFieldName() + "' cannot be duplicated");
+            } else{
+                structFields.put(field.getFieldName(), field);
+            }
+        }
+
+        return new StructType(line, column, structFields.values().stream().toList());
+
     }
 
     public static List<Write> createWriteStatements(int line,

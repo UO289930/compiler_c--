@@ -1,3 +1,4 @@
+import ast.errorhandler.ErrorHandler;
 import ast.program.Program;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
@@ -22,8 +23,14 @@ public class Main {
 		CmmParser parser = new CmmParser(tokens);
 		Program ast = parser.program().ast;
 
-		IntrospectorModel model=new IntrospectorModel("Program", ast);
-		new IntrospectorView("Introspector", model);
+		if (ErrorHandler.getInstance().anyErrors())
+			ErrorHandler.getInstance().showErrors(System.err);
+		else {
+			// * The AST is shown if no errors exist
+			IntrospectorModel model=new IntrospectorModel(
+					"Program", ast);
+			new IntrospectorView("Introspector", model);
+		}
 	}
 	
 
