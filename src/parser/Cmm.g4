@@ -30,9 +30,8 @@ function_definition returns [FunctionDefinition ast]:
                      t=return_type ID '(' params=parameters ')' body=function_body { $ast = ParserHelper.createFuncDef( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $params.ast, $body.ast ); }
                     ;
 
-function_body returns [FunctionBody ast]
-              locals[List<Statement> ss = new ArrayList<>(), List<VariableDefinition> vs = new ArrayList<>()]:
-               '{' ( v=variable_definitions { $vs.addAll( $v.ast ); } )* ( s=statements { $ss.addAll( $s.ast ); } )* '}' { $ast = new FunctionBody($vs, $ss); }
+function_body returns [FunctionBody ast = new FunctionBody()]:
+               '{' ( v=variable_definitions { $ast.addAllVariableDefinitions( $v.ast ); } )* ( s=statements { $ast.addAllStatements( $s.ast ); } )* '}'
               ;
 
 variable_definitions returns [List<VariableDefinition> ast = new ArrayList<>()]:

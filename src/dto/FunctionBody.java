@@ -6,27 +6,41 @@ import ast.statements.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public record FunctionBody(List<VariableDefinition> varDefinitions, List<Statement> statements) {
+public class FunctionBody {
 
-    public FunctionBody(List<VariableDefinition> varDefinitions, List<Statement> statements) {
-        this.statements = statements == null ? new ArrayList<>() : new ArrayList<>(statements);
-        this.varDefinitions = varDefinitions == null ? new ArrayList<>() : new ArrayList<>(varDefinitions);
+    private final List<Statement> statements;
+    private final ArrayList<VariableDefinition> variableDefinitions;
+
+    public FunctionBody() {
+        this.statements =  new ArrayList<>();
+        this.variableDefinitions = new ArrayList<>();
     }
 
-    @Override
-    public List<VariableDefinition> varDefinitions() {
-        return new ArrayList<>(varDefinitions);
+    public List<VariableDefinition> getVariableDefinitions() {
+        return new ArrayList<>(variableDefinitions);
     }
-    @Override
-    public List<Statement> statements() {
+
+    public List<Statement> getStatements() {
         return new ArrayList<>(statements);
+    }
+
+    public void addAllVariableDefinitions(List<VariableDefinition> variableDefinitions){
+        if(variableDefinitions!=null){
+            this.variableDefinitions.addAll(variableDefinitions);
+        }
+    }
+
+    public void addAllStatements(List<Statement> statements){
+        if(statements!=null){
+            this.statements.addAll(statements);
+        }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        varDefinitions.forEach(vardef -> sb.append('\t').append(vardef).append('\n'));
+        variableDefinitions.forEach(vardef -> sb.append('\t').append(vardef).append('\n'));
         statements.forEach(stmt -> sb.append('\t').append(stmt).append('\n'));
 
         return sb.toString();

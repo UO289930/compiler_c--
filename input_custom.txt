@@ -2,7 +2,7 @@ int f(int n, double r) {
   struct{
     int minutes, ms;
     int seconds;
-    int hours;
+    int hours, ms;
   } [20] [15]  [10] a;
 
   if(a[3][2][1]){

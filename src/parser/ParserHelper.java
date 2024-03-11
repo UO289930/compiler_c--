@@ -33,7 +33,7 @@ public class ParserHelper {
         returnType = returnType!=null ? returnType : new VoidType(line, column);
 
         FunctionType type = new FunctionType(line, column, returnType, params);
-        return new FunctionDefinition(line, column, type, name, body.varDefinitions(), body.statements());
+        return new FunctionDefinition(line, column, type, name, body.getVariableDefinitions(), body.getStatements());
     }
 
     public static Expression createArithmeticOrReminder(int line,
@@ -75,7 +75,7 @@ public class ParserHelper {
 
         for (StructField field: fields){
             if(structFields.containsKey(field.getFieldName())){
-                new ErrorType(line, column, "Field '" + field.getFieldName() + "' cannot be duplicated");
+                new ErrorType(field.getLine(), field.getColumn(), "Field '" + field.getFieldName() + "' cannot be duplicated");
             } else{
                 structFields.put(field.getFieldName(), field);
             }
