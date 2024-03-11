@@ -75,7 +75,7 @@ public class ParserHelper {
 
         for (StructField field: fields){
             if(structFields.containsKey(field.getFieldName())){
-                new ErrorType(line, column, "Field '" + field.getFieldName() + "' cannot be duplicated");
+                new ErrorType(field.getLine(), field.getColumn(), "Field '" + field.getFieldName() + "' cannot be duplicated");
             } else{
                 structFields.put(field.getFieldName(), field);
             }
