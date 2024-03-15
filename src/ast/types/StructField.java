@@ -1,6 +1,7 @@
 package ast.types;
 
 import ast.AbstractASTNode;
+import semantic.Visitor;
 
 public class StructField extends AbstractASTNode {
     private final Type type;
@@ -23,5 +24,10 @@ public class StructField extends AbstractASTNode {
     @Override
     public String toString() {
         return type + " " + fieldName;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

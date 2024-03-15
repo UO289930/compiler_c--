@@ -1,8 +1,6 @@
 package ast.expressions;
 
-import ast.AbstractASTNode;
-
-public class AbstractLiteralExpression<T> extends AbstractASTNode implements Expression{
+public abstract class AbstractLiteralExpression<T> extends AbstractExpression {
 
     private final T value;
 

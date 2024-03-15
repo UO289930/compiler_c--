@@ -2,7 +2,7 @@ package ast.types;
 
 import ast.AbstractASTNode;
 import ast.errorhandler.ErrorHandler;
-import examples.ast.ASTNode;
+import semantic.Visitor;
 
 public class ErrorType extends AbstractASTNode implements Type {
 
@@ -22,5 +22,10 @@ public class ErrorType extends AbstractASTNode implements Type {
         sb.append(message);
 
         return sb.toString();
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

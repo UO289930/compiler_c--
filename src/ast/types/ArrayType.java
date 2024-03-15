@@ -1,31 +1,21 @@
 package ast.types;
 
 import ast.AbstractASTNode;
-
-import java.lang.reflect.Array;
+import semantic.Visitor;
 
 public class ArrayType extends AbstractASTNode implements Type {
 
-    private Type type;
-    private int size;
+    private Type elementType;
+    private final int size;
 
     public ArrayType(int line, int column, Type type, int size) {
         super(line, column);
-        this.type = type;
+        this.elementType = type;
         this.size = size;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setSize(int size){
-        if(type instanceof ArrayType){
-            ((ArrayType)type).setSize(size);
-        }
-        else{
-            this.type = new ArrayType(getLine(), getColumn(), this.type, size);
-        }
+    public Type getElementType() {
+        return elementType;
     }
 
     public int getSize() {
@@ -34,6 +24,19 @@ public class ArrayType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return type + "[" + size + "]";
+        return elementType + "[" + size + "]";
+    }
+
+    public void setElementType(Type newArrayType) {
+        if(!(newArrayType instanceof ArrayType)){
+            throw new IllegalArgumentException("The array type must be composed by other arrays. Primitive types are allowed at the constructor");
+        }
+
+        this.elementType = newArrayType;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

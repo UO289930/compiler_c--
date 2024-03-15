@@ -1,8 +1,8 @@
 package ast.expressions;
 
-import ast.AbstractASTNode;
+import semantic.Visitor;
 
-public class Variable extends AbstractASTNode implements Expression{
+public class Variable extends AbstractExpression{
 
     private final String name;
 
@@ -18,5 +18,10 @@ public class Variable extends AbstractASTNode implements Expression{
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

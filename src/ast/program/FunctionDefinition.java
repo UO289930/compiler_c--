@@ -1,9 +1,10 @@
 package ast.program;
 
+import semantic.Visitor;
 import ast.statements.Statement;
 import ast.types.Type;
-import dto.FunctionBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionDefinition extends AbstractDefinition {
@@ -32,5 +33,18 @@ public class FunctionDefinition extends AbstractDefinition {
 		sb.append("\n}");
 
 		return  sb.toString();
+	}
+
+	@Override
+	public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+		return v.visit(this, param);
+	}
+
+	public List<VariableDefinition> getVariableDefinitions() {
+		return new ArrayList<>(variableDefinitions);
+	}
+
+	public List<Statement> getStatements() {
+		return new ArrayList<>(statements);
 	}
 }

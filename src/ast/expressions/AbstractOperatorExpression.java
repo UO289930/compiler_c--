@@ -1,8 +1,6 @@
 package ast.expressions;
 
-import ast.AbstractASTNode;
-
-public abstract class AbstractOperatorExpression extends AbstractASTNode implements Expression{
+public abstract class AbstractOperatorExpression extends AbstractExpression {
     private final String operator;
 
     private final Expression operand1;

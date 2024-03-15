@@ -1,6 +1,6 @@
 package ast.types;
 
-import ast.AbstractASTNode;
+import semantic.Visitor;
 
 public class IntType extends AbstractType {
 
@@ -13,4 +13,8 @@ public class IntType extends AbstractType {
         return "int";
     }
 
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
+    }
 }

@@ -1,6 +1,7 @@
 package ast.program;
 
 import ast.AbstractASTNode;
+import semantic.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +32,10 @@ public class Program extends AbstractASTNode {
 		StringBuilder sb = new StringBuilder();
 		definitions.forEach(definition -> sb.append(definition.toString()).append("\n"));
 		return sb.toString();
+	}
+
+	@Override
+	public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+		return v.visit(this, param);
 	}
 }

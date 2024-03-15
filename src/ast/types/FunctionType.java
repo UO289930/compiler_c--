@@ -1,7 +1,7 @@
 package ast.types;
 
-import ast.AbstractASTNode;
 import ast.program.VariableDefinition;
+import semantic.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +38,10 @@ public class FunctionType extends AbstractType {
         sb.append(") ");
 
         return sb.toString();
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

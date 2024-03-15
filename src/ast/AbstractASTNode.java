@@ -1,6 +1,6 @@
 package ast;
 
-public class AbstractASTNode implements ASTNode{
+public abstract class AbstractASTNode implements ASTNode{
 
     private final int line;
     private final int column;

@@ -1,8 +1,9 @@
 package ast.statements;
 
 import ast.expressions.Expression;
+import semantic.Visitor;
 
-public class Write extends AbstractStatement {
+public class Write extends AbstractExpressionStatement {
 
 
     public Write(int line, int column, Expression expression) {
@@ -12,5 +13,10 @@ public class Write extends AbstractStatement {
     @Override
     public String toString() {
         return "write " + getExpression() ;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

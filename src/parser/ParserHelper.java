@@ -4,13 +4,10 @@ import ast.expressions.*;
 import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
 import ast.statements.Read;
-import ast.statements.Statement;
 import ast.statements.Write;
 import ast.types.*;
 import dto.FunctionBody;
-import org.antlr.v4.codegen.model.ArgAction;
 
-import java.sql.Array;
 import java.util.*;
 
 public class ParserHelper {
@@ -60,13 +57,19 @@ public class ParserHelper {
 
 
     public static ArrayType createArrayType(int line, int column, Type previousType, int size){
-        if(!(previousType instanceof ArrayType arrayType)){
+        if(!(previousType instanceof ArrayType currentType)){
 
             return new ArrayType(line, column, previousType, size);
         }
 
-        arrayType.setSize(size);
-        return arrayType;
+        while(currentType.getElementType() instanceof ArrayType){
+            currentType = (ArrayType) currentType.getElementType();
+        }
+
+        ArrayType newArrayType = new ArrayType(line, column, currentType.getElementType(), size);
+        currentType.setElementType(newArrayType);
+
+        return (ArrayType) previousType;
     }
 
     public static StructType createStructType(int line, int column, List<StructField> fields){

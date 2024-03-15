@@ -1,8 +1,8 @@
 package ast.expressions;
 
-import ast.AbstractASTNode;
+import semantic.Visitor;
 
-public class Reminder extends AbstractASTNode implements Expression{
+public class Reminder extends AbstractExpression{
 
     private final Expression operand1;
 
@@ -26,5 +26,10 @@ public class Reminder extends AbstractASTNode implements Expression{
     @Override
     public String toString() {
         return operand1 + "%" + operand2;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

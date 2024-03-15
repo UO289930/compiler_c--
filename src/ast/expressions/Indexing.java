@@ -1,8 +1,8 @@
 package ast.expressions;
 
-import ast.AbstractASTNode;
+import semantic.Visitor;
 
-public class Indexing extends AbstractASTNode implements Expression{
+public class Indexing extends AbstractExpression{
 
     private final Expression accessed;
 
@@ -25,5 +25,10 @@ public class Indexing extends AbstractASTNode implements Expression{
     @Override
     public String toString() {
         return accessed + "[" + position + "]";
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }
