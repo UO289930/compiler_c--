@@ -8,11 +8,12 @@ public abstract class AbstractDefinition extends AbstractASTNode implements Defi
 	private final Type type;
 	private final String name;
 
+	private int scope;
 
 	public AbstractDefinition(int line, int column, Type type, String name) {
-        super(line,column);
+		super(line, column);
 		this.type = type;
-        this.name = name;
+		this.name = name;
 	}
 
 	public Type getType() {
@@ -26,5 +27,15 @@ public abstract class AbstractDefinition extends AbstractASTNode implements Defi
 	@Override
 	public String toString() {
 		return type + " " + name;
+	}
+
+	@Override
+	public int getScope() {
+		return scope;
+	}
+
+	@Override
+	public void setScope(int scope) {
+		this.scope = scope;
 	}
 }
