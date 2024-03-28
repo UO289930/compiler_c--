@@ -46,7 +46,6 @@ public class Main {
 		if (ErrorHandler.getInstance().anyErrors())
 			ErrorHandler.getInstance().showErrors(System.err);
 
-		return;
 
 	}
 	
