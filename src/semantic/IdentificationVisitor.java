@@ -9,7 +9,7 @@ import semantic.symboltable.SymbolTable;
 
 public class IdentificationVisitor extends AbstractVisitor<Void, Void>{
 
-    private SymbolTable table = new SymbolTable();
+    private final SymbolTable table = new SymbolTable();
 
     @Override
     public Void visit(FunctionDefinition functionDefinition, Void param) {

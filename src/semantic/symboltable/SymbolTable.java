@@ -6,9 +6,8 @@ import ast.program.Definition;
 public class SymbolTable {
 	
 	private int scope=0;
-	private List<Map<String, Definition>> table;
+	private final List<Map<String, Definition>> table = new ArrayList<>();
 	public SymbolTable()  {
-		table = new ArrayList<>();
 		// Global scope
 		table.add(new HashMap<>());
 	}
