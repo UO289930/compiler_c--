@@ -7,6 +7,59 @@ import ast.program.VariableDefinition;
 import ast.statements.*;
 import ast.types.*;
 
+
+/**
+ *  (P) Arithmetic: expression1 -> expression2 expression3
+ *  (R) expression1.type = expression2.type.arithmetic( expressions3.type );
+ *
+ *  (P) Reminder: expression1 -> expression2 expression3
+ *  (R) expression1.type = expression2.type.reminder( expression3.type );
+ *
+ *  (P) Logical: expression1 -> expression2 expression3
+ *  (R) expression1.type = expression2.type.logical( expression3.type );
+ *
+ *  (P) Comparison: expression1 -> expression2 expression3
+ *  (R) expression1.type = expression2.type.comparison( expression3.type );
+ *
+ *  (P) UnaryMinus: expression1 -> expression2
+ *  (R) expression1.type = expression2.type.unaryMinus();
+ *
+ *  (P) Cast : expression1 -> type expression2
+ *  (R) expression1.type = expression2.type.castTo( type );
+ *
+ *  (P) Indexing: expression1 -> expression2 expression3
+ *  (R) expression1.type = expression2.type.squareBrackets( expressions3.type );
+ *
+ *  (( FunctionInvocation: expression1 -> variable expression* )) -->> variable is useless!!!
+ *  (P) FunctionInvocation: expression1 -> expression2 expression*
+ *  (R) expression1.type = expression2.type.parenthesis( expression*.stream().map( exp -> exp.type ).toArray() );
+ *
+ *  (P) FunctionInvocation: statement -> expression expression*
+ *  (R) expression.type.parenthesis( expression*.stream().map( exp -> exp.type ).toArray() );
+ *
+ *  (P) Assignment: statement -> expression1 expression2
+ *  (R) expression2.type.mustBeAssignableTo( expression1 );
+ *
+ *  (( Inherited attribute (pre-order): statement.returnType ))
+ *  (P) While: statement -> expression statement*
+ *  (R) statement*.forEach( st -> st.returnType = statement.returnType );
+ *
+ *  (P) While: statement -> expression statement*
+ *  (R) expression.type.mustBeBoolean( );
+ *
+ *  (P) IfElse: statement -> expression statement*
+ *  (R) statement*.forEach( st -> st.returnType = type.returnType );
+ *
+ *  (P) IfElse: statement -> expression statement1* statement2*
+ *  (R) expression.type.mustBeBoolean( );
+ *
+ *  (P) FunctionDefinition: definition -> type ID vardefinition* statement*
+ *  (R) statement*.forEach( st -> st.returnType = type.returnType );
+ *
+ *  (P) Return: statement -> expression
+ *  (R) expression.type.mustBeReturnableAs( statement.returnType );
+ *
+ */
 public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 
 

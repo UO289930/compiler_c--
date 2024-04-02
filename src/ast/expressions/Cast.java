@@ -6,18 +6,18 @@ import ast.types.Type;
 
 public class Cast extends AbstractExpression{
 
-    private final Type type;
+    private final Type castType;
 
     private final Expression expression;
 
     public Cast(int line, int column, Type type, Expression expression) {
         super(line, column);
-        this.type = type;
+        this.castType = type;
         this.expression = expression;
     }
 
     public Type getType() {
-        return type;
+        return castType;
     }
 
     public Expression getExpression() {
@@ -26,7 +26,7 @@ public class Cast extends AbstractExpression{
 
     @Override
     public String toString() {
-        return " (" + type + ") " + expression;
+        return " (" + castType + ") " + expression;
     }
 
     @Override
