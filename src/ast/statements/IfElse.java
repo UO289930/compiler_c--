@@ -1,13 +1,12 @@
 package ast.statements;
 
-import ast.AbstractASTNode;
 import ast.expressions.Expression;
 import semantic.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfElse extends AbstractASTNode implements Statement {
+public class IfElse extends AbstractStatement {
 
     private final Expression condition;
 

@@ -1,19 +1,18 @@
 int f(int n, double r) {
-  struct{
-    int minutes, ms;
-    int seconds;
-    int hours, ms;
-  } [20] [15]  [10] a;
 
-  if(a[3][2][1]){
+  int x;
+  int[100][50][25][12][5] a;
 
-  } else{
+  x = a[1];
+  x = a[1][1];
+  x = a[1][1][1];
+  x = a[1][1][1][1];
+  x = a[1][1][1][1][1];
+  x = a[1][1][1][1][1][1];
+}
 
-  }
-
-  while(a){
-
-  }
+void g(){
+    return 2;
 }
 
 

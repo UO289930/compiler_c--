@@ -1,5 +1,6 @@
 import ast.errorhandler.ErrorHandler;
 import ast.program.Program;
+import ast.types.Type;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
 import parser.*;
@@ -37,17 +38,25 @@ public class Main {
 			new IntrospectorView("Introspector", model);
 		}
 
-		Visitor<Void, Void> lvalueVisitor = new TypeCheckingVisitor();
-		ast.accept(lvalueVisitor, null);
-
 		Visitor<Void, Void> identificationVisitor = new IdentificationVisitor();
-		ast.accept(identificationVisitor, null);
+		if (!acceptVisitor(ast, identificationVisitor, null)) return;
 
-		if (ErrorHandler.getInstance().anyErrors())
-			ErrorHandler.getInstance().showErrors(System.err);
+
+		Visitor<Type, Void> typeCheckingVisitor = new TypeCheckingVisitor();
+		acceptVisitor(ast, typeCheckingVisitor, null);
 
 
 	}
-	
+
+	private static <TP,TR> boolean acceptVisitor(Program ast, Visitor<TP, TR> identificationVisitor, TP param) {
+		ast.accept(identificationVisitor, param);
+
+		if (ErrorHandler.getInstance().anyErrors()){
+			ErrorHandler.getInstance().showErrors(System.err);
+			return false;
+		}
+		return true;
+	}
+
 
 }

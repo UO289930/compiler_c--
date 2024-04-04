@@ -26,13 +26,7 @@ public class StructType extends AbstractType {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("struct{\n");
-
-        fields.forEach(field -> sb.append('\t').append(field.toString()).append('\n'));
-
-        sb.append("} ");
-
-        return sb.toString();
+        return "struct";
     }
 
     @Override
@@ -40,4 +34,16 @@ public class StructType extends AbstractType {
         return v.visit(this, param);
     }
 
+    @Override
+    public Type dot(String fieldName) {
+
+        List<StructField> matchingField = getFields().stream().filter( field -> field.getFieldName().contentEquals(fieldName) ).toList();
+
+        if(matchingField.isEmpty()){
+            return new ErrorType(getLine(), getColumn(),
+                    String.format("Field '%s' does not exist inside struct", fieldName));
+        }
+
+        return matchingField.get(0).getType();
+    }
 }

@@ -1,9 +1,8 @@
 package ast.statements;
 
-import ast.AbstractASTNode;
 import ast.expressions.Expression;
 
-public abstract class AbstractExpressionStatement extends AbstractASTNode implements Statement{
+public abstract class AbstractExpressionStatement extends AbstractStatement{
     private final Expression expression;
 
     public AbstractExpressionStatement(int line, int column, Expression expression) {
@@ -14,5 +13,4 @@ public abstract class AbstractExpressionStatement extends AbstractASTNode implem
     public Expression getExpression() {
         return expression;
     }
-
 }

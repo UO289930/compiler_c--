@@ -1,9 +1,8 @@
 package ast.types;
 
-import ast.AbstractASTNode;
 import semantic.Visitor;
 
-public class ArrayType extends AbstractASTNode implements Type {
+public class ArrayType extends AbstractType {
 
     private Type elementType;
     private final int size;
@@ -24,7 +23,7 @@ public class ArrayType extends AbstractASTNode implements Type {
 
     @Override
     public String toString() {
-        return elementType + "[" + size + "]";
+        return "Array";
     }
 
     public void setElementType(Type newArrayType) {
@@ -38,5 +37,23 @@ public class ArrayType extends AbstractASTNode implements Type {
     @Override
     public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
         return v.visit(this, param);
+    }
+
+    @Override
+    public Type squareBrackets(Type type) {
+
+        if(type instanceof IntType){
+
+            return getElementType();
+        }
+
+        return super.squareBrackets(type);
+    }
+
+    @Override
+    public void mustBeAssignableTo(Type type1) {
+        if(!(type1 instanceof ArrayType)){
+            super.mustBeAssignableTo(type1);
+        }
     }
 }

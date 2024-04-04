@@ -28,20 +28,36 @@ public class FunctionType extends AbstractType {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(returnType.toString()).append(" (");
-        parameters.forEach(p -> sb.append(p).append(", "));
-
-        if(sb.toString().contains(", ")){
-            sb.replace(sb.length()-2, sb.length(), "");
-        }
-
-        sb.append(") ");
-
-        return sb.toString();
+        return "Function";
     }
 
     @Override
     public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
         return v.visit(this, param);
+    }
+
+    @Override
+    public Type parenthesis(List<Type> argumentsTypes) {
+
+        List<VariableDefinition> parameters = getParameters();
+
+        if(argumentsTypes.size()!=parameters.size()){
+            return new ErrorType(getLine(), getColumn(),
+                    "Wrong number of arguments");
+        }
+
+        for(int i=0; i<argumentsTypes.size(); i++){
+
+            Type parameterType = parameters.get(i).getType();
+            Type argumentType = argumentsTypes.get(i);
+
+            if(!parameterType.getClass().toString().contentEquals(argumentType.getClass().toString())){
+                return new ErrorType(getLine(), getColumn(),
+                        String.format("The type of the %s parameter must be %s and not %s", i + 1, parameterType, argumentType));
+            }
+
+        }
+
+        return this.getReturnType();
     }
 }

@@ -1,10 +1,9 @@
 package ast.statements;
 
-import ast.AbstractASTNode;
 import ast.expressions.Expression;
 import semantic.Visitor;
 
-public class Assignment extends AbstractASTNode implements Statement {
+public class Assignment extends AbstractStatement {
 
     private final Expression expression1;
 
