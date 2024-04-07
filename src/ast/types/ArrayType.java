@@ -42,18 +42,13 @@ public class ArrayType extends AbstractType {
     @Override
     public Type squareBrackets(Type type) {
 
+        if(type instanceof ErrorType){
+            return type;
+        }
         if(type instanceof IntType){
-
             return getElementType();
         }
 
         return super.squareBrackets(type);
-    }
-
-    @Override
-    public void mustBeAssignableTo(Type type1) {
-        if(!(type1 instanceof ArrayType)){
-            super.mustBeAssignableTo(type1);
-        }
     }
 }

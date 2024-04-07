@@ -55,8 +55,6 @@ import java.util.List;
  *
  *  (P) IfElse: statement -> expression statement1* statement2*
  *  (R) statement1*.forEach( st -> st.returnType = type.returnType );
- *
- *  (P) IfElse: statement -> expression statement1* statement2*
  *  (R) statement2*.forEach( st -> st.returnType = type.returnType );
  *
  *  (P) IfElse: statement -> expression statement1* statement2*
@@ -228,7 +226,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
         if(!assignment.getExpression1().isLvalue()){
             new ErrorType(assignment.getLine(), assignment.getColumn(),
                     String.format("The left side of the assignment '%s' is not valid", assignment.getExpression1()));
-        } else if( !(assignment.getExpression1().getType() instanceof ErrorType) ){
+        } else {
             assignment.getExpression2().getType().mustBeAssignableTo(assignment.getExpression1().getType());
         }
 

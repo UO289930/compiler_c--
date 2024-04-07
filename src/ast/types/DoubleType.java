@@ -21,11 +21,20 @@ public class DoubleType extends AbstractType {
     @Override
     public Type arithmetic(Type type) {
 
+        if(type instanceof ErrorType){
+            return type;
+        }
+
         return type instanceof DoubleType ? this : super.arithmetic(type);
     }
 
     @Override
     public Type comparison(Type type) {
+
+        if(type instanceof ErrorType){
+            return type;
+        }
+
         return type instanceof DoubleType ? new IntType(getLine(), getColumn()) : super.comparison(type);
     }
 
@@ -41,14 +50,14 @@ public class DoubleType extends AbstractType {
 
     @Override
     public void mustBeAssignableTo(Type type1) {
-        if(!(type1 instanceof DoubleType)){
+        if(!(type1 instanceof DoubleType || type1 instanceof ErrorType)){
             super.mustBeAssignableTo(type1);
         }
     }
 
     @Override
     public void mustBeReturnedAs(Type type) {
-        if(!(type instanceof DoubleType)){
+        if(!(type instanceof DoubleType || type instanceof ErrorType)){
             super.mustBeReturnedAs(type);
         }
     }

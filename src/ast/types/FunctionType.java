@@ -39,8 +39,12 @@ public class FunctionType extends AbstractType {
     @Override
     public Type parenthesis(List<Type> argumentsTypes) {
 
-        List<VariableDefinition> parameters = getParameters();
+        List<Type> filteredArgumentTypes = argumentsTypes.stream().filter( type -> type instanceof ErrorType ).toList();
+        if(!filteredArgumentTypes.isEmpty()){
+            return filteredArgumentTypes.get(0);
+        }
 
+        List<VariableDefinition> parameters = getParameters();
         if(argumentsTypes.size()!=parameters.size()){
             return new ErrorType(getLine(), getColumn(),
                     "Wrong number of arguments");

@@ -20,17 +20,30 @@ public class IntType extends AbstractType {
 
     @Override
     public Type arithmetic(Type type) {
+
+        if(type instanceof ErrorType){
+            return type;
+        }
+
         return type instanceof IntType ? this : super.arithmetic(type);
     }
 
     @Override
     public Type reminder(Type type) {
 
+        if(type instanceof ErrorType){
+            return type;
+        }
+
         return type instanceof IntType ? this : super.reminder(type);
     }
 
     @Override
     public Type logical(Type type) {
+
+        if(type instanceof ErrorType){
+            return type;
+        }
 
         return type instanceof IntType ? this : super.logical(type);
     }
@@ -42,6 +55,11 @@ public class IntType extends AbstractType {
 
     @Override
     public Type comparison(Type type) {
+
+        if(type instanceof ErrorType){
+            return type;
+        }
+
         return type instanceof IntType ? this : super.comparison(type);
     }
 
@@ -57,7 +75,9 @@ public class IntType extends AbstractType {
 
     @Override
     public void mustBeAssignableTo(Type type1) {
-        if(!(type1 instanceof IntType)){
+
+
+        if(!(type1 instanceof IntType || type1 instanceof ErrorType)){
             super.mustBeAssignableTo(type1);
         }
     }
@@ -68,7 +88,7 @@ public class IntType extends AbstractType {
 
     @Override
     public void mustBeReturnedAs(Type type) {
-        if(!(type instanceof IntType)){
+        if(!(type instanceof IntType || type instanceof ErrorType)){
             super.mustBeReturnedAs(type);
         }
     }
