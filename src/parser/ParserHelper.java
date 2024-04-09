@@ -84,7 +84,7 @@ public class ParserHelper {
             }
         }
 
-        return new StructType(line, column, structFields.values().stream().toList());
+        return new StructType(line, column, fields);
 
     }
 

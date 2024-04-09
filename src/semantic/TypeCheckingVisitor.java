@@ -76,7 +76,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         arithmetic.setLvalue(false);
 
-        Type expressionType = arithmetic.getOperand1().getType().arithmetic(arithmetic.getOperand2().getType());
+        Type expressionType = arithmetic.getOperand1().getType().arithmetic(
+                arithmetic.getLine(),
+                arithmetic.getColumn(),
+                arithmetic.getOperand2().getType()
+        );
         arithmetic.setType(expressionType);
 
         return null;
@@ -88,7 +92,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         cast.setLvalue(false);
 
-        Type expressionType = cast.getExpression().getType().castTo(cast.getCastType());
+        Type expressionType = cast.getExpression().getType().castTo(
+                cast.getLine(),
+                cast.getColumn(),
+                cast.getCastType()
+        );
         cast.setType(expressionType);
 
         return null;
@@ -107,7 +115,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         comparison.setLvalue(false);
 
-        Type expressionType = comparison.getOperand1().getType().comparison(comparison.getOperand2().getType());
+        Type expressionType = comparison.getOperand1().getType().comparison(
+                comparison.getLine(),
+                comparison.getColumn(),
+                comparison.getOperand2().getType()
+        );
         comparison.setType(expressionType);
 
         return null;
@@ -119,7 +131,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         fieldAccess.setLvalue(true);
 
-        Type expressionType = fieldAccess.getAccessed().getType().dot(fieldAccess.getFieldName());
+        Type expressionType = fieldAccess.getAccessed().getType().dot(
+                fieldAccess.getLine(),
+                fieldAccess.getColumn(),
+                fieldAccess.getFieldName()
+        );
         fieldAccess.setType(expressionType);
 
         return null;
@@ -132,7 +148,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
         functionInvocation.setLvalue(false);
 
         List<Type> argumentsTypes =  functionInvocation.getArguments().stream().map(Expression::getType).toList();
-        Type expressionType = functionInvocation.getVariable().getType().parenthesis(argumentsTypes);
+        Type expressionType = functionInvocation.getVariable().getType().parenthesis(
+                functionInvocation.getLine(),
+                functionInvocation.getColumn(),
+                argumentsTypes
+        );
         functionInvocation.setType(expressionType);
 
         return null;
@@ -144,7 +164,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         indexing.setLvalue(true);
 
-        Type expressionType = indexing.getAccessed().getType().squareBrackets(indexing.getPosition().getType());
+        Type expressionType = indexing.getAccessed().getType().squareBrackets(
+                indexing.getLine(),
+                indexing.getColumn(),
+                indexing.getPosition().getType()
+        );
         indexing.setType(expressionType);
 
         return null;
@@ -163,7 +187,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         logical.setLvalue(false);
 
-        Type expressionType = logical.getOperand1().getType().logical(logical.getOperand2().getType());
+        Type expressionType = logical.getOperand1().getType().logical(
+                logical.getLine(),
+                logical.getColumn(),
+                logical.getOperand2().getType()
+        );
         logical.setType(expressionType);
 
         return null;
@@ -182,7 +210,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         reminder.setLvalue(false);
 
-        Type expressionType = reminder.getOperand1().getType().reminder(reminder.getOperand2().getType());
+        Type expressionType = reminder.getOperand1().getType().reminder(
+                reminder.getLine(),
+                reminder.getColumn(),
+                reminder.getOperand2().getType()
+        );
         reminder.setType(expressionType);
 
         return null;
@@ -194,7 +226,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         unaryMinus.setLvalue(false);
 
-        Type expressionType = unaryMinus.getOperand().getType().unaryNot();
+        Type expressionType = unaryMinus.getOperand().getType().unaryMinus(unaryMinus.getLine(), unaryMinus.getColumn());
         unaryMinus.setType(expressionType);
 
         return null;
@@ -206,7 +238,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         unaryNot.setLvalue(false);
 
-        Type expressionType = unaryNot.getOperand().getType().unaryNot();
+        Type expressionType = unaryNot.getOperand().getType().unaryNot(unaryNot.getLine(), unaryNot.getColumn());
         unaryNot.setType(expressionType);
 
         return null;
@@ -224,10 +256,14 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
         super.visit(assignment,null);
 
         if(!assignment.getExpression1().isLvalue()){
-            new ErrorType(assignment.getLine(), assignment.getColumn(),
+            new ErrorType(assignment.getExpression1().getLine(), assignment.getExpression1().getColumn(),
                     String.format("The left side of the assignment '%s' is not valid", assignment.getExpression1()));
         } else {
-            assignment.getExpression2().getType().mustBeAssignableTo(assignment.getExpression1().getType());
+            assignment.getExpression2().getType().mustBeAssignableTo(
+                    assignment.getExpression2().getLine(),
+                    assignment.getExpression2().getColumn(),
+                    assignment.getExpression1().getType()
+            );
         }
 
         return null;
@@ -239,7 +275,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         super.visit(whileS, whileS.getReturnType());
 
-        whileS.getCondition().getType().mustBeBoolean();
+        whileS.getCondition().getType().mustBeBoolean(whileS.getCondition().getLine(), whileS.getCondition().getColumn());
         whileS.getWhileStatements().forEach( st -> st.setReturnType( whileS.getReturnType() ) );
 
         return null;
@@ -251,7 +287,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         super.visit(ifElse, ifElse.getReturnType());
 
-        ifElse.getCondition().getType().mustBeBoolean();
+        ifElse.getCondition().getType().mustBeBoolean(ifElse.getCondition().getLine(), ifElse.getCondition().getColumn());
         ifElse.getIfStatements().forEach( st -> st.setReturnType( ifElse.getReturnType() ) );
         ifElse.getElseStatements().forEach( st -> st.setReturnType( ifElse.getReturnType() ) );
 
@@ -271,7 +307,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
         returnS.setReturnType(functionReturnType);
         super.visit(returnS,null);
 
-        returnS.getExpression().getType().mustBeReturnedAs( returnS.getReturnType() );
+        returnS.getExpression().getType().mustBeReturnedAs(
+                returnS.getExpression().getLine(),
+                returnS.getExpression().getColumn(),
+                returnS.getReturnType()
+        );
 
         return null;
     }
@@ -282,7 +322,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
         super.visit(read,null);
 
         if(!read.getExpression().isLvalue()){
-            new ErrorType(read.getLine(), read.getColumn(),
+            new ErrorType(read.getExpression().getLine(), read.getExpression().getColumn(),
                     String.format("The right side of the read operation '%s' is not valid", read.getExpression()));
         }
 

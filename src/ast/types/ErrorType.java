@@ -33,64 +33,64 @@ public class ErrorType extends AbstractType {
     // Strategy for not repeating errors
 
     @Override
-    public Type arithmetic(Type type) {
+    public Type arithmetic(int line, int column, Type type) {
         return this;
     }
 
     @Override
-    public Type reminder(Type type) {
+    public Type reminder(int line, int column, Type type) {
         return this;
     }
 
     @Override
-    public Type logical(Type type) {
+    public Type logical(int line, int column, Type type) {
         return this;
     }
 
     @Override
-    public Type unaryNot() {
+    public Type unaryNot(int line, int column) {
         return this;
     }
 
     @Override
-    public Type comparison(Type type) {
+    public Type comparison(int line, int column, Type type) {
         return this;
     }
 
     @Override
-    public Type unaryMinus() {
+    public Type unaryMinus(int line, int column) {
         return this;
     }
 
     @Override
-    public Type castTo(Type type) {
+    public Type castTo(int line, int column, Type type) {
         return this;
     }
 
     @Override
-    public Type squareBrackets(Type type) {
+    public Type squareBrackets(int line, int column, Type type) {
         return this;
     }
 
     @Override
-    public Type dot(String fieldName) {
+    public Type dot(int line, int column, String fieldName) {
         return this;
     }
 
     @Override
-    public Type parenthesis(List<Type> type) {
+    public Type parenthesis(int line, int column, List<Type> type) {
         return this;
     }
 
     @Override
-    public void mustBeAssignableTo(Type type1) {
+    public void mustBeAssignableTo(int line, int column, Type type1) {
     }
 
     @Override
-    public void mustBeBoolean() {
+    public void mustBeBoolean(int line, int column) {
     }
 
     @Override
-    public void mustBeReturnedAs(Type type) {
+    public void mustBeReturnedAs(int line, int column, Type type) {
     }
 }

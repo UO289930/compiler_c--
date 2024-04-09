@@ -35,15 +35,20 @@ public class StructType extends AbstractType {
     }
 
     @Override
-    public Type dot(String fieldName) {
+    public Type dot(int line, int column, String fieldName) {
 
         List<StructField> matchingField = getFields().stream().filter( field -> field.getFieldName().contentEquals(fieldName) ).toList();
 
         if(matchingField.isEmpty()){
-            return new ErrorType(getLine(), getColumn(),
+            return new ErrorType(line, column,
                     String.format("Field '%s' does not exist inside struct", fieldName));
         }
 
         return matchingField.get(0).getType();
+    }
+
+    @Override
+    public int numberOfBytes() {
+        return getFields().stream().mapToInt(field -> field.getType().numberOfBytes()).sum();
     }
 }

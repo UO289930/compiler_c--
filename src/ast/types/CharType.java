@@ -4,6 +4,8 @@ import semantic.Visitor;
 
 public class CharType extends AbstractType {
 
+    private static final int NUMBER_OF_BYTES = 1;
+
     public CharType(int line, int column) {
         super(line, column);
     }
@@ -19,54 +21,61 @@ public class CharType extends AbstractType {
     }
 
     @Override
-    public Type arithmetic(Type type) {
+    public Type arithmetic(int line, int column, Type type) {
 
         if(type instanceof ErrorType){
             return type;
         }
 
-        return type instanceof CharType ? new IntType(getLine(), getColumn()) : super.arithmetic(type);
+        return type instanceof CharType ?
+                new IntType(line, column) :
+                new ErrorType(line, column, "Second arithmetic operand type must also be a character");
     }
 
     @Override
-    public Type reminder(Type type) {
+    public Type reminder(int line, int column, Type type) {
         if(type instanceof ErrorType){
             return type;
         }
 
-        return type instanceof CharType ? new IntType(getLine(), getColumn()) : super.reminder(type);
+        return type instanceof CharType ?
+                new IntType(line, column) :
+                new ErrorType(line, column, "Second reminder operand type must also be a character");
     }
 
     @Override
-    public Type comparison(Type type) {
+    public Type comparison(int line, int column, Type type) {
         if(type instanceof ErrorType){
             return type;
         }
 
-        return type instanceof CharType ? new IntType(getLine(), getColumn()) : super.comparison(type);
+        return type instanceof CharType ?
+                new IntType(line, column) :
+                new ErrorType(line, column, "Second comparison operand type must also be a character");
     }
 
     @Override
-    public Type unaryMinus() {
-        return new IntType(getLine(), getColumn());
+    public Type unaryMinus(int line, int column) {
+        return new IntType(line, column);
     }
 
     @Override
-    public Type castTo(Type type) {
-        return type;
-    }
-
-    @Override
-    public void mustBeAssignableTo(Type type1) {
+    public void mustBeAssignableTo(int line, int column, Type type1) {
         if(!(type1 instanceof CharType || type1 instanceof ErrorType)){
-            super.mustBeAssignableTo(type1);
+            new ErrorType(line, column,
+                    String.format("A character cannot be assigned to %s type variable", type1));
         }
     }
 
     @Override
-    public void mustBeReturnedAs(Type type) {
+    public void mustBeReturnedAs(int line, int column, Type type) {
         if(!(type instanceof CharType || type instanceof ErrorType)){
-            super.mustBeReturnedAs(type);
+            new ErrorType(line, column, String.format("Character does not match with the function return type (%s)", type));
         }
+    }
+
+    @Override
+    public int numberOfBytes() {
+        return NUMBER_OF_BYTES;
     }
 }

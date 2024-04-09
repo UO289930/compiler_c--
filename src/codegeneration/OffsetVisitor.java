@@ -3,8 +3,11 @@ package codegeneration;
 import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
 import ast.types.FunctionType;
+import ast.types.StructField;
 import ast.types.StructType;
 import semantic.AbstractVisitor;
+
+import java.util.List;
 
 /**
  *
@@ -26,7 +29,7 @@ import semantic.AbstractVisitor;
  *
  * (P) FunctionType: type -> type varDefinition*
  * (R) int paramsSumOfBytes = 0;
- *     for(int i=varDefinition*.size(); i>=0 ; i--){
+ *     for(int i=varDefinition*.size()-1; i>=0 ; i--){
  *         varDefinition*.get(i).offset = 4 + paramsSumOfBytes;
  *         paramsSumOfBytes += varDefinition*.get(i).type.numberOfBytes();
  *     }
@@ -35,7 +38,7 @@ import semantic.AbstractVisitor;
  * (P) StructType: definition -> field* ID
  * (R)  int fieldsSumOfBytes = 0;
  *      for(RecordField field: field*){
- *          field.type.offset = fieldsSumOfBytes;
+ *          field.offset = fieldsSumOfBytes;
  *          fieldsSumOfBytes += field.type.numberOfBytes();
  *      }
  *
@@ -43,14 +46,16 @@ import semantic.AbstractVisitor;
  */
 public class OffsetVisitor extends AbstractVisitor<Void, Void> {
 
+    private int globalsSumOfBytes = 0;
 
     @Override
     public Void visit(FunctionDefinition functionDefinition, Void param) {
 
         int localsSumOfBytes = 0;
-        for (VariableDefinition varDefintion: functionDefinition.getVariableDefinitions()) {
-            varDefintion.setOffset(localsSumOfBytes);
-            localsSumOfBytes += varDefintion.getType().numberOfBytes();
+        for (VariableDefinition varDefinition: functionDefinition.getVariableDefinitions()) {
+            super.visit(varDefinition, null); // traversing children
+            localsSumOfBytes += varDefinition.getType().numberOfBytes();
+            varDefinition.setOffset(-localsSumOfBytes);
         }
 
         return null;
@@ -58,16 +63,36 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
 
     @Override
     public Void visit(VariableDefinition variableDefinition, Void param) {
-        return super.visit(variableDefinition, param);
+        if( variableDefinition.getScope() == 0 ){
+            super.visit(variableDefinition, null); // traversing children
+            variableDefinition.setOffset( globalsSumOfBytes );
+            globalsSumOfBytes += variableDefinition.getType().numberOfBytes();
+        }
+
+        return null;
     }
 
     @Override
     public Void visit(FunctionType functionType, Void param) {
-        return super.visit(functionType, param);
+        List<VariableDefinition> params = functionType.getParameters();
+        int paramsSumOfBytes = 0;
+        for(int i=params.size()-1; i>=0 ; i--) {
+            params.get(i).setOffset( 4 + paramsSumOfBytes );
+            paramsSumOfBytes += params.get(i).getType().numberOfBytes();
+        }
+
+        return null;
     }
 
     @Override
     public Void visit(StructType structType, Void param) {
-        return super.visit(structType, param);
+        int fieldsSumOfBytes = 0;
+        for(StructField field: structType.getFields()){
+            super.visit(field, null); // traversing children
+            field.setOffset(fieldsSumOfBytes);
+            fieldsSumOfBytes += field.getType().numberOfBytes();
+        }
+
+        return null;
     }
 }

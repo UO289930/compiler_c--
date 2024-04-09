@@ -81,7 +81,7 @@ return_type returns [Type ast]:
             ;
 
 parameters returns [List<VariableDefinition> ast = new ArrayList<>()]:
-              b1=built_in_type ID { $ast.add( ParserHelper.createVarDef( $b1.ast.getLine(), $b1.ast.getColumn(), $b1.ast, $ID.text ) ); } (',' bi=built_in_type ID { $ast.add( ParserHelper.createVarDef( $bi.ast.getLine(), $bi.ast.getColumn(), $bi.ast, $ID.text ) ); } )*
+              b1=built_in_type id1=ID { $ast.add( ParserHelper.createVarDef( $b1.ast.getLine(), $b1.ast.getColumn(), $b1.ast, $id1.text ) ); } (',' bi=built_in_type idi=ID { $ast.add( ParserHelper.createVarDef( $bi.ast.getLine(), $bi.ast.getColumn(), $bi.ast, $idi.text ) ); } )*
             |
             ;
 
@@ -110,7 +110,7 @@ expressions returns [List<Expression> ast = new ArrayList<>()]:
           ;
 
 struct_fields returns [List<StructField> ast = new ArrayList<>()]:
-            (t=type ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); }  (',' ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text ) ); } )* ';'  )+
+            (t=type id1=ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $id1.text ) ); }  (',' idi=ID { $ast.add( new StructField( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $idi.text ) ); } )* ';'  )+
             ;
 
 // LEXER

@@ -4,6 +4,8 @@ import semantic.Visitor;
 
 public class IntType extends AbstractType {
 
+    private static final int NUMBER_OF_BYTES = 2;
+
     public IntType(int line, int column) {
         super(line, column);
     }
@@ -19,77 +21,86 @@ public class IntType extends AbstractType {
     }
 
     @Override
-    public Type arithmetic(Type type) {
+    public Type arithmetic(int line, int column, Type type) {
 
         if(type instanceof ErrorType){
             return type;
         }
 
-        return type instanceof IntType ? this : super.arithmetic(type);
+        return type instanceof IntType ? this : new ErrorType(line, column, "Second arithmetic operand type must also be an integer");
     }
 
     @Override
-    public Type reminder(Type type) {
+    public Type reminder(int line, int column, Type type) {
 
         if(type instanceof ErrorType){
             return type;
         }
 
-        return type instanceof IntType ? this : super.reminder(type);
+        return type instanceof IntType ?
+                this :
+                new ErrorType(line, column, "Second reminder operand type must also be an integer");
     }
 
     @Override
-    public Type logical(Type type) {
+    public Type logical(int line, int column, Type type) {
 
         if(type instanceof ErrorType){
             return type;
         }
 
-        return type instanceof IntType ? this : super.logical(type);
+        return type instanceof IntType ?
+                this :
+                new ErrorType(line, column, "Second logical operand type must also be an boolean (integer)");
     }
 
     @Override
-    public Type unaryNot() {
+    public Type unaryNot(int line, int column) {
         return this;
     }
 
     @Override
-    public Type comparison(Type type) {
+    public Type comparison(int line, int column, Type type) {
 
         if(type instanceof ErrorType){
             return type;
         }
 
-        return type instanceof IntType ? this : super.comparison(type);
+        return type instanceof IntType ?
+                this :
+                new ErrorType(line, column, "Second comparison operand type must also be an integer");
     }
 
     @Override
-    public Type unaryMinus() {
+    public Type unaryMinus(int line, int column) {
         return this;
     }
 
     @Override
-    public Type castTo(Type type) {
-        return type;
-    }
-
-    @Override
-    public void mustBeAssignableTo(Type type1) {
+    public void mustBeAssignableTo(int line, int column, Type type1) {
 
 
         if(!(type1 instanceof IntType || type1 instanceof ErrorType)){
-            super.mustBeAssignableTo(type1);
+            new ErrorType(line, column,
+                    String.format("An integer cannot be assigned to %s type variable", type1));
         }
     }
 
     // No error
     @Override
-    public void mustBeBoolean() {}
+    public void mustBeBoolean(int line, int column) {}
 
     @Override
-    public void mustBeReturnedAs(Type type) {
+    public void mustBeReturnedAs(int line, int column, Type type) {
         if(!(type instanceof IntType || type instanceof ErrorType)){
-            super.mustBeReturnedAs(type);
+            new ErrorType(line, column, String.format("Integer does not match with the function return type (%s)", type));
         }
     }
+
+    @Override
+    public int numberOfBytes() {
+        return NUMBER_OF_BYTES;
+    }
+
+
 }

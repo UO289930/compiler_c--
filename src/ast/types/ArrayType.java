@@ -40,7 +40,7 @@ public class ArrayType extends AbstractType {
     }
 
     @Override
-    public Type squareBrackets(Type type) {
+    public Type squareBrackets(int line, int column, Type type) {
 
         if(type instanceof ErrorType){
             return type;
@@ -49,7 +49,7 @@ public class ArrayType extends AbstractType {
             return getElementType();
         }
 
-        return super.squareBrackets(type);
+        return new ErrorType(line, column, String.format("Arrays positions can only be accessed by means of Integer expressions, not by %s expressions", type));
     }
 
     @Override
@@ -59,8 +59,10 @@ public class ArrayType extends AbstractType {
 
         while(nextType instanceof ArrayType){
             totalNumberOfBytes *= ((ArrayType) nextType).getSize();
+            nextType = ((ArrayType) nextType).getElementType();
         }
 
-        return totalNumberOfBytes;
+        // next type is IntType here
+        return totalNumberOfBytes * nextType.numberOfBytes();
     }
 }

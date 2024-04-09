@@ -1234,17 +1234,18 @@ public class CmmParser extends Parser {
 	public static class ParametersContext extends ParserRuleContext {
 		public List<VariableDefinition> ast = new ArrayList<>();
 		public Built_in_typeContext b1;
-		public Token ID;
+		public Token id1;
 		public Built_in_typeContext bi;
-		public List<TerminalNode> ID() { return getTokens(CmmParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(CmmParser.ID, i);
-		}
+		public Token idi;
 		public List<Built_in_typeContext> built_in_type() {
 			return getRuleContexts(Built_in_typeContext.class);
 		}
 		public Built_in_typeContext built_in_type(int i) {
 			return getRuleContext(Built_in_typeContext.class,i);
+		}
+		public List<TerminalNode> ID() { return getTokens(CmmParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(CmmParser.ID, i);
 		}
 		public ParametersContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1281,8 +1282,8 @@ public class CmmParser extends Parser {
 				setState(249);
 				((ParametersContext)_localctx).b1 = built_in_type();
 				setState(250);
-				((ParametersContext)_localctx).ID = match(ID);
-				 _localctx.ast.add( ParserHelper.createVarDef( ((ParametersContext)_localctx).b1.ast.getLine(), ((ParametersContext)_localctx).b1.ast.getColumn(), ((ParametersContext)_localctx).b1.ast, (((ParametersContext)_localctx).ID!=null?((ParametersContext)_localctx).ID.getText():null) ) ); 
+				((ParametersContext)_localctx).id1 = match(ID);
+				 _localctx.ast.add( ParserHelper.createVarDef( ((ParametersContext)_localctx).b1.ast.getLine(), ((ParametersContext)_localctx).b1.ast.getColumn(), ((ParametersContext)_localctx).b1.ast, (((ParametersContext)_localctx).id1!=null?((ParametersContext)_localctx).id1.getText():null) ) ); 
 				setState(259);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -1294,8 +1295,8 @@ public class CmmParser extends Parser {
 					setState(253);
 					((ParametersContext)_localctx).bi = built_in_type();
 					setState(254);
-					((ParametersContext)_localctx).ID = match(ID);
-					 _localctx.ast.add( ParserHelper.createVarDef( ((ParametersContext)_localctx).bi.ast.getLine(), ((ParametersContext)_localctx).bi.ast.getColumn(), ((ParametersContext)_localctx).bi.ast, (((ParametersContext)_localctx).ID!=null?((ParametersContext)_localctx).ID.getText():null) ) ); 
+					((ParametersContext)_localctx).idi = match(ID);
+					 _localctx.ast.add( ParserHelper.createVarDef( ((ParametersContext)_localctx).bi.ast.getLine(), ((ParametersContext)_localctx).bi.ast.getColumn(), ((ParametersContext)_localctx).bi.ast, (((ParametersContext)_localctx).idi!=null?((ParametersContext)_localctx).idi.getText():null) ) ); 
 					}
 					}
 					setState(261);
@@ -1708,16 +1709,17 @@ public class CmmParser extends Parser {
 	public static class Struct_fieldsContext extends ParserRuleContext {
 		public List<StructField> ast = new ArrayList<>();
 		public TypeContext t;
-		public Token ID;
-		public List<TerminalNode> ID() { return getTokens(CmmParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(CmmParser.ID, i);
-		}
+		public Token id1;
+		public Token idi;
 		public List<TypeContext> type() {
 			return getRuleContexts(TypeContext.class);
 		}
 		public TypeContext type(int i) {
 			return getRuleContext(TypeContext.class,i);
+		}
+		public List<TerminalNode> ID() { return getTokens(CmmParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(CmmParser.ID, i);
 		}
 		public Struct_fieldsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1754,8 +1756,8 @@ public class CmmParser extends Parser {
 				setState(319);
 				((Struct_fieldsContext)_localctx).t = type(0);
 				setState(320);
-				((Struct_fieldsContext)_localctx).ID = match(ID);
-				 _localctx.ast.add( new StructField( ((Struct_fieldsContext)_localctx).t.ast.getLine(), ((Struct_fieldsContext)_localctx).t.ast.getColumn(), ((Struct_fieldsContext)_localctx).t.ast, (((Struct_fieldsContext)_localctx).ID!=null?((Struct_fieldsContext)_localctx).ID.getText():null) ) ); 
+				((Struct_fieldsContext)_localctx).id1 = match(ID);
+				 _localctx.ast.add( new StructField( ((Struct_fieldsContext)_localctx).t.ast.getLine(), ((Struct_fieldsContext)_localctx).t.ast.getColumn(), ((Struct_fieldsContext)_localctx).t.ast, (((Struct_fieldsContext)_localctx).id1!=null?((Struct_fieldsContext)_localctx).id1.getText():null) ) ); 
 				setState(327);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -1765,8 +1767,8 @@ public class CmmParser extends Parser {
 					setState(322);
 					match(T__6);
 					setState(323);
-					((Struct_fieldsContext)_localctx).ID = match(ID);
-					 _localctx.ast.add( new StructField( ((Struct_fieldsContext)_localctx).t.ast.getLine(), ((Struct_fieldsContext)_localctx).t.ast.getColumn(), ((Struct_fieldsContext)_localctx).t.ast, (((Struct_fieldsContext)_localctx).ID!=null?((Struct_fieldsContext)_localctx).ID.getText():null) ) ); 
+					((Struct_fieldsContext)_localctx).idi = match(ID);
+					 _localctx.ast.add( new StructField( ((Struct_fieldsContext)_localctx).t.ast.getLine(), ((Struct_fieldsContext)_localctx).t.ast.getColumn(), ((Struct_fieldsContext)_localctx).t.ast, (((Struct_fieldsContext)_localctx).idi!=null?((Struct_fieldsContext)_localctx).idi.getText():null) ) ); 
 					}
 					}
 					setState(329);

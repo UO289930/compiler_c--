@@ -1,6 +1,7 @@
 import ast.errorhandler.ErrorHandler;
 import ast.program.Program;
 import ast.types.Type;
+import codegeneration.OffsetVisitor;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
 import parser.*;
@@ -38,12 +39,16 @@ public class Main {
 			new IntrospectorView("Introspector", model);
 		}
 
+
 		Visitor<Void, Void> identificationVisitor = new IdentificationVisitor();
 		if (!acceptVisitor(ast, identificationVisitor, null)) return;
 
 
 		Visitor<Type, Void> typeCheckingVisitor = new TypeCheckingVisitor();
-		acceptVisitor(ast, typeCheckingVisitor, null);
+		if (!acceptVisitor(ast, typeCheckingVisitor, null)) return;
+
+		Visitor<Void, Void> offsetVisitor = new OffsetVisitor();
+		acceptVisitor(ast, offsetVisitor, null);
 
 
 	}
