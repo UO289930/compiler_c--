@@ -19,4 +19,6 @@ public interface Type extends ASTNode {
     void mustBeAssignableTo(Type type1);
     void mustBeBoolean();
     void mustBeReturnedAs(Type type);
+
+    int numberOfBytes();
 }

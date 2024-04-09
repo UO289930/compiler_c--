@@ -51,4 +51,16 @@ public class ArrayType extends AbstractType {
 
         return super.squareBrackets(type);
     }
+
+    @Override
+    public int numberOfBytes() {
+        int totalNumberOfBytes = getSize();
+        Type nextType = getElementType();
+
+        while(nextType instanceof ArrayType){
+            totalNumberOfBytes *= ((ArrayType) nextType).getSize();
+        }
+
+        return totalNumberOfBytes;
+    }
 }

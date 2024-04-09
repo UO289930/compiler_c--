@@ -55,7 +55,7 @@ import java.util.List;
  *
  *  (P) IfElse: statement -> expression statement1* statement2*
  *  (R) statement1*.forEach( st -> st.returnType = type.returnType );
- *  (R) statement2*.forEach( st -> st.returnType = type.returnType );
+ *      statement2*.forEach( st -> st.returnType = type.returnType );
  *
  *  (P) IfElse: statement -> expression statement1* statement2*
  *  (R) expression.type.mustBeBoolean( );
