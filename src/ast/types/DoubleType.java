@@ -12,7 +12,7 @@ public class DoubleType extends AbstractType {
 
     @Override
     public String toString() {
-        return "Double";
+        return "double";
     }
 
     @Override
@@ -59,8 +59,10 @@ public class DoubleType extends AbstractType {
 
     @Override
     public void mustBeReturnedAs(int line, int column, Type type) {
-        if(!(type instanceof DoubleType || type instanceof ErrorType)){
-            new ErrorType(line, column, String.format("Double does not match with the function return type (%s)", type));
+        if(!super.voidFunctionReturnType(line, column, type)){
+            if(!(type instanceof DoubleType || type instanceof ErrorType)){
+                new ErrorType(line, column, String.format("Double does not match with the function return type (%s)", type));
+            }
         }
     }
 

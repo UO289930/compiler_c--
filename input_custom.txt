@@ -1,17 +1,31 @@
 int f(int n, double r) {
 
-  int x;
-  int[100][50][25][12][5] a;
+  struct{
+    int a;
+    double b;
 
-  x = a[1];
-  x = a[1][1];
-  x = a[1][1][1];
-  x = a[1][1][1][1];
-  x = a[1][1][1][1][1];
-  x = a[1][1][1][1][1][1];
+    struct{
+        int a;
+        double b;
+    } c;
+
+    char[10][20] d;
+
+  } a;
+
+  int x;
+  int[100][50][25][12][5] b;
+
+  //x = b[1][1][1][1];
+  x = b[1][1][1][1][1];
+  //x = x[1][1][1][1][1][1];
 }
 
 void g(){
+    //return 2;
+}
+
+int z(){
     return 2;
 }
 

@@ -12,7 +12,7 @@ public class CharType extends AbstractType {
 
     @Override
     public String toString() {
-        return "Char";
+        return "char";
     }
 
     @Override
@@ -69,8 +69,11 @@ public class CharType extends AbstractType {
 
     @Override
     public void mustBeReturnedAs(int line, int column, Type type) {
-        if(!(type instanceof CharType || type instanceof ErrorType)){
-            new ErrorType(line, column, String.format("Character does not match with the function return type (%s)", type));
+
+        if(!super.voidFunctionReturnType(line, column, type)){
+            if(!(type instanceof CharType || type instanceof ErrorType)){
+                new ErrorType(line, column, String.format("Character does not match with the function return type (%s)", type));
+            }
         }
     }
 

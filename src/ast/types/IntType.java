@@ -12,7 +12,7 @@ public class IntType extends AbstractType {
 
     @Override
     public String toString() {
-        return "Int";
+        return "int";
     }
 
     @Override
@@ -92,9 +92,14 @@ public class IntType extends AbstractType {
 
     @Override
     public void mustBeReturnedAs(int line, int column, Type type) {
-        if(!(type instanceof IntType || type instanceof ErrorType)){
-            new ErrorType(line, column, String.format("Integer does not match with the function return type (%s)", type));
+
+        if(!super.voidFunctionReturnType(line, column, type)){
+            if(!(type instanceof IntType || type instanceof ErrorType)){
+                new ErrorType(line, column, String.format("Integer does not match with the function return type (%s)", type));
+            }
         }
+
+
     }
 
     @Override

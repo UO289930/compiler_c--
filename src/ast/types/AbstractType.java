@@ -85,18 +85,20 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
 
     @Override
     public void mustBeReturnedAs(int line, int column, Type type) {
-
-        if(type instanceof VoidType){
-            new ErrorType(line, column,"There must be no return value");
-        } else {
-            new ErrorType(line, column,
-                    String.format("Type of returned expression must be %s and not %s", type, this));
-        }
-
+        new ErrorType(line, column, String.format("%s cannot be used as a return type", type));
     }
 
     @Override
     public int numberOfBytes() {
         return 0;
+    }
+
+    protected boolean voidFunctionReturnType(int line, int column, Type type){
+        if(type instanceof VoidType){
+            new ErrorType(line, column,"There must be no return value");
+            return true;
+        }
+
+        return false;
     }
 }
