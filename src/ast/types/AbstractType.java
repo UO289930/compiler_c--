@@ -101,4 +101,9 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
 
         return false;
     }
+
+    @Override
+    public void promoteTo(int line, int column, int paramNumber, Type paramType) {
+        new ErrorType(line, column, String.format("The type of the %s argument (%s) is not valid for parameters", paramNumber, this));
+    }
 }

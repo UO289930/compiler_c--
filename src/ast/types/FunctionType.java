@@ -46,8 +46,7 @@ public class FunctionType extends AbstractType {
 
         List<VariableDefinition> parameters = getParameters();
         if(argumentsTypes.size()!=parameters.size()){
-            return new ErrorType(line, column,
-                    "Wrong number of arguments");
+            return new ErrorType(line, column, "Wrong number of arguments");
         }
 
         for(int i=0; i<argumentsTypes.size(); i++){
@@ -55,10 +54,7 @@ public class FunctionType extends AbstractType {
             Type parameterType = parameters.get(i).getType();
             Type argumentType = argumentsTypes.get(i);
 
-            if(!parameterType.getClass().toString().contentEquals(argumentType.getClass().toString())){
-                return new ErrorType(line, column,
-                        String.format("The type of the %s parameter must be %s and not %s", i + 1, parameterType, argumentType));
-            }
+            argumentType.promoteTo(line, column, i+1, parameterType);
 
         }
 

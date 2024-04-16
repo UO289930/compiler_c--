@@ -70,4 +70,11 @@ public class DoubleType extends AbstractType {
     public int numberOfBytes() {
         return NUMBER_OF_BYTES;
     }
+
+    @Override
+    public void promoteTo(int line, int column, int paramNumber, Type parameterType) {
+        if(!(parameterType instanceof DoubleType)){
+            new ErrorType(line, column, String.format("The type of the %s argument must be %s and not double", paramNumber, parameterType));
+        }
+    }
 }

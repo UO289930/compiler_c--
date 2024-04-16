@@ -81,4 +81,11 @@ public class CharType extends AbstractType {
     public int numberOfBytes() {
         return NUMBER_OF_BYTES;
     }
+
+    @Override
+    public void promoteTo(int line, int column, int paramNumber, Type parameterType) {
+        if(!(parameterType instanceof CharType)){
+            new ErrorType(line, column, String.format("The type of the %s argument must be %s and not char", paramNumber, parameterType));
+        }
+    }
 }

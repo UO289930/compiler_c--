@@ -107,5 +107,12 @@ public class IntType extends AbstractType {
         return NUMBER_OF_BYTES;
     }
 
+    @Override
+    public void promoteTo(int line, int column, int paramNumber, Type parameterType) {
+        if(!(parameterType instanceof IntType)){
+            new ErrorType(line, column, String.format("The type of the %s argument must be %s and not int", paramNumber, parameterType));
+        }
+    }
+
 
 }
