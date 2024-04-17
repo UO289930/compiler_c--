@@ -12,7 +12,7 @@ public class Write extends AbstractExpressionStatement {
 
     @Override
     public String toString() {
-        return "write " + getExpression() ;
+        return "Write";
     }
 
     @Override

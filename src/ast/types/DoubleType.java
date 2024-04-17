@@ -72,9 +72,33 @@ public class DoubleType extends AbstractType {
     }
 
     @Override
-    public void promoteTo(int line, int column, int paramNumber, Type parameterType) {
+    public void mustMatchWith(int line, int column, int paramNumber, Type parameterType) {
         if(!(parameterType instanceof DoubleType)){
             new ErrorType(line, column, String.format("The type of the %s argument must be %s and not double", paramNumber, parameterType));
         }
+    }
+
+    @Override
+    public String convertTo(Type type1) {
+        if (type1 instanceof CharType) {
+            return super.doubleConversion(type1);
+        } else if(type1 instanceof IntType){
+            return super.simpleConversion(type1);
+        }
+        return super.convertTo(type1);
+    }
+
+    @Override
+    public String suffix() {
+        return "f";
+    }
+
+    @Override
+    public Type superType(Type type) {
+        if(type instanceof DoubleType){
+            return this;
+        }
+        assert false;
+        throw new UnsupportedOperationException();
     }
 }

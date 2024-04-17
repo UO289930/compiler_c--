@@ -66,9 +66,11 @@ public class IntType extends AbstractType {
             return type;
         }
 
-        return type instanceof IntType ?
-                this :
-                new ErrorType(line, column, "Second comparison operand type must also be an integer");
+        if(type instanceof CharType || type instanceof IntType){
+            return this;
+        }
+
+        return new ErrorType(line, column, "Second comparison operand type must be a character or an integer");
     }
 
     @Override
@@ -108,11 +110,29 @@ public class IntType extends AbstractType {
     }
 
     @Override
-    public void promoteTo(int line, int column, int paramNumber, Type parameterType) {
+    public void mustMatchWith(int line, int column, int paramNumber, Type parameterType) {
         if(!(parameterType instanceof IntType)){
             new ErrorType(line, column, String.format("The type of the %s argument must be %s and not int", paramNumber, parameterType));
         }
     }
 
+    @Override
+    public String convertTo(Type type1) {
+        return super.simpleConversion(type1);
+    }
+
+    @Override
+    public String suffix() {
+        return "i";
+    }
+
+    @Override
+    public Type superType(Type type) {
+        if(type instanceof IntType){
+            return this;
+        }
+        assert false;
+        throw new UnsupportedOperationException();
+    }
 
 }

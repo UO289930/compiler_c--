@@ -54,7 +54,7 @@ public class FunctionType extends AbstractType {
             Type parameterType = parameters.get(i).getType();
             Type argumentType = argumentsTypes.get(i);
 
-            argumentType.promoteTo(line, column, i+1, parameterType);
+            argumentType.mustMatchWith(line, column, i+1, parameterType);
 
         }
 

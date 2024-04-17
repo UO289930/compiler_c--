@@ -93,4 +93,8 @@ public class ErrorType extends AbstractType {
     @Override
     public void mustBeReturnedAs(int line, int column, Type type) {
     }
+
+    @Override
+    public void mustMatchWith(int line, int column, int paramNumber, Type paramType) {
+    }
 }

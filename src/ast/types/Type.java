@@ -20,5 +20,8 @@ public interface Type extends ASTNode {
     void mustBeBoolean(int line, int column);
     void mustBeReturnedAs(int line, int column, Type type);
     int numberOfBytes();
-    void promoteTo(int line, int column, int paramNumber, Type parameterType);
+    void mustMatchWith(int line, int column, int paramNumber, Type parameterType);
+    String convertTo(Type type1);
+    String suffix();
+    Type superType(Type type);
 }

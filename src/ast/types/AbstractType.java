@@ -87,6 +87,10 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     public void mustBeReturnedAs(int line, int column, Type type) {
         new ErrorType(line, column, String.format("%s cannot be used as a return type", type));
     }
+    @Override
+    public void mustMatchWith(int line, int column, int paramNumber, Type paramType) {
+        new ErrorType(line, column, String.format("The type of the %s argument (%s) is not valid for parameters", paramNumber, this));
+    }
 
     @Override
     public int numberOfBytes() {
@@ -103,7 +107,29 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     }
 
     @Override
-    public void promoteTo(int line, int column, int paramNumber, Type paramType) {
-        new ErrorType(line, column, String.format("The type of the %s argument (%s) is not valid for parameters", paramNumber, this));
+    public String convertTo(Type type1) {
+        assert false;
+        throw new UnsupportedOperationException(String.format("No conversions for %s type", this));
+    }
+
+    @Override
+    public String suffix() {
+        assert false;
+        throw new UnsupportedOperationException(String.format("No suffix for %s type", this));
+    }
+
+    @Override
+    public Type superType(Type type) {
+        assert false;
+        throw new UnsupportedOperationException(String.format("No super type for %s type", this));
+    }
+
+    protected String simpleConversion(Type type1){
+        return String.format("%s2%s", this.suffix(), type1.suffix());
+    }
+
+    protected String doubleConversion(Type type1) {
+        IntType intT = new IntType(this.getLine(),this.getColumn());
+        return String.format("%s\n%s", this.convertTo(intT), intT.convertTo(type1));
     }
 }

@@ -12,7 +12,7 @@ public class Read extends AbstractExpressionStatement {
 
     @Override
     public String toString() {
-        return "read " + getExpression();
+        return "Read";
     }
 
     @Override

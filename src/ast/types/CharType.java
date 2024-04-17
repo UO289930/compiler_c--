@@ -38,9 +38,11 @@ public class CharType extends AbstractType {
             return type;
         }
 
-        return type instanceof CharType ?
-                new IntType(line, column) :
-                new ErrorType(line, column, "Second reminder operand type must also be a character");
+        if(type instanceof CharType || type instanceof IntType){
+            return new IntType(line, column);
+        }
+
+        return new ErrorType(line, column, "Second reminder operand type must be a character or an integer");
     }
 
     @Override
@@ -83,9 +85,36 @@ public class CharType extends AbstractType {
     }
 
     @Override
-    public void promoteTo(int line, int column, int paramNumber, Type parameterType) {
+    public void mustMatchWith(int line, int column, int paramNumber, Type parameterType) {
         if(!(parameterType instanceof CharType)){
             new ErrorType(line, column, String.format("The type of the %s argument must be %s and not char", paramNumber, parameterType));
         }
+    }
+
+    @Override
+    public String convertTo(Type type1) {
+        if (type1 instanceof DoubleType) {
+            return super.doubleConversion(type1);
+        } else if(type1 instanceof IntType){
+            return super.simpleConversion(type1);
+        }
+        return super.convertTo(type1);
+    }
+
+    @Override
+    public String suffix() {
+        return "b";
+    }
+
+    @Override
+    public Type superType(Type type) {
+        if(type instanceof IntType){
+            return type;
+        }
+        if(type instanceof CharType){
+            return new IntType(type.getLine(), type.getColumn());
+        }
+        assert false;
+        throw new UnsupportedOperationException("");
     }
 }

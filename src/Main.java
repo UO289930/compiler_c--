@@ -1,7 +1,7 @@
 import ast.errorhandler.ErrorHandler;
 import ast.program.Program;
 import ast.types.Type;
-import codegeneration.OffsetVisitor;
+import codegeneration.*;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
 import parser.*;
@@ -14,43 +14,53 @@ import semantic.Visitor;
 public class Main {
 	
 	public static void main(String... args) throws Exception {
-		   if (args.length<1) {
-		        System.err.println("Please, pass me the input file.");
-		        return;
-		    }
-		   		 			
-		 // create a lexer that feeds off of input CharStream
+
+	   if (args.length<2) {
+			System.err.println("Please, pass me the input and output file.");
+			return;
+		}
+
+		// create a lexer that feeds off of input CharStream
 		CharStream input = CharStreams.fromFileName(args[0]);
 		CmmLexer lexer = new CmmLexer(input);
 
 		// create a parser that feeds off the tokens buffer
-		CommonTokenStream tokens = new CommonTokenStream(lexer); 
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CmmParser parser = new CmmParser(tokens);
 		Program ast = parser.program().ast;
 
 		if (ErrorHandler.getInstance().anyErrors()) {
-			ErrorHandler.getInstance().showErrors(System.err);
-			return;
-        }
+		ErrorHandler.getInstance().showErrors(System.err);
+		return;
+		}
 		else {
-			// * The AST is shown if no errors exist
-			IntrospectorModel model=new IntrospectorModel(
-					"Program", ast);
-			new IntrospectorView("Introspector", model);
+		// * The AST is shown if no errors exist
+		IntrospectorModel model=new IntrospectorModel(
+		"Program", ast);
+		new IntrospectorView("Introspector", model);
 		}
 
+		// Semantic analysis
 
 		Visitor<Void, Void> identificationVisitor = new IdentificationVisitor();
 		if (!acceptVisitor(ast, identificationVisitor, null)) return;
-
 
 		Visitor<Type, Void> typeCheckingVisitor = new TypeCheckingVisitor();
 		if (!acceptVisitor(ast, typeCheckingVisitor, null)) return;
 
 		Visitor<Void, Void> offsetVisitor = new OffsetVisitor();
-		acceptVisitor(ast, offsetVisitor, null);
+		if(!acceptVisitor(ast, offsetVisitor, null)) return;
 
 
+		// Code generation
+
+		CodeGenerator codeGenerator = new CodeGenerator(args[0], args[1]);
+		AddressCGVisitor addressCGVisitor = new AddressCGVisitor(codeGenerator);
+		ValueCGVisitor valueCGVisitor = new ValueCGVisitor(codeGenerator, addressCGVisitor);
+		Visitor<Void, Void> executeCGVisitor = new ExecuteCGVisitor(codeGenerator, addressCGVisitor, valueCGVisitor);
+
+		acceptVisitor(ast, executeCGVisitor, null);
+		codeGenerator.close();
 	}
 
 	private static <TP,TR> boolean acceptVisitor(Program ast, Visitor<TP, TR> identificationVisitor, TP param) {

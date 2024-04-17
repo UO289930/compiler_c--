@@ -1,6 +1,10 @@
 package codegeneration;
 
 
+import ast.expressions.Variable;
+
+import java.io.IOException;
+
 /**
  * ADDRESS
  *
@@ -14,5 +18,22 @@ package codegeneration;
  *    }
  *
  */
-public class AddressCGVisitor {
+public class AddressCGVisitor extends AbstractCGVisitor {
+
+
+    public AddressCGVisitor(CodeGenerator codeGenerator) throws IOException {
+        super(codeGenerator);
+    }
+
+    @Override
+    public Void visit(Variable variable, Void param) {
+
+        if(variable.getDefinition().getScope()==0){
+            codeGenerator.globalVariable(variable.getDefinition().getOffset());
+        } else {
+            codeGenerator.localVariable(variable.getDefinition().getOffset());
+        }
+
+        return null;
+    }
 }
