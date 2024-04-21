@@ -34,6 +34,7 @@ import java.io.IOException;
  *  execute[[type]]
  *  varDefinition*.forEach(varDefinition -> execute[[varDefinition]])
  *  <enter> -varDefinition*.get( varDefinition*.size()-1 ).offset
+ *  statement*.forEach(stmt -> execute[[stmt]])
  *
  *  execute[[FunctionType: type1 -> type2 varDefinition*]] =
  *   varDefinition*.forEach(varDefinition -> execute[[varDefinition]])
@@ -67,6 +68,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor {
         codeGenerator.line(functionDefinition.getLine());
         codeGenerator.functionName(functionDefinition.getName());
         functionDefinition.getType().accept(this, null);
+        codeGenerator.comment("Local variables:");
         functionDefinition.getVariableDefinitions().forEach(varDef -> varDef.accept(this, null));
         codeGenerator.enter(functionDefinition.getVariableDefinitions());
         functionDefinition.getStatements().forEach(stmt -> {
