@@ -8,8 +8,6 @@ import ast.statements.Read;
 import ast.statements.Write;
 import ast.types.FunctionType;
 
-import java.io.IOException;
-
 /**
  *
  * execute[[Read: statement -> expression]] =
@@ -49,7 +47,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor {
     private final ValueCGVisitor valueCGVisitor;
 
 
-    public ExecuteCGVisitor(CodeGenerator codeGenerator, AddressCGVisitor addressCGVisitor, ValueCGVisitor valueCGVisitor) throws IOException {
+    public ExecuteCGVisitor(CodeGenerator codeGenerator, AddressCGVisitor addressCGVisitor, ValueCGVisitor valueCGVisitor) {
         super(codeGenerator);
         this.addressCGVisitor = addressCGVisitor;
         this.valueCGVisitor = valueCGVisitor;

@@ -3,8 +3,6 @@ package codegeneration;
 import ast.expressions.*;
 import ast.types.Type;
 
-import java.io.IOException;
-
 /**
  * value[[IntLiteral: expression -> INT_CONSTANT]] =  <pushi> expression.value
  * value[[CharLiteral: expression -> CHAR_CONSTANT]] = <pushb> (int) expression.value
@@ -73,7 +71,7 @@ import java.io.IOException;
 public class ValueCGVisitor extends AbstractCGVisitor {
     private final AddressCGVisitor addressCGVisitor;
 
-    public ValueCGVisitor(CodeGenerator codeGenerator, AddressCGVisitor addressCGVisitor) throws IOException {
+    public ValueCGVisitor(CodeGenerator codeGenerator, AddressCGVisitor addressCGVisitor) {
         super(codeGenerator);
         this.addressCGVisitor = addressCGVisitor;
     }
