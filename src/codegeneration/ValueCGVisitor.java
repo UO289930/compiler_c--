@@ -67,6 +67,15 @@ import ast.types.Type;
  * 	value[[expression2]]
  * 	expression2.convertTo(type)
  *
+ * 	value[[UnaryMinus: expression1 -> expression2]] =
+ * 	    <push> expression1.suffix 0
+ * 	    <push> expression1.suffix expression1.value
+ * 	    <sub> expression1.suffix
+ *
+ * 	value[[UnaryNot: expression1 -> expression2]] =
+ * 	    <pushi> expression1.value
+ * 	    <not>
+ *
  */
 public class ValueCGVisitor extends AbstractCGVisitor {
     private final AddressCGVisitor addressCGVisitor;
