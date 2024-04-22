@@ -76,6 +76,11 @@ import ast.types.Type;
  * 	    <pushi> expression1.value
  * 	    <not>
  *
+ * 	value[[Reminder: expression1 -> expression2 expression3]] =
+ * 	    value[[expression2]]
+ * 	    expression2.type.convertTo(expression1.type)
+ *
+ *
  */
 public class ValueCGVisitor extends AbstractCGVisitor {
     private final AddressCGVisitor addressCGVisitor;

@@ -64,10 +64,14 @@ public class ExecuteCGVisitor extends AbstractCGVisitor {
     @Override
     public Void visit(FunctionDefinition functionDefinition, Void param) {
         codeGenerator.line(functionDefinition.getLine());
+
         codeGenerator.functionName(functionDefinition.getName());
         functionDefinition.getType().accept(this, null);
-        codeGenerator.comment("Local variables:");
+        if(!functionDefinition.getVariableDefinitions().isEmpty()){
+            codeGenerator.comment("Local variables:");
+        }
         functionDefinition.getVariableDefinitions().forEach(varDef -> varDef.accept(this, null));
+
         codeGenerator.enter(functionDefinition.getVariableDefinitions());
         functionDefinition.getStatements().forEach(stmt -> {
             codeGenerator.line(stmt.getLine());

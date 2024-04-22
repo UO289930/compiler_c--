@@ -37,9 +37,11 @@ public class IntType extends AbstractType {
             return type;
         }
 
-        return type instanceof IntType ?
-                this :
-                new ErrorType(line, column, "Second reminder operand type must also be an integer");
+        if(type instanceof IntType || type instanceof CharType){
+            return this;
+        }
+
+        return new ErrorType(line, column, "Second reminder operand type must also be an integer or a character");
     }
 
     @Override

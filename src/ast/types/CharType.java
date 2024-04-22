@@ -34,11 +34,10 @@ public class CharType extends AbstractType {
 
     @Override
     public Type reminder(int line, int column, Type type) {
-        if(type instanceof ErrorType){
+        if(type instanceof ErrorType || type instanceof IntType){
             return type;
         }
-
-        if(type instanceof CharType || type instanceof IntType){
+        if(type instanceof CharType){
             return new IntType(line, column);
         }
 
