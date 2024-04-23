@@ -12,10 +12,10 @@ import java.io.IOException;
 
 public class AbstractCGVisitor implements Visitor<Void, Void> {
 
-    protected final CodeGenerator codeGenerator;
+    protected final CodeGenerator cg;
 
-    public AbstractCGVisitor(CodeGenerator codeGenerator) {
-        this.codeGenerator = codeGenerator;
+    public AbstractCGVisitor(CodeGenerator cg) {
+        this.cg = cg;
     }
 
     @Override

@@ -3,9 +3,7 @@ package codegeneration;
 import ast.program.FunctionDefinition;
 import ast.program.Program;
 import ast.program.VariableDefinition;
-import ast.statements.Assignment;
-import ast.statements.Read;
-import ast.statements.Write;
+import ast.statements.*;
 import ast.types.FunctionType;
 
 /**
@@ -24,8 +22,30 @@ import ast.types.FunctionType;
  * 	value[[expression2]]
  * 	<store> expression1.type.suffix()
  *
+ * 	execute[[While: statement -> expression statement*]] =
+ * 	    String condLabel = cg.nextLabel(),
+ * 	           exitLabel = cg.nextLabel();
+ * 	    condLabel<:>
+ * 	    value[[expression]]
+ * 	    <jz > exitLabel
+ * 	    statement*.forEach(stmt -> execute[[stmt]])
+ * 	    <jmp > condLabel
+ * 	    exitLabel<:>
+ *
+ * 	execute[[IfElse: statement -> expression statement1* statement2*]] =
+ *      String elseLabel = cg.nextLabel(),
+ *             exitLabel = cg.nextLabel();
+ *      value[[expression]]
+ *      <jz > elseLabel
+ *      statement1*.forEach(stmt -> execute[[stmt]])
+ *      <jmp > exitLabel
+ *      elseLabel<:>
+ *      statement2*.forEach(stmt -> execute[[stmt]])
+ *      exitLabel<:>
+ *
+ *
  * execute[[VariableDefinition: definition -> type ID]] =
- *  <'*> definition.type.toString()
+ *  <'* > definition.type.toString()
  *
  * execute[[FunctionDefinition: definition -> type ID varDefinition* statement*]] =
  *  ID<:>
@@ -47,44 +67,44 @@ public class ExecuteCGVisitor extends AbstractCGVisitor {
     private final ValueCGVisitor valueCGVisitor;
 
 
-    public ExecuteCGVisitor(CodeGenerator codeGenerator, AddressCGVisitor addressCGVisitor, ValueCGVisitor valueCGVisitor) {
-        super(codeGenerator);
+    public ExecuteCGVisitor(CodeGenerator cg, AddressCGVisitor addressCGVisitor, ValueCGVisitor valueCGVisitor) {
+        super(cg);
         this.addressCGVisitor = addressCGVisitor;
         this.valueCGVisitor = valueCGVisitor;
     }
 
     @Override
     public Void visit(Program program, Void param) {
-        codeGenerator.callMain();
-        codeGenerator.comment("Global variables:");
+        cg.callMain();
+        cg.comment("Global variables:");
         program.getDefinitions().forEach(definition -> definition.accept(this, null));
         return null;
     }
 
     @Override
     public Void visit(FunctionDefinition functionDefinition, Void param) {
-        codeGenerator.line(functionDefinition.getLine());
+        cg.line(functionDefinition.getLine());
 
-        codeGenerator.functionName(functionDefinition.getName());
+        cg.label(functionDefinition.getName());
         functionDefinition.getType().accept(this, null);
         if(!functionDefinition.getVariableDefinitions().isEmpty()){
-            codeGenerator.comment("Local variables:");
+            cg.comment("Local variables:");
         }
         functionDefinition.getVariableDefinitions().forEach(varDef -> varDef.accept(this, null));
 
-        codeGenerator.enter(functionDefinition.getVariableDefinitions());
+        cg.enter(functionDefinition.getVariableDefinitions());
         functionDefinition.getStatements().forEach(stmt -> {
-            codeGenerator.line(stmt.getLine());
+            cg.line(stmt.getLine());
             stmt.accept(this, null);
         });
-        codeGenerator.ret(functionDefinition);
+        cg.ret(functionDefinition);
         return null;
     }
 
     @Override
     public Void visit(FunctionType functionType, Void param) {
         if(!functionType.getParameters().isEmpty()){
-            codeGenerator.comment("Parameters:");
+            cg.comment("Parameters:");
         }
         functionType.getParameters().forEach(parameter -> parameter.accept(this, null));
         return null;
@@ -92,33 +112,75 @@ public class ExecuteCGVisitor extends AbstractCGVisitor {
 
     @Override
     public Void visit(VariableDefinition variableDefinition, Void param) {
-        codeGenerator.comment(variableDefinition.toString());
+        cg.comment(variableDefinition.toString());
         return null;
     }
 
     @Override
     public Void visit(Assignment assignment, Void param) {
-        codeGenerator.comment(assignment.toString());
+        cg.comment(assignment.toString());
         assignment.getExpression1().accept(addressCGVisitor, null);
         assignment.getExpression2().accept(valueCGVisitor, null);
-        codeGenerator.store(assignment.getExpression1().getType().suffix());
+        cg.store(assignment.getExpression1().getType().suffix());
         return null;
     }
 
     @Override
     public Void visit(Read read, Void param) {
-        codeGenerator.comment(read.toString());
+        cg.comment(read.toString());
         read.getExpression().accept(addressCGVisitor, null);
-        codeGenerator.read(read.getExpression().getType().suffix());
-        codeGenerator.store(read.getExpression().getType().suffix());
+        cg.read(read.getExpression().getType().suffix());
+        cg.store(read.getExpression().getType().suffix());
         return null;
     }
 
     @Override
     public Void visit(Write write, Void param) {
-        codeGenerator.comment(write.toString());
+        cg.comment(write.toString());
         write.getExpression().accept(valueCGVisitor, null);
-        codeGenerator.write(write.getExpression().getType().suffix());
+        cg.write(write.getExpression().getType().suffix());
+        return null;
+    }
+
+    @Override
+    public Void visit(IfElse ifElse, Void param) {
+        String elseLabel = cg.nextLabel(),
+                exitLabel = cg.nextLabel();
+
+        ifElse.getCondition().accept(valueCGVisitor, null);
+        cg.jump("jz", elseLabel);
+
+        ifElse.getIfStatements().forEach(stmt -> {
+            cg.line(stmt.getLine());
+            stmt.accept(this, null);
+        });
+        cg.jump("jmp", exitLabel);
+
+        cg.label(elseLabel);
+        ifElse.getElseStatements().forEach(stmt -> {
+            cg.line(stmt.getLine());
+            stmt.accept(this, null);
+        });
+
+        cg.label(exitLabel);
+        return null;
+    }
+
+    @Override
+    public Void visit(While whileS, Void param) {
+        String condLabel = cg.nextLabel(),
+                exitLabel = cg.nextLabel();
+
+        cg.label(condLabel);
+        whileS.getCondition().accept(valueCGVisitor, null);
+        cg.jump("jz", exitLabel);
+        whileS.getWhileStatements().forEach(stmt -> {
+            cg.line(stmt.getLine());
+            stmt.accept(this, null);
+        });
+        cg.jump("jmp", condLabel);
+        cg.label(exitLabel);
+
         return null;
     }
 }

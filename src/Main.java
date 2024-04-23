@@ -30,14 +30,14 @@ public class Main {
 		Program ast = parser.program().ast;
 
 		if (ErrorHandler.getInstance().anyErrors()) {
-		ErrorHandler.getInstance().showErrors(System.err);
-		return;
+			ErrorHandler.getInstance().showErrors(System.err);
+			return;
 		}
 		else {
-		// * The AST is shown if no errors exist
-		IntrospectorModel model=new IntrospectorModel(
-		"Program", ast);
-		new IntrospectorView("Introspector", model);
+			// * The AST is shown if no errors exist
+			IntrospectorModel model=new IntrospectorModel(
+			"Program", ast);
+			new IntrospectorView("Introspector", model);
 		}
 
 		// Semantic analysis
@@ -57,6 +57,7 @@ public class Main {
 		CodeGenerator codeGenerator = new CodeGenerator(args[0], args[1]);
 		AddressCGVisitor addressCGVisitor = new AddressCGVisitor(codeGenerator);
 		ValueCGVisitor valueCGVisitor = new ValueCGVisitor(codeGenerator, addressCGVisitor);
+		addressCGVisitor.setValueCGVisitor(valueCGVisitor);
 		Visitor<Void, Void> executeCGVisitor = new ExecuteCGVisitor(codeGenerator, addressCGVisitor, valueCGVisitor);
 
 		acceptVisitor(ast, executeCGVisitor, null);

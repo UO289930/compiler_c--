@@ -4,6 +4,7 @@ import semantic.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class StructType extends AbstractType {
 
@@ -50,5 +51,18 @@ public class StructType extends AbstractType {
     @Override
     public int numberOfBytes() {
         return getFields().stream().mapToInt(field -> field.getType().numberOfBytes()).sum();
+    }
+
+    public StructField getField(String fieldName) {
+        Optional<StructField> optField = getFields().
+                stream().
+                filter(field -> field.getFieldName().contentEquals(fieldName)).
+                findFirst();
+
+        if(optField.isEmpty()){
+            throw new UnsupportedOperationException(String.format("The field '%s' does not exist inside the struct", fieldName));
+        }
+
+        return optField.get();
     }
 }

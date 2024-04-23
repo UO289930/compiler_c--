@@ -12,10 +12,15 @@ import java.util.List;
 public class CodeGenerator {
 
     private final FileWriter outputFile;
+    private int nthLabel = 1;
 
     public CodeGenerator(String inputFile, String outputFile) throws IOException {
         this.outputFile = new FileWriter(outputFile);
         source(inputFile);
+    }
+
+    public String nextLabel() {
+        return String.format("label%s", nthLabel++);
     }
 
     private void debug(String debug) {
@@ -28,7 +33,7 @@ public class CodeGenerator {
 
     private void writeLine(String line) {
         try{
-            outputFile.append( String.format("%s%s", line, "\n") );
+            outputFile.append( String.format("%s\n", line) );
         } catch (IOException e) {
             throw new RuntimeException("The code generation phase did not manage to save the generated code");
         }
@@ -41,7 +46,7 @@ public class CodeGenerator {
     public <T> void push(String suffix, T elem) {
         writeLine( String.format("push%s %s", suffix, elem) );
     }
-    private void add(String suffix) {
+    public void add(String suffix) {
         writeLine( String.format("add%s", suffix) );
     }
     public void sub(String suffix) {
@@ -70,7 +75,7 @@ public class CodeGenerator {
                 break;
             case "-": sub(suffix);
                 break;
-            case "*": writeLine( String.format("mul%s", suffix) );
+            case "*": mul(suffix);
                 break;
             case "/": writeLine( String.format("div%s", suffix) );
                 break;
@@ -145,7 +150,7 @@ public class CodeGenerator {
         writeLine( String.format("' * %s", comment) );
     }
 
-    public void functionName(String name) {
+    public void label(String name) {
         writeLine( String.format("%s:", name) );
     }
 
@@ -176,5 +181,12 @@ public class CodeGenerator {
         comment("Invocation to the main function");
         writeLine( "call main" );
         writeLine( "halt" );
+    }
+    public void jump(String jumpOperation, String elseLabel) {
+        writeLine( String.format("%s %s", jumpOperation, elseLabel) );
+    }
+
+    public void mul(String suffix) {
+        writeLine( String.format("mul%s", suffix) );
     }
 }
