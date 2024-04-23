@@ -7,8 +7,6 @@ import ast.expressions.Variable;
 import ast.types.StructField;
 import ast.types.StructType;
 
-import java.io.IOException;
-
 /**
  * ADDRESS
  *
