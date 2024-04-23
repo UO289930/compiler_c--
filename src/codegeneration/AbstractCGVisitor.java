@@ -8,9 +8,7 @@ import ast.statements.*;
 import ast.types.*;
 import semantic.Visitor;
 
-import java.io.IOException;
-
-public class AbstractCGVisitor implements Visitor<Void, Void> {
+public class AbstractCGVisitor<TP,TR> implements Visitor<TP,TR> {
 
     protected final CodeGenerator cg;
 
@@ -19,193 +17,193 @@ public class AbstractCGVisitor implements Visitor<Void, Void> {
     }
 
     @Override
-    public Void visit(Program program, Void param) {
+    public TR visit(Program program, TP param) {
         assert false;
         throw new UnsupportedOperationException("Programs cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(FunctionDefinition functionDefinition, Void param) {
+    public TR visit(FunctionDefinition functionDefinition, TP param) {
         assert false;
         throw new UnsupportedOperationException("Function definitions cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(VariableDefinition variableDefinition, Void param) {
+    public TR visit(VariableDefinition variableDefinition, TP param) {
         assert false;
         throw new UnsupportedOperationException("Variable definitions cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Arithmetic arithmetic, Void param) {
+    public TR visit(Arithmetic arithmetic, TP param) {
         assert false;
         throw new UnsupportedOperationException("Arithmetic operations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Cast cast, Void param) {
+    public TR visit(Cast cast, TP param) {
         assert false;
         throw new UnsupportedOperationException("Cast operations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(CharLiteral charLiteral, Void param) {
+    public TR visit(CharLiteral charLiteral, TP param) {
         assert false;
         throw new UnsupportedOperationException("Character literals cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Comparison comparison, Void param) {
+    public TR visit(Comparison comparison, TP param) {
         assert false;
         throw new UnsupportedOperationException("Comparison operations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(FieldAccess fieldAccess, Void param) {
+    public TR visit(FieldAccess fieldAccess, TP param) {
         assert false;
         throw new UnsupportedOperationException("Field accesses cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(FunctionInvocation functionInvocation, Void param) {
+    public TR visit(FunctionInvocation functionInvocation, TP param) {
         assert false;
         throw new UnsupportedOperationException("Function invocations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Indexing indexing, Void param) {
+    public TR visit(Indexing indexing, TP param) {
         assert false;
         throw new UnsupportedOperationException("Indexing operations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(IntLiteral intLiteral, Void param) {
+    public TR visit(IntLiteral intLiteral, TP param) {
         assert false;
         throw new UnsupportedOperationException("Integer literals cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Logical logical, Void param) {
+    public TR visit(Logical logical, TP param) {
         assert false;
         throw new UnsupportedOperationException("Logical operations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(RealLiteral realLiteral, Void param) {
+    public TR visit(RealLiteral realLiteral, TP param) {
         assert false;
         throw new UnsupportedOperationException("Real literals cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Reminder reminder, Void param) {
+    public TR visit(Reminder reminder, TP param) {
         assert false;
         throw new UnsupportedOperationException("Modulus operations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(UnaryMinus unaryMinus, Void param) {
+    public TR visit(UnaryMinus unaryMinus, TP param) {
         assert false;
         throw new UnsupportedOperationException("Minus operations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(UnaryNot unaryNot, Void param) {
+    public TR visit(UnaryNot unaryNot, TP param) {
         assert false;
         throw new UnsupportedOperationException("Negations cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Variable variable, Void param) {
+    public TR visit(Variable variable, TP param) {
         assert false;
         throw new UnsupportedOperationException("Variables cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Assignment assignment, Void param) {
+    public TR visit(Assignment assignment, TP param) {
         assert false;
         throw new UnsupportedOperationException("Assignments cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(IfElse ifElse, Void param) {
+    public TR visit(IfElse ifElse, TP param) {
         assert false;
         throw new UnsupportedOperationException("If-Else statements cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Read read, Void param) {
+    public TR visit(Read read, TP param) {
         assert false;
         throw new UnsupportedOperationException("Read statements cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Return returnS, Void param) {
+    public TR visit(Return returnS, TP param) {
         assert false;
         throw new UnsupportedOperationException("Write statements cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(While whileS, Void param) {
+    public TR visit(While whileS, TP param) {
         assert false;
         throw new UnsupportedOperationException("While statements cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(Write write, Void param) {
+    public TR visit(Write write, TP param) {
         assert false;
         throw new UnsupportedOperationException("Write statements cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(ArrayType arrayType, Void param) {
+    public TR visit(ArrayType arrayType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Array types cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(CharType charType, Void param) {
+    public TR visit(CharType charType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Character types cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(DoubleType doubleType, Void param) {
+    public TR visit(DoubleType doubleType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Double types cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(ErrorType errorType, Void param) {
+    public TR visit(ErrorType errorType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Errors cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(FunctionType functionType, Void param) {
+    public TR visit(FunctionType functionType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Function types cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(IntType intType, Void param) {
+    public TR visit(IntType intType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Integer types cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(StructType structType, Void param) {
+    public TR visit(StructType structType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Struct types cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(StructField structField, Void param) {
+    public TR visit(StructField structField, TP param) {
         assert false;
         throw new UnsupportedOperationException("Struct fields cannot be visited by this code generation visitor");
     }
 
     @Override
-    public Void visit(VoidType voidType, Void param) {
+    public TR visit(VoidType voidType, TP param) {
         assert false;
         throw new UnsupportedOperationException("Void type cannot be visited by this code generation visitor");
     }

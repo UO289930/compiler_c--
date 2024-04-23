@@ -51,7 +51,7 @@ import ast.types.FunctionType;
  *  ID<:>
  *  execute[[type]]
  *  varDefinition*.forEach(varDefinition -> execute[[varDefinition]])
- *  <enter> -varDefinition*.get( varDefinition*.size()-1 ).offset
+ *  <enter > -varDefinition*.get( varDefinition*.size()-1 ).offset
  *  statement*.forEach(stmt -> execute[[stmt]])
  *
  *  execute[[FunctionType: type1 -> type2 varDefinition*]] =
@@ -61,7 +61,7 @@ import ast.types.FunctionType;
  *  definition*.forEach(def -> execute[[def]])
  *
  */
-public class ExecuteCGVisitor extends AbstractCGVisitor {
+public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     private final AddressCGVisitor addressCGVisitor;
     private final ValueCGVisitor valueCGVisitor;

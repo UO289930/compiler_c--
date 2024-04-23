@@ -34,7 +34,7 @@ import java.io.IOException;
  *      <addi>
  *
  */
-public class AddressCGVisitor extends AbstractCGVisitor {
+public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
 
 
     private ValueCGVisitor valueCGVisitor;

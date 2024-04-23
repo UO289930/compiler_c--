@@ -15,9 +15,9 @@ public class Main {
 	
 	public static void main(String... args) throws Exception {
 
-	   if (args.length<2) {
-			System.err.println("Please, pass me the input and output file.");
-			return;
+		if (args.length<2) {
+		System.err.println("Please, pass me the input and output file.");
+		return;
 		}
 
 		// create a lexer that feeds off of input CharStream
@@ -30,14 +30,14 @@ public class Main {
 		Program ast = parser.program().ast;
 
 		if (ErrorHandler.getInstance().anyErrors()) {
-			ErrorHandler.getInstance().showErrors(System.err);
-			return;
+		ErrorHandler.getInstance().showErrors(System.err);
+		return;
 		}
 		else {
-			// * The AST is shown if no errors exist
-			IntrospectorModel model=new IntrospectorModel(
-			"Program", ast);
-			new IntrospectorView("Introspector", model);
+		// * The AST is shown if no errors exist
+		IntrospectorModel model=new IntrospectorModel(
+				"Program", ast);
+		new IntrospectorView("Introspector", model);
 		}
 
 		// Semantic analysis

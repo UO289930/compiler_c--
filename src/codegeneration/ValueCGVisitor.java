@@ -89,7 +89,7 @@ import ast.types.Type;
  *      <load> expression1.type.suffix()
  *
  */
-public class ValueCGVisitor extends AbstractCGVisitor {
+public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
     private final AddressCGVisitor addressCGVisitor;
 
     public ValueCGVisitor(CodeGenerator cg, AddressCGVisitor addressCGVisitor) {
