@@ -97,7 +97,7 @@ public class IntType extends AbstractType {
     @Override
     public void mustBeReturnedAs(int line, int column, Type type) {
 
-        if(!super.voidFunctionReturnType(line, column, type)){
+        if(!super.isVoidReturnType(line, column, type)){
             if(!(type instanceof IntType || type instanceof ErrorType)){
                 new ErrorType(line, column, String.format("Integer does not match with the function return type (%s)", type));
             }

@@ -97,7 +97,7 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
         return 0;
     }
 
-    protected boolean voidFunctionReturnType(int line, int column, Type type){
+    protected boolean isVoidReturnType(int line, int column, Type type){
         if(type instanceof VoidType){
             new ErrorType(line, column,"There must be no return value");
             return true;
@@ -109,7 +109,7 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     @Override
     public String convertTo(Type type1) {
         assert false;
-        throw new UnsupportedOperationException(String.format("No conversions for %s type", this));
+        throw new UnsupportedOperationException(String.format("No conversions for %s type into type %s", this, type1));
     }
 
     @Override
