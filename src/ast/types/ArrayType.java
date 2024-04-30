@@ -23,7 +23,7 @@ public class ArrayType extends AbstractType {
 
     @Override
     public String toString() {
-        return "array";
+        return String.format("[%s, %s]", getSize(), getElementType().toString());
     }
 
     public void setElementType(Type newArrayType) {

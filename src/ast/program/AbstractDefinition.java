@@ -28,7 +28,7 @@ public abstract class AbstractDefinition extends AbstractASTNode implements Defi
 
 	@Override
 	public String toString() {
-		return type + " " + name;
+		return String.format("%s %s (offset %s)", getType(), getName(), getOffset());
 	}
 
 	@Override

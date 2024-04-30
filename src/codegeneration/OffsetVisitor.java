@@ -51,6 +51,10 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
     @Override
     public Void visit(FunctionDefinition functionDefinition, Void param) {
 
+        // params
+        functionDefinition.getType().accept(this, null);
+
+        // locals
         int localsSumOfBytes = 0;
         for (VariableDefinition varDefinition: functionDefinition.getVariableDefinitions()) {
             super.visit(varDefinition, null); // traversing children
@@ -63,8 +67,9 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
 
     @Override
     public Void visit(VariableDefinition variableDefinition, Void param) {
+
         if( variableDefinition.getScope() == 0 ){
-            super.visit(variableDefinition, null); // traversing children
+            variableDefinition.getType().accept(this, null);
             variableDefinition.setOffset( globalsSumOfBytes );
             globalsSumOfBytes += variableDefinition.getType().numberOfBytes();
         }
@@ -77,6 +82,7 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
         List<VariableDefinition> params = functionType.getParameters();
         int paramsSumOfBytes = 0;
         for(int i=params.size()-1; i>=0 ; i--) {
+            params.get(i).accept(this, null);
             params.get(i).setOffset( 4 + paramsSumOfBytes );
             paramsSumOfBytes += params.get(i).getType().numberOfBytes();
         }
@@ -88,7 +94,7 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
     public Void visit(StructType structType, Void param) {
         int fieldsSumOfBytes = 0;
         for(StructField field: structType.getFields()){
-            super.visit(field, null); // traversing children
+            field.accept(this, null);
             field.setOffset(fieldsSumOfBytes);
             fieldsSumOfBytes += field.getType().numberOfBytes();
         }

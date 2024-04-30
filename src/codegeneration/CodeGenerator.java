@@ -1,9 +1,6 @@
 package codegeneration;
 
-import ast.expressions.Variable;
-import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
-import ast.types.FunctionType;
 import ast.types.Type;
 import dto.StackMemoryState;
 
@@ -162,7 +159,7 @@ public class CodeGenerator {
     }
 
     public void ret(StackMemoryState memoryState){
-        writeLine( String.format("ret %d,%d,%d", memoryState.getBytesReturn(), memoryState.getBytesLocals(), memoryState.getBytesArgs()) );
+        writeLine( String.format("ret %d, %d, %d", memoryState.bytesReturn(), memoryState.bytesLocals(), memoryState.bytesArgs()) );
     }
 
     public void close() throws IOException {

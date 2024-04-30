@@ -1,5 +1,6 @@
 package ast.program;
 
+import ast.types.FunctionType;
 import semantic.Visitor;
 import ast.statements.Statement;
 import ast.types.Type;
@@ -25,14 +26,7 @@ public class FunctionDefinition extends AbstractDefinition {
 	@Override
 	public String toString() {
 
-		StringBuilder sb = new StringBuilder(super.toString());
-
-		sb.append(" {\n");
-		variableDefinitions.forEach(v -> sb.append('\t').append(v.toString()).append('\n'));
-		statements.forEach(s -> sb.append('\t').append(s.toString()).append('\n'));
-		sb.append("\n}");
-
-		return  sb.toString();
+		return String.format("Function: %s %s", ((FunctionType)getType()).getReturnType(), getName());
 	}
 
 	@Override

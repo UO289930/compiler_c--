@@ -58,8 +58,8 @@ public class Main {
 		codeGenerator.close();
 	}
 
-	private static <TP,TR> boolean acceptVisitor(Program ast, Visitor<TP, TR> identificationVisitor, TP param) {
-		ast.accept(identificationVisitor, param);
+	private static <TP,TR> boolean acceptVisitor(Program ast, Visitor<TP, TR> visitor, TP param) {
+		ast.accept(visitor, param);
 
 		if (ErrorHandler.getInstance().anyErrors()){
 			ErrorHandler.getInstance().showErrors(System.err);

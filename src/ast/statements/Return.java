@@ -12,7 +12,7 @@ public class Return extends AbstractExpressionStatement {
 
     @Override
     public String toString() {
-        return "return " + getExpression();
+        return "Return";
     }
 
     @Override

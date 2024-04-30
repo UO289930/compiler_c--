@@ -1,6 +1,7 @@
 package codegeneration;
 
 import ast.expressions.FunctionInvocation;
+import ast.program.Definition;
 import ast.program.FunctionDefinition;
 import ast.program.Program;
 import ast.program.VariableDefinition;
@@ -9,6 +10,7 @@ import ast.types.FunctionType;
 import ast.types.VoidType;
 import dto.StackMemoryState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,7 +61,7 @@ import java.util.List;
  *  <enter > -varDefinition*.get( varDefinition*.size()-1 ).offset
  *  statement*.forEach(stmt -> execute[[stmt]](bytesReturn, bytesLocals, bytesArgs))
  *  if(type.returnType instanceof VoidType){
- *      <ret > type.returnType.numberOfBytes() <, > type.parameters.size() == 0 ? 0 : -type.parameters.get(type.parameters.size()-1).offset  <,> varDefinition*.size()==0 ? 0 : varDefinition*.get(varDefinition*.size() -1).offset + varDefinition*.get(varDefinition*.size() -1).type.numberOfBytes()
+ *      <ret > type.returnType.numberOfBytes() <, > type.varDefinition*.size() == 0 ? 0 : -type.varDefinition*.get(type.parameters.size()-1).offset <,> type.parameters.size()==0 ? 0 : type.parameters.get(1).offset - 4 + type.parameters.get(1).type.numberOfBytes()
  *  }
  *
  *
@@ -73,7 +75,7 @@ import java.util.List;
  *  value[[exp]]
  *  <ret > bytesRet <, > bytesLocals <, > bytesArgs
  *
- * execute[[FunctionInvocation: statement -> expression expression*]] =
+ * execute[[FunctionInvocation: statement -> expression expression*]](int bytesRet, int bytesLocals, int bytesArgs) =
  *  expression*.forEach(exp -> value[[exp]])
  *  <call > expression.name
  *  if(!expression.definition.type.returnType instanceof VoidType){
@@ -97,7 +99,16 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
     public Void visit(Program program, StackMemoryState param) {
         cg.callMain();
         cg.comment("Global variables:");
-        program.getDefinitions().forEach(definition -> definition.accept(this, null));
+        List<Definition> noVarDefinitions = new ArrayList<>();
+        program.getDefinitions().forEach(definition -> {
+            if(definition instanceof VariableDefinition){
+                definition.accept(this, null);
+            } else {
+                noVarDefinitions.add(definition);
+            }
+
+        });
+        noVarDefinitions.forEach(def -> def.accept(this, null));
         return null;
     }
 
@@ -106,6 +117,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
         cg.line(functionDefinition.getLine());
 
         cg.label(functionDefinition.getName());
+
         functionDefinition.getType().accept(this, null);
         if(!functionDefinition.getVariableDefinitions().isEmpty()){
             cg.comment("Local variables:");
@@ -134,8 +146,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
 
         int returnedBytes = funcType.getReturnType().numberOfBytes();
         int bytesLocals = locals.isEmpty() ? 0 : -locals.get(locals.size()-1).getOffset();
-        int bytesArgs = params.isEmpty() ? 0 :
-                params.get(locals.size()-1).getOffset() + params.get(locals.size()-1).getType().numberOfBytes();
+        int bytesArgs = params.isEmpty() ? 0 : params.get(0).getOffset() - 4 + params.get(0).getType().numberOfBytes();
 
         return new StackMemoryState(returnedBytes, bytesLocals, bytesArgs);
     }
@@ -158,8 +169,11 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
     @Override
     public Void visit(Assignment assignment, StackMemoryState param) {
         cg.comment(assignment.toString());
+
         assignment.getExpression1().accept(addressCGVisitor, null);
+
         assignment.getExpression2().accept(valueCGVisitor, null);
+
         cg.store(assignment.getExpression1().getType().suffix());
         return null;
     }
@@ -167,8 +181,11 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
     @Override
     public Void visit(Read read, StackMemoryState param) {
         cg.comment(read.toString());
+
         read.getExpression().accept(addressCGVisitor, null);
+
         cg.read(read.getExpression().getType().suffix());
+
         cg.store(read.getExpression().getType().suffix());
         return null;
     }
@@ -176,7 +193,9 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
     @Override
     public Void visit(Write write, StackMemoryState param) {
         cg.comment(write.toString());
+
         write.getExpression().accept(valueCGVisitor, null);
+
         cg.write(write.getExpression().getType().suffix());
         return null;
     }
@@ -218,35 +237,27 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
         cg.label(condLabel);
         whileS.getCondition().accept(valueCGVisitor, null);
         cg.jump("jz", exitLabel);
+
         whileS.getWhileStatements().forEach(stmt -> {
             cg.line(stmt.getLine());
             stmt.accept(this, state);
         });
+
         cg.jump("jmp", condLabel);
+
         cg.label(exitLabel);
 
         return null;
     }
 
-    /**
-     * execute[[Return: statement -> exp]](int bytesRet, int bytesLocals, int bytesArgs) =
-     *    value[[exp]]
-     *    <ret > bytesRet <, > bytesLocals <, > bytesArgs
-     *
-     *   execute[[FunctionInvocation: statement -> expression expression*]] =
-     *    expression*.forEach(exp -> value[[exp]])
-     *    <call > expression.name
-     *    if(!expression.type.returnType instanceof VoidType){
-     *        <pop> expression.type.returnType.suffix()
-     *    }
-     */
     @Override
     public Void visit(FunctionInvocation functionInvocation, StackMemoryState param) {
 
         cg.comment(functionInvocation.toString());
 
-        functionInvocation.getArguments().forEach(arg -> arg.accept(this, null));
+        functionInvocation.getArguments().forEach(arg -> arg.accept(valueCGVisitor, null));
         cg.call(functionInvocation.getVariable().getName());
+
         FunctionType funcType = (FunctionType) functionInvocation.getVariable().getType();
         if(!(funcType.getReturnType() instanceof VoidType)){
             cg.pop(funcType.getReturnType().suffix());
@@ -255,13 +266,13 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
     }
 
     @Override
-    public Void visit(Return returnS, StackMemoryState param) {
+    public Void visit(Return returnS, StackMemoryState state) {
 
         cg.comment(returnS.toString());
 
         returnS.getExpression().accept(valueCGVisitor, null);
 
-        cg.ret(param);
+        cg.ret(state);
 
         return null;
     }

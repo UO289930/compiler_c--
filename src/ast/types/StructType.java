@@ -27,7 +27,9 @@ public class StructType extends AbstractType {
 
     @Override
     public String toString() {
-        return "struct";
+        StringBuilder fields = new StringBuilder();
+        getFields().forEach(field -> fields.append("(").append(field).append(")"));
+        return String.format("struct(%s)", fields);
     }
 
     @Override
