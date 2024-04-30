@@ -33,24 +33,8 @@ public class IfElse extends AbstractStatement {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
 
-        sb.append("if( ").
-           append(condition).
-           append(" ) {\n");
-
-        ifStatements.forEach(stmt -> sb.append('\t').append(stmt).append('\n'));
-
-        sb.append("}");
-
-        if(!elseStatements.isEmpty()){
-            sb.append("\nelse{\n");
-            elseStatements.forEach(stmt -> sb.append('\t').append(stmt).append('\n'));
-            sb.append("}");
-        }
-
-
-        return  sb.toString();
+        return  "If-Else";
     }
 
     @Override

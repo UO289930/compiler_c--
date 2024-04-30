@@ -2,6 +2,7 @@ import ast.errorhandler.ErrorHandler;
 import ast.program.Program;
 import ast.types.Type;
 import codegeneration.*;
+import dto.StackMemoryState;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
 import parser.*;
@@ -16,8 +17,8 @@ public class Main {
 	public static void main(String... args) throws Exception {
 
 		if (args.length<2) {
-		System.err.println("Please, pass me the input and output file.");
-		return;
+			System.err.println("Please, pass me the input and output file.");
+			return;
 		}
 
 		// create a lexer that feeds off of input CharStream
@@ -28,17 +29,6 @@ public class Main {
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CmmParser parser = new CmmParser(tokens);
 		Program ast = parser.program().ast;
-
-		if (ErrorHandler.getInstance().anyErrors()) {
-		ErrorHandler.getInstance().showErrors(System.err);
-		return;
-		}
-		else {
-		// * The AST is shown if no errors exist
-		IntrospectorModel model=new IntrospectorModel(
-				"Program", ast);
-		new IntrospectorView("Introspector", model);
-		}
 
 		// Semantic analysis
 
@@ -52,13 +42,17 @@ public class Main {
 		if(!acceptVisitor(ast, offsetVisitor, null)) return;
 
 
-		// Code generation
+		// No errors here, so AST is shown
+		IntrospectorModel model=new IntrospectorModel("Program", ast);
+		new IntrospectorView("Introspector", model);
 
+
+		// Code generation
 		CodeGenerator codeGenerator = new CodeGenerator(args[0], args[1]);
 		AddressCGVisitor addressCGVisitor = new AddressCGVisitor(codeGenerator);
 		ValueCGVisitor valueCGVisitor = new ValueCGVisitor(codeGenerator, addressCGVisitor);
 		addressCGVisitor.setValueCGVisitor(valueCGVisitor);
-		Visitor<Void, Void> executeCGVisitor = new ExecuteCGVisitor(codeGenerator, addressCGVisitor, valueCGVisitor);
+		Visitor<StackMemoryState, Void> executeCGVisitor = new ExecuteCGVisitor(codeGenerator, addressCGVisitor, valueCGVisitor);
 
 		acceptVisitor(ast, executeCGVisitor, null);
 		codeGenerator.close();

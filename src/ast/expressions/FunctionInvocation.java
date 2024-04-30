@@ -32,22 +32,7 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 
     @Override
     public String toString() {
-
-        StringBuilder sb = new StringBuilder(variable.toString());
-        sb.append("(");
-
-        if(!arguments.isEmpty() && arguments.get(0)!=null){
-            arguments.forEach(arg -> sb.append(arg).append(", "));
-
-            if(sb.toString().contains(", ")){
-                sb.replace(sb.length()-2, sb.length(), "");
-            }
-
-        }
-
-        sb.append(")");
-
-        return sb.toString();
+        return String.format("Function invocation to %s", getVariable().getName());
     }
 
     @Override

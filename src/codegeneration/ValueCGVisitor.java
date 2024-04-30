@@ -88,6 +88,10 @@ import ast.types.Type;
  *      address[[expression1]]
  *      <load> expression1.type.suffix()
  *
+ *  value[[FunctionInvocation: expression -> expression expression*]] =
+ *      expression*.forEach(exp -> value[[exp]]);
+ *      <call > expression.name
+ *
  */
 public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
     private final AddressCGVisitor addressCGVisitor;
@@ -206,6 +210,13 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
     public Void visit(Indexing indexing, Void param) {
         indexing.accept(addressCGVisitor, null);
         cg.load(indexing.getType().suffix());
+        return null;
+    }
+
+    @Override
+    public Void visit(FunctionInvocation functionInvocation, Void param) {
+        functionInvocation.getArguments().forEach(arg -> arg.accept(this, null));
+        cg.call(functionInvocation.getVariable().getName());
         return null;
     }
 }

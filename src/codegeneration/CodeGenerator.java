@@ -1,9 +1,11 @@
 package codegeneration;
 
+import ast.expressions.Variable;
 import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
 import ast.types.FunctionType;
 import ast.types.Type;
+import dto.StackMemoryState;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -159,18 +161,8 @@ public class CodeGenerator {
         writeLine( String.format("enter %s", bytesLocals) );
     }
 
-    public void ret(FunctionDefinition functionDefinition) {
-        FunctionType funcType = (FunctionType) functionDefinition.getType();
-
-        List<VariableDefinition> params = funcType.getParameters();
-        List<VariableDefinition> locals = functionDefinition.getVariableDefinitions();
-
-        int returnedBytes = funcType.getReturnType().numberOfBytes();
-        int bytesLocals = locals.isEmpty() ? 0 : -locals.get(locals.size()-1).getOffset();
-        int bytesParams = params.isEmpty() ? 0 :
-                locals.get(locals.size()-1).getOffset() + locals.get(locals.size()-1).getType().numberOfBytes();
-
-        writeLine( String.format("ret %d,%d,%d", returnedBytes, bytesLocals, bytesParams) );
+    public void ret(StackMemoryState memoryState){
+        writeLine( String.format("ret %d,%d,%d", memoryState.getBytesReturn(), memoryState.getBytesLocals(), memoryState.getBytesArgs()) );
     }
 
     public void close() throws IOException {
@@ -179,7 +171,7 @@ public class CodeGenerator {
 
     public void callMain() {
         comment("Invocation to the main function");
-        writeLine( "call main" );
+        call( "main" );
         writeLine( "halt" );
     }
     public void jump(String jumpOperation, String elseLabel) {
@@ -188,5 +180,13 @@ public class CodeGenerator {
 
     public void mul(String suffix) {
         writeLine( String.format("mul%s", suffix) );
+    }
+
+    public void call(String functionName) {
+        writeLine( String.format("call %s", functionName) );
+    }
+
+    public void pop(String suffix) {
+        writeLine( String.format("pop%s", suffix) );
     }
 }

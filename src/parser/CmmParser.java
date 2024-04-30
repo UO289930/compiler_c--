@@ -1,4 +1,4 @@
-// Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/UO289930/Desktop/DLP_lexer-parser/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
 
     import dto.*;
@@ -136,19 +136,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_program; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterProgram(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitProgram(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitProgram(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -209,19 +196,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_definitions; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterDefinitions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitDefinitions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitDefinitions(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DefinitionsContext definitions() throws RecognitionException {
@@ -275,19 +249,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_main_function_definition; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterMain_function_definition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitMain_function_definition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitMain_function_definition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Main_function_definitionContext main_function_definition() throws RecognitionException {
@@ -341,19 +302,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_function_definition; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterFunction_definition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitFunction_definition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitFunction_definition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Function_definitionContext function_definition() throws RecognitionException {
@@ -409,19 +357,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_function_body; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterFunction_body(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitFunction_body(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitFunction_body(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Function_bodyContext function_body() throws RecognitionException {
@@ -495,19 +430,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_variable_definitions; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterVariable_definitions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitVariable_definitions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitVariable_definitions(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Variable_definitionsContext variable_definitions() throws RecognitionException {
@@ -592,19 +514,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statements; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterStatements(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitStatements(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitStatements(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StatementsContext statements() throws RecognitionException {
@@ -746,7 +655,7 @@ public class CmmParser extends Parser {
 		public ExpressionContext e;
 		public Function_invocationContext fi;
 		public Token P;
-		public TypeContext t;
+		public Built_in_typeContext t;
 		public Token MINUS;
 		public Token EXC;
 		public Token ID;
@@ -764,8 +673,8 @@ public class CmmParser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TypeContext type() {
-			return getRuleContext(TypeContext.class,0);
+		public Built_in_typeContext built_in_type() {
+			return getRuleContext(Built_in_typeContext.class,0);
 		}
 		public TerminalNode ID() { return getToken(CmmParser.ID, 0); }
 		public TerminalNode INT_CONSTANT() { return getToken(CmmParser.INT_CONSTANT, 0); }
@@ -775,19 +684,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -832,7 +728,7 @@ public class CmmParser extends Parser {
 				setState(161);
 				((ExpressionContext)_localctx).P = match(T__2);
 				setState(162);
-				((ExpressionContext)_localctx).t = type(0);
+				((ExpressionContext)_localctx).t = built_in_type();
 				setState(163);
 				match(T__3);
 				setState(164);
@@ -1063,19 +959,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_type; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterType(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TypeContext type() throws RecognitionException {
@@ -1175,19 +1058,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_return_type; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterReturn_type(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitReturn_type(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitReturn_type(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Return_typeContext return_type() throws RecognitionException {
@@ -1251,19 +1121,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_parameters; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterParameters(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitParameters(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitParameters(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ParametersContext parameters() throws RecognitionException {
@@ -1333,19 +1190,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_built_in_type; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterBuilt_in_type(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitBuilt_in_type(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitBuilt_in_type(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Built_in_typeContext built_in_type() throws RecognitionException {
@@ -1409,19 +1253,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_block; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitBlock(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitBlock(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BlockContext block() throws RecognitionException {
@@ -1503,19 +1334,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_function_invocation; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterFunction_invocation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitFunction_invocation(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitFunction_invocation(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Function_invocationContext function_invocation() throws RecognitionException {
@@ -1561,19 +1379,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_arguments; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterArguments(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitArguments(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitArguments(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ArgumentsContext arguments() throws RecognitionException {
@@ -1650,19 +1455,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expressions; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterExpressions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitExpressions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitExpressions(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExpressionsContext expressions() throws RecognitionException {
@@ -1725,19 +1517,6 @@ public class CmmParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_struct_fields; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).enterStruct_fields(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CmmListener ) ((CmmListener)listener).exitStruct_fields(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CmmVisitor ) return ((CmmVisitor<? extends T>)visitor).visitStruct_fields(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Struct_fieldsContext struct_fields() throws RecognitionException {
@@ -1950,62 +1729,62 @@ public class CmmParser extends Parser {
 		"\u0001\u0000\u0000\u0000\u009c\u009d\u0005\u0003\u0000\u0000\u009d\u009e"+
 		"\u0003\u000e\u0007\u0000\u009e\u009f\u0005\u0004\u0000\u0000\u009f\u00a0"+
 		"\u0006\u0007\uffff\uffff\u0000\u00a0\u00b8\u0001\u0000\u0000\u0000\u00a1"+
-		"\u00a2\u0005\u0003\u0000\u0000\u00a2\u00a3\u0003\u0010\b\u0000\u00a3\u00a4"+
-		"\u0005\u0004\u0000\u0000\u00a4\u00a5\u0003\u000e\u0007\u000b\u00a5\u00a6"+
-		"\u0006\u0007\uffff\uffff\u0000\u00a6\u00b8\u0001\u0000\u0000\u0000\u00a7"+
-		"\u00a8\u0005\u0013\u0000\u0000\u00a8\u00a9\u0003\u000e\u0007\n\u00a9\u00aa"+
-		"\u0006\u0007\uffff\uffff\u0000\u00aa\u00b8\u0001\u0000\u0000\u0000\u00ab"+
-		"\u00ac\u0005\u0014\u0000\u0000\u00ac\u00ad\u0003\u000e\u0007\t\u00ad\u00ae"+
-		"\u0006\u0007\uffff\uffff\u0000\u00ae\u00b8\u0001\u0000\u0000\u0000\u00af"+
-		"\u00b0\u0005%\u0000\u0000\u00b0\u00b8\u0006\u0007\uffff\uffff\u0000\u00b1"+
-		"\u00b2\u0005&\u0000\u0000\u00b2\u00b8\u0006\u0007\uffff\uffff\u0000\u00b3"+
-		"\u00b4\u0005(\u0000\u0000\u00b4\u00b8\u0006\u0007\uffff\uffff\u0000\u00b5"+
-		"\u00b6\u0005\'\u0000\u0000\u00b6\u00b8\u0006\u0007\uffff\uffff\u0000\u00b7"+
-		"\u0098\u0001\u0000\u0000\u0000\u00b7\u009c\u0001\u0000\u0000\u0000\u00b7"+
-		"\u00a1\u0001\u0000\u0000\u0000\u00b7\u00a7\u0001\u0000\u0000\u0000\u00b7"+
-		"\u00ab\u0001\u0000\u0000\u0000\u00b7\u00af\u0001\u0000\u0000\u0000\u00b7"+
-		"\u00b1\u0001\u0000\u0000\u0000\u00b7\u00b3\u0001\u0000\u0000\u0000\u00b7"+
-		"\u00b5\u0001\u0000\u0000\u0000\u00b8\u00d9\u0001\u0000\u0000\u0000\u00b9"+
-		"\u00ba\n\b\u0000\u0000\u00ba\u00bb\u0007\u0000\u0000\u0000\u00bb\u00bc"+
-		"\u0003\u000e\u0007\t\u00bc\u00bd\u0006\u0007\uffff\uffff\u0000\u00bd\u00d8"+
-		"\u0001\u0000\u0000\u0000\u00be\u00bf\n\u0007\u0000\u0000\u00bf\u00c0\u0007"+
-		"\u0001\u0000\u0000\u00c0\u00c1\u0003\u000e\u0007\b\u00c1\u00c2\u0006\u0007"+
-		"\uffff\uffff\u0000\u00c2\u00d8\u0001\u0000\u0000\u0000\u00c3\u00c4\n\u0006"+
-		"\u0000\u0000\u00c4\u00c5\u0007\u0002\u0000\u0000\u00c5\u00c6\u0003\u000e"+
-		"\u0007\u0007\u00c6\u00c7\u0006\u0007\uffff\uffff\u0000\u00c7\u00d8\u0001"+
-		"\u0000\u0000\u0000\u00c8\u00c9\n\u0005\u0000\u0000\u00c9\u00ca\u0007\u0003"+
-		"\u0000\u0000\u00ca\u00cb\u0003\u000e\u0007\u0006\u00cb\u00cc\u0006\u0007"+
-		"\uffff\uffff\u0000\u00cc\u00d8\u0001\u0000\u0000\u0000\u00cd\u00ce\n\r"+
-		"\u0000\u0000\u00ce\u00cf\u0005\u0010\u0000\u0000\u00cf\u00d0\u0003\u000e"+
-		"\u0007\u0000\u00d0\u00d1\u0005\u0011\u0000\u0000\u00d1\u00d2\u0006\u0007"+
-		"\uffff\uffff\u0000\u00d2\u00d8\u0001\u0000\u0000\u0000\u00d3\u00d4\n\f"+
-		"\u0000\u0000\u00d4\u00d5\u0005\u0012\u0000\u0000\u00d5\u00d6\u0005%\u0000"+
-		"\u0000\u00d6\u00d8\u0006\u0007\uffff\uffff\u0000\u00d7\u00b9\u0001\u0000"+
-		"\u0000\u0000\u00d7\u00be\u0001\u0000\u0000\u0000\u00d7\u00c3\u0001\u0000"+
-		"\u0000\u0000\u00d7\u00c8\u0001\u0000\u0000\u0000\u00d7\u00cd\u0001\u0000"+
-		"\u0000\u0000\u00d7\u00d3\u0001\u0000\u0000\u0000\u00d8\u00db\u0001\u0000"+
-		"\u0000\u0000\u00d9\u00d7\u0001\u0000\u0000\u0000\u00d9\u00da\u0001\u0000"+
-		"\u0000\u0000\u00da\u000f\u0001\u0000\u0000\u0000\u00db\u00d9\u0001\u0000"+
-		"\u0000\u0000\u00dc\u00dd\u0006\b\uffff\uffff\u0000\u00dd\u00de\u0003\u0016"+
-		"\u000b\u0000\u00de\u00df\u0006\b\uffff\uffff\u0000\u00df\u00e7\u0001\u0000"+
-		"\u0000\u0000\u00e0\u00e1\u0005!\u0000\u0000\u00e1\u00e2\u0005\u0005\u0000"+
-		"\u0000\u00e2\u00e3\u0003 \u0010\u0000\u00e3\u00e4\u0005\u0006\u0000\u0000"+
-		"\u00e4\u00e5\u0006\b\uffff\uffff\u0000\u00e5\u00e7\u0001\u0000\u0000\u0000"+
-		"\u00e6\u00dc\u0001\u0000\u0000\u0000\u00e6\u00e0\u0001\u0000\u0000\u0000"+
-		"\u00e7\u00ef\u0001\u0000\u0000\u0000\u00e8\u00e9\n\u0001\u0000\u0000\u00e9"+
-		"\u00ea\u0005\u0010\u0000\u0000\u00ea\u00eb\u0005&\u0000\u0000\u00eb\u00ec"+
-		"\u0005\u0011\u0000\u0000\u00ec\u00ee\u0006\b\uffff\uffff\u0000\u00ed\u00e8"+
-		"\u0001\u0000\u0000\u0000\u00ee\u00f1\u0001\u0000\u0000\u0000\u00ef\u00ed"+
-		"\u0001\u0000\u0000\u0000\u00ef\u00f0\u0001\u0000\u0000\u0000\u00f0\u0011"+
-		"\u0001\u0000\u0000\u0000\u00f1\u00ef\u0001\u0000\u0000\u0000\u00f2\u00f3"+
-		"\u0003\u0016\u000b\u0000\u00f3\u00f4\u0006\t\uffff\uffff\u0000\u00f4\u00f8"+
-		"\u0001\u0000\u0000\u0000\u00f5\u00f6\u0005\u0001\u0000\u0000\u00f6\u00f8"+
-		"\u0006\t\uffff\uffff\u0000\u00f7\u00f2\u0001\u0000\u0000\u0000\u00f7\u00f5"+
-		"\u0001\u0000\u0000\u0000\u00f8\u0013\u0001\u0000\u0000\u0000\u00f9\u00fa"+
-		"\u0003\u0016\u000b\u0000\u00fa\u00fb\u0005%\u0000\u0000\u00fb\u0103\u0006"+
-		"\n\uffff\uffff\u0000\u00fc\u00fd\u0005\u0007\u0000\u0000\u00fd\u00fe\u0003"+
-		"\u0016\u000b\u0000\u00fe\u00ff\u0005%\u0000\u0000\u00ff\u0100\u0006\n"+
-		"\uffff\uffff\u0000\u0100\u0102\u0001\u0000\u0000\u0000\u0101\u00fc\u0001"+
+		"\u00a2\u0005\u0003\u0000\u0000\u00a2\u00a3\u0003\u0016\u000b\u0000\u00a3"+
+		"\u00a4\u0005\u0004\u0000\u0000\u00a4\u00a5\u0003\u000e\u0007\u000b\u00a5"+
+		"\u00a6\u0006\u0007\uffff\uffff\u0000\u00a6\u00b8\u0001\u0000\u0000\u0000"+
+		"\u00a7\u00a8\u0005\u0013\u0000\u0000\u00a8\u00a9\u0003\u000e\u0007\n\u00a9"+
+		"\u00aa\u0006\u0007\uffff\uffff\u0000\u00aa\u00b8\u0001\u0000\u0000\u0000"+
+		"\u00ab\u00ac\u0005\u0014\u0000\u0000\u00ac\u00ad\u0003\u000e\u0007\t\u00ad"+
+		"\u00ae\u0006\u0007\uffff\uffff\u0000\u00ae\u00b8\u0001\u0000\u0000\u0000"+
+		"\u00af\u00b0\u0005%\u0000\u0000\u00b0\u00b8\u0006\u0007\uffff\uffff\u0000"+
+		"\u00b1\u00b2\u0005&\u0000\u0000\u00b2\u00b8\u0006\u0007\uffff\uffff\u0000"+
+		"\u00b3\u00b4\u0005(\u0000\u0000\u00b4\u00b8\u0006\u0007\uffff\uffff\u0000"+
+		"\u00b5\u00b6\u0005\'\u0000\u0000\u00b6\u00b8\u0006\u0007\uffff\uffff\u0000"+
+		"\u00b7\u0098\u0001\u0000\u0000\u0000\u00b7\u009c\u0001\u0000\u0000\u0000"+
+		"\u00b7\u00a1\u0001\u0000\u0000\u0000\u00b7\u00a7\u0001\u0000\u0000\u0000"+
+		"\u00b7\u00ab\u0001\u0000\u0000\u0000\u00b7\u00af\u0001\u0000\u0000\u0000"+
+		"\u00b7\u00b1\u0001\u0000\u0000\u0000\u00b7\u00b3\u0001\u0000\u0000\u0000"+
+		"\u00b7\u00b5\u0001\u0000\u0000\u0000\u00b8\u00d9\u0001\u0000\u0000\u0000"+
+		"\u00b9\u00ba\n\b\u0000\u0000\u00ba\u00bb\u0007\u0000\u0000\u0000\u00bb"+
+		"\u00bc\u0003\u000e\u0007\t\u00bc\u00bd\u0006\u0007\uffff\uffff\u0000\u00bd"+
+		"\u00d8\u0001\u0000\u0000\u0000\u00be\u00bf\n\u0007\u0000\u0000\u00bf\u00c0"+
+		"\u0007\u0001\u0000\u0000\u00c0\u00c1\u0003\u000e\u0007\b\u00c1\u00c2\u0006"+
+		"\u0007\uffff\uffff\u0000\u00c2\u00d8\u0001\u0000\u0000\u0000\u00c3\u00c4"+
+		"\n\u0006\u0000\u0000\u00c4\u00c5\u0007\u0002\u0000\u0000\u00c5\u00c6\u0003"+
+		"\u000e\u0007\u0007\u00c6\u00c7\u0006\u0007\uffff\uffff\u0000\u00c7\u00d8"+
+		"\u0001\u0000\u0000\u0000\u00c8\u00c9\n\u0005\u0000\u0000\u00c9\u00ca\u0007"+
+		"\u0003\u0000\u0000\u00ca\u00cb\u0003\u000e\u0007\u0006\u00cb\u00cc\u0006"+
+		"\u0007\uffff\uffff\u0000\u00cc\u00d8\u0001\u0000\u0000\u0000\u00cd\u00ce"+
+		"\n\r\u0000\u0000\u00ce\u00cf\u0005\u0010\u0000\u0000\u00cf\u00d0\u0003"+
+		"\u000e\u0007\u0000\u00d0\u00d1\u0005\u0011\u0000\u0000\u00d1\u00d2\u0006"+
+		"\u0007\uffff\uffff\u0000\u00d2\u00d8\u0001\u0000\u0000\u0000\u00d3\u00d4"+
+		"\n\f\u0000\u0000\u00d4\u00d5\u0005\u0012\u0000\u0000\u00d5\u00d6\u0005"+
+		"%\u0000\u0000\u00d6\u00d8\u0006\u0007\uffff\uffff\u0000\u00d7\u00b9\u0001"+
+		"\u0000\u0000\u0000\u00d7\u00be\u0001\u0000\u0000\u0000\u00d7\u00c3\u0001"+
+		"\u0000\u0000\u0000\u00d7\u00c8\u0001\u0000\u0000\u0000\u00d7\u00cd\u0001"+
+		"\u0000\u0000\u0000\u00d7\u00d3\u0001\u0000\u0000\u0000\u00d8\u00db\u0001"+
+		"\u0000\u0000\u0000\u00d9\u00d7\u0001\u0000\u0000\u0000\u00d9\u00da\u0001"+
+		"\u0000\u0000\u0000\u00da\u000f\u0001\u0000\u0000\u0000\u00db\u00d9\u0001"+
+		"\u0000\u0000\u0000\u00dc\u00dd\u0006\b\uffff\uffff\u0000\u00dd\u00de\u0003"+
+		"\u0016\u000b\u0000\u00de\u00df\u0006\b\uffff\uffff\u0000\u00df\u00e7\u0001"+
+		"\u0000\u0000\u0000\u00e0\u00e1\u0005!\u0000\u0000\u00e1\u00e2\u0005\u0005"+
+		"\u0000\u0000\u00e2\u00e3\u0003 \u0010\u0000\u00e3\u00e4\u0005\u0006\u0000"+
+		"\u0000\u00e4\u00e5\u0006\b\uffff\uffff\u0000\u00e5\u00e7\u0001\u0000\u0000"+
+		"\u0000\u00e6\u00dc\u0001\u0000\u0000\u0000\u00e6\u00e0\u0001\u0000\u0000"+
+		"\u0000\u00e7\u00ef\u0001\u0000\u0000\u0000\u00e8\u00e9\n\u0001\u0000\u0000"+
+		"\u00e9\u00ea\u0005\u0010\u0000\u0000\u00ea\u00eb\u0005&\u0000\u0000\u00eb"+
+		"\u00ec\u0005\u0011\u0000\u0000\u00ec\u00ee\u0006\b\uffff\uffff\u0000\u00ed"+
+		"\u00e8\u0001\u0000\u0000\u0000\u00ee\u00f1\u0001\u0000\u0000\u0000\u00ef"+
+		"\u00ed\u0001\u0000\u0000\u0000\u00ef\u00f0\u0001\u0000\u0000\u0000\u00f0"+
+		"\u0011\u0001\u0000\u0000\u0000\u00f1\u00ef\u0001\u0000\u0000\u0000\u00f2"+
+		"\u00f3\u0003\u0016\u000b\u0000\u00f3\u00f4\u0006\t\uffff\uffff\u0000\u00f4"+
+		"\u00f8\u0001\u0000\u0000\u0000\u00f5\u00f6\u0005\u0001\u0000\u0000\u00f6"+
+		"\u00f8\u0006\t\uffff\uffff\u0000\u00f7\u00f2\u0001\u0000\u0000\u0000\u00f7"+
+		"\u00f5\u0001\u0000\u0000\u0000\u00f8\u0013\u0001\u0000\u0000\u0000\u00f9"+
+		"\u00fa\u0003\u0016\u000b\u0000\u00fa\u00fb\u0005%\u0000\u0000\u00fb\u0103"+
+		"\u0006\n\uffff\uffff\u0000\u00fc\u00fd\u0005\u0007\u0000\u0000\u00fd\u00fe"+
+		"\u0003\u0016\u000b\u0000\u00fe\u00ff\u0005%\u0000\u0000\u00ff\u0100\u0006"+
+		"\n\uffff\uffff\u0000\u0100\u0102\u0001\u0000\u0000\u0000\u0101\u00fc\u0001"+
 		"\u0000\u0000\u0000\u0102\u0105\u0001\u0000\u0000\u0000\u0103\u0101\u0001"+
 		"\u0000\u0000\u0000\u0103\u0104\u0001\u0000\u0000\u0000\u0104\u0108\u0001"+
 		"\u0000\u0000\u0000\u0105\u0103\u0001\u0000\u0000\u0000\u0106\u0108\u0001"+

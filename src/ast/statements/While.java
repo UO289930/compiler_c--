@@ -29,17 +29,7 @@ public class While extends AbstractStatement {
     @Override
     public String toString() {
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("while( ").
-                append(condition).
-                append(" ) {\n");
-
-        whileStatements.forEach(stmt -> sb.append('\t').append(stmt).append('\n'));
-
-        sb.append("}\n");
-
-        return sb.toString();
+        return "While";
     }
 
     @Override

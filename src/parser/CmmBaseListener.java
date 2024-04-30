@@ -1,4 +1,4 @@
-// Generated from F:/3º/DLP/Lab/repo/dlp/src/parser/Cmm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/UO289930/Desktop/DLP_lexer-parser/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
 
     import dto.*;

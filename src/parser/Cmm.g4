@@ -54,7 +54,7 @@ expression returns [Expression ast]:
           | '(' e=expression ')'  { $ast = $e.ast; }
           | e1=expression '[' e2=expression ']'   { $ast = new Indexing( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ); }
           | e=expression '.' ID   { $ast = new FieldAccess( $e.ast.getLine(), $e.ast.getColumn(), $e.ast, $ID.text ); }
-          | P='(' t=type ')' e=expression   { $ast = new Cast( $P.getLine(), $P.getCharPositionInLine()+1, $t.ast, $e.ast ); }
+          | P='(' t=built_in_type ')' e=expression   { $ast = new Cast( $P.getLine(), $P.getCharPositionInLine()+1, $t.ast, $e.ast ); }
           | MINUS='-' e=expression    { $ast = new UnaryMinus( $MINUS.getLine(), $MINUS.getCharPositionInLine()+1, $e.ast ); }
           | EXC='!' e=expression    { $ast = new UnaryNot( $EXC.getLine(), $EXC.getCharPositionInLine()+1, $e.ast ); }
           | e1=expression OP=('*' | '/' | '%') e2=expression    { $ast = ParserHelper.createArithmeticOrReminder( $e1.ast.getLine(), $e1.ast.getColumn(), $OP.text, $e1.ast, $e2.ast ); }
