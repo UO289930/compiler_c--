@@ -1,55 +1,68 @@
 
-// * Variable and function definitions
-int i, j, n;
+// * Global variables
+int i,n,j;
+char c;
 
-// * Empty function
+struct { 
+	int integer;
+	char character;
+} pair;
+
+// * Functions
 void p() {}
 
-char c; // global variable
+int f(double r, int e) {
+	double real;
+	char c;
+	real = (double)(pair.character)+(double)(pair.integer)+r+(double)e;
+	c='0';
+	return (int)c;
+}
 
-int f(int n, double r) {
-  double real;
-  char c1, c2;
-  c1 = (char)n;
-  real = (double)c1 + (double)n + r;
-  p(); // * Invocation as a statement
-  return (int)c1;
+int[10][10] matrix;
+
+void fill(int row, int value, int increment) {
+	int i,inc;
+	i=0;
+	inc=increment;
+	while (i<10) {
+		matrix[row][i]=value+inc; 
+		i=i+1;
+		inc=inc+increment;
+	}
+}
+
+void show(int row) {
+	int i;
+	i=0;
+	while (i<10) {
+		write '(', row, ',', i, ')', ':', matrix[row][i], ' ';
+		i=i+1;
+	}
+	write '\n';
 }
 
 
-// * Main function
+// * Main program
 void main() {
-  // * Record
-  struct {
-    int integer;
-    char character;
-  } pair;
-  // * Array
-  int[10][5] vector;
-  
-  i=0;
-  j=0;
-  while(i<10){
-    while(j<5) {
-      vector[i][j] = i + j;
-      j=j+1;
-    }
-  i=i+1;
-  }
-  
-  i=0;
-  pair.character = '0';
-  pair.integer = 48;
-  while (pair.integer >= i) {
-    if (pair.integer == vector[0][0] || !(int)pair.character || i%2==0)
-      write 't', 'r', 'u', 'e', '\n';
-    else 
-      write 'f', 'a', 'l', 's', 'e', '\n';
-    i=i+1;
-  }
-  write f(i, (double)i); // * Invocation as an expression
-  vector[9][(int)4.3]=5;
-  f(1, 2.2); // * Invocation as a statement
-}
+	int i;
 
+	p(); // * Invocation (procedure) as statement
+	i=0;
+	pair.character='0';
+	pair.integer=(int)'0';
+	write f((double)i,(int)(pair.character)), '\n'; // Invocation as expression
+
+	f(1.3, 2); // * Invocation (function) as statement
+
+	i=0;
+	j=0;
+	while (i<10) {
+		fill(i, j, 1); 
+		show(i);
+		i=i+1;
+		j=i*10;
+	}
+
+}
 
