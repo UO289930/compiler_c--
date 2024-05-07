@@ -149,9 +149,13 @@ fragment
 DIGIT: [0-9];
 
 fragment
-FLOATING_POINT: INT_CONSTANT? '.' INT_CONSTANT
-              | INT_CONSTANT '.' INT_CONSTANT?
+FLOATING_POINT: INT_CONSTANT? '.' DECIMAL_PART
+              | INT_CONSTANT '.' DECIMAL_PART?
               ;
+
+fragment
+DECIMAL_PART: DIGIT+
+            ;
 
 fragment
 MANTISSA_AND_EXPONENT: (FLOATING_POINT | INT_CONSTANT) ('E' | 'e') ('+' | '-')? (FLOATING_POINT |INT_CONSTANT)
