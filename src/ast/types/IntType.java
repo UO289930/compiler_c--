@@ -27,7 +27,7 @@ public class IntType extends AbstractType {
             return type;
         }
 
-        return type instanceof IntType ? this : new ErrorType(line, column, "Second arithmetic operand type must also be an integer");
+        return type instanceof IntType ? this : new ErrorType(line, column, "Arithmetic operand types must also be integer");
     }
 
     @Override
@@ -41,7 +41,7 @@ public class IntType extends AbstractType {
             return this;
         }
 
-        return new ErrorType(line, column, "Second reminder operand type must also be an integer or a character");
+        return new ErrorType(line, column, "Reminder operand types must be integer or character");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class IntType extends AbstractType {
 
         return type instanceof IntType ?
                 this :
-                new ErrorType(line, column, "Second logical operand type must also be an boolean (integer)");
+                new ErrorType(line, column, "Logical operand types must be boolean (integer)");
     }
 
     @Override
@@ -72,7 +72,7 @@ public class IntType extends AbstractType {
             return this;
         }
 
-        return new ErrorType(line, column, "Second comparison operand type must be a character or an integer");
+        return new ErrorType(line, column, "Comparison operand types must be character or integer");
     }
 
     @Override

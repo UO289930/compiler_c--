@@ -29,7 +29,7 @@ public class DoubleType extends AbstractType {
 
         return type instanceof DoubleType ?
                 this :
-                new ErrorType(line, column, "Second arithmetic operand type must also be a double");
+                new ErrorType(line, column, "Arithmetic operand types must be double");
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DoubleType extends AbstractType {
 
         return type instanceof DoubleType ?
                 new IntType(line, column) :
-                new ErrorType(line, column, "Second comparison operand type must also be a double");
+                new ErrorType(line, column, "Comparison operand types must be double");
     }
 
     @Override
