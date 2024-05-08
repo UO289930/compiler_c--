@@ -158,7 +158,7 @@ DECIMAL_PART: DIGIT+
             ;
 
 fragment
-MANTISSA_AND_EXPONENT: (FLOATING_POINT | INT_CONSTANT) ('E' | 'e') ('+' | '-')? (FLOATING_POINT |INT_CONSTANT)
+MANTISSA_AND_EXPONENT: (FLOATING_POINT | INT_CONSTANT) ('E' | 'e') ('+' | '-')? INT_CONSTANT
                      ;
 
 fragment
