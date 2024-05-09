@@ -29,7 +29,7 @@ import ast.types.Type;
  *    }
  *
  * value[[Comparison: expression1 -> expression2 (> | < | >= | <= | == | !=) expression3]] =
- * 	Type superType = expression2.type.superType(expresssion1)
+ * 	Type superType = expression2.type.superType(expression1.type)
  * 	value[[expression2]]
  * 	expression2.type.convertTo(superType)
  * 	value[[expression3]]
