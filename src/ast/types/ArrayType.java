@@ -54,15 +54,6 @@ public class ArrayType extends AbstractType {
 
     @Override
     public int numberOfBytes() {
-        int totalNumberOfBytes = getSize();
-        Type nextType = getElementType();
-
-        while(nextType instanceof ArrayType){
-            totalNumberOfBytes *= ((ArrayType) nextType).getSize();
-            nextType = ((ArrayType) nextType).getElementType();
-        }
-
-        // next type is IntType here
-        return totalNumberOfBytes * nextType.numberOfBytes();
+        return size * getElementType().numberOfBytes();
     }
 }
