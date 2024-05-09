@@ -69,7 +69,7 @@ import ast.types.Type;
  *
  * 	value[[UnaryMinus: expression1 -> expression2]] =
  * 	    <push> expression1.suffix 0
- * 	    <push> expression1.suffix expression1.value
+ * 	    <push> expression1.suffix < > expression1.value
  * 	    <sub> expression1.suffix
  *
  * 	value[[UnaryNot: expression1 -> expression2]] =
