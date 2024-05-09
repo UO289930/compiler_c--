@@ -88,7 +88,7 @@ import ast.types.Type;
  *      address[[expression1]]
  *      <load> expression1.type.suffix()
  *
- *  value[[FunctionInvocation: expression -> expression expression*]] =
+ *  value[[FunctionInvocation: expression1 -> expression2 expression*]] =
  *      expression*.forEach(exp -> value[[exp]]);
  *      <call > expression.name
  *
