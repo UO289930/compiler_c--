@@ -52,7 +52,7 @@ public class CharType extends AbstractType {
 
         return type instanceof CharType ?
                 new IntType(line, column) :
-                new ErrorType(line, column, "Comparison operand types must be character or integer");
+                new ErrorType(line, column, "Comparison operand types must be the same");
     }
 
     @Override

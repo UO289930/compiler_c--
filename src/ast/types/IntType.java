@@ -72,7 +72,7 @@ public class IntType extends AbstractType {
             return this;
         }
 
-        return new ErrorType(line, column, "Comparison operand types must be character or integer");
+        return new ErrorType(line, column, "Comparison operand types must be the same");
     }
 
     @Override
