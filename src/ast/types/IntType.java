@@ -68,7 +68,7 @@ public class IntType extends AbstractType {
             return type;
         }
 
-        if(type instanceof CharType || type instanceof IntType){
+        if(type instanceof IntType){
             return this;
         }
 
