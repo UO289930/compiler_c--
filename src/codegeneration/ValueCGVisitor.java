@@ -12,9 +12,9 @@ import ast.types.Type;
  * 	<load> expression.type.suffix()
  * value[[Arithmetic: expression1 -> expression2 (+ | - | * | /) expression3]] =
  * 	value[[expression2]]
- * 	expression2.type.convertTo(arithmetic.getType())
+ * 	expression2.type.convertTo(expression1.type)
  * 	value[[expression3]]
- * 	expression3.type.convertTo(arithmetic.getType())
+ * 	expression3.type.convertTo(expression1.type)
  *
  * 	switch(expression1.operator){
  * 		case "+": <add> arithmetic.getType().suffix()
