@@ -125,14 +125,15 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
         functionDefinition.getVariableDefinitions().forEach(varDef -> varDef.accept(this, null));
 
         cg.enter(functionDefinition.getVariableDefinitions());
+
+        StackMemoryState state = createStackMemoryState(functionDefinition);
         functionDefinition.getStatements().forEach(stmt -> {
             cg.line(stmt.getLine());
-            stmt.accept(this, createStackMemoryState(functionDefinition));
+            stmt.accept(this, state);
         });
 
-        FunctionType funcType = (FunctionType) functionDefinition.getType();
-        if(funcType.getReturnType() instanceof VoidType){
-            cg.ret(createStackMemoryState(functionDefinition));
+        if(state.bytesReturn()==0){
+            cg.ret(state);
         }
 
         return null;
