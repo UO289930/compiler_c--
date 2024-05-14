@@ -14,8 +14,8 @@ import java.util.List;
  * (P) FunctionDefinition : definition -> type ID varDefinition* statement*
  * (R) int localsSumOfBytes = 0;
  *     for(VariableDefinition varDefinition: varDefinition*){
- *         varDefinition.offset = -localsSumOfBytes;
  *         localsSumOfBytes += definition.type.numberOfBytes();
+ *         varDefinition.offset = -localsSumOfBytes;
  *     }
  *
  *
