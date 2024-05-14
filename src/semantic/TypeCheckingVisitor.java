@@ -60,7 +60,7 @@ import java.util.List;
  *  (P) IfElse: statement -> expression statement1* statement2*
  *  (R) expression.type.mustBeBoolean( );
  *
- *  (P) FunctionDefinition: definition -> type ID vardefinition* statement*
+ *  (P) FunctionDefinition: definition -> type ID definition* statement*
  *  (R) statement*.forEach( st -> st.returnType = type.returnType );
  *
  *  (P) Return: statement -> expression
