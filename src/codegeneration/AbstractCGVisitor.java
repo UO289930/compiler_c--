@@ -8,7 +8,7 @@ import ast.statements.*;
 import ast.types.*;
 import semantic.Visitor;
 
-public class AbstractCGVisitor<TP,TR> implements Visitor<TP,TR> {
+public abstract class AbstractCGVisitor<TP,TR> implements Visitor<TP,TR> {
 
     protected final CodeGenerator cg;
 
