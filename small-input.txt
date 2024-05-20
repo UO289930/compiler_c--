@@ -1,1 +1,14 @@
-123
+void main(){
+    char a;
+    int b;
+    a = '0';
+    b = 48;
+
+    write (int)a, '\n';
+
+    if((int)a==b){
+        write 'a', 'l', 'l', ' ', 'g', 'o', 'o', 'd';
+    } else {
+        write 'a', 'l', 'l', ' ', 'b', 'a', 'd';
+    }
+}

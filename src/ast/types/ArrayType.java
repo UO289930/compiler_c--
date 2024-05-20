@@ -1,5 +1,8 @@
 package ast.types;
 
+import ast.expressions.Variable;
+import codegeneration.AddressCGVisitor;
+import codegeneration.CodeGenerator;
 import semantic.Visitor;
 
 public class ArrayType extends AbstractType {
@@ -55,5 +58,23 @@ public class ArrayType extends AbstractType {
     @Override
     public int numberOfBytes() {
         return size * getElementType().numberOfBytes();
+    }
+
+    @Override
+    public void write(CodeGenerator cg, AddressCGVisitor addressCGVisitor, Variable v) {
+        Type elementType = getElementType();
+        while(elementType instanceof ArrayType){
+            elementType = ((ArrayType) elementType).getElementType();
+        }
+        int totalElements = numberOfBytes() / elementType.numberOfBytes();
+
+        for (int i = 0; i < totalElements; i++) {
+            v.accept(addressCGVisitor, null);
+            cg.push("i", i);
+            cg.push("i", elementType.numberOfBytes());
+            cg.mul("i");
+            cg.add("i");
+            cg.load(suffix());
+        }
     }
 }

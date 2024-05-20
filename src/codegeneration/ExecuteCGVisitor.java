@@ -1,6 +1,7 @@
 package codegeneration;
 
 import ast.expressions.FunctionInvocation;
+import ast.expressions.Variable;
 import ast.program.Definition;
 import ast.program.FunctionDefinition;
 import ast.program.Program;
@@ -195,9 +196,14 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
     public Void visit(Write write, StackMemoryState param) {
         cg.comment(write.toString());
 
-        write.getExpression().accept(valueCGVisitor, null);
+        if(write.getExpression() instanceof Variable){
+            write.getExpression().getType().write(cg, addressCGVisitor, (Variable) write.getExpression());
+        } else{
+            write.getExpression().accept(valueCGVisitor, null);
+            cg.write(write.getExpression().getType().suffix());
+        }
 
-        cg.write(write.getExpression().getType().suffix());
+
         return null;
     }
 

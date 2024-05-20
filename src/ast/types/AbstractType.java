@@ -1,6 +1,10 @@
 package ast.types;
 
 import ast.AbstractASTNode;
+import ast.expressions.Variable;
+import ast.program.VariableDefinition;
+import codegeneration.AddressCGVisitor;
+import codegeneration.CodeGenerator;
 
 import java.util.List;
 
@@ -131,5 +135,15 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     protected String doubleConversion(Type type1) {
         IntType intT = new IntType(this.getLine(),this.getColumn());
         return String.format("%s\n%s", this.convertTo(intT), intT.convertTo(type1));
+    }
+
+    @Override
+    public void write(CodeGenerator cg, AddressCGVisitor addressCGVisitor, Variable v) {
+        if(this instanceof ErrorType){
+            assert false;
+            throw new UnsupportedOperationException("There is already an error to be handled");
+        }
+        v.accept(addressCGVisitor, null);
+        cg.write(suffix());
     }
 }

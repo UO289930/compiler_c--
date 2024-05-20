@@ -1,6 +1,9 @@
 package ast.types;
 
 import ast.ASTNode;
+import ast.expressions.Variable;
+import codegeneration.AddressCGVisitor;
+import codegeneration.CodeGenerator;
 
 import java.util.List;
 
@@ -24,4 +27,5 @@ public interface Type extends ASTNode {
     String convertTo(Type type1);
     String suffix();
     Type superType(Type type);
+    void write(CodeGenerator cg, AddressCGVisitor addressCGVisitor, Variable v);
 }

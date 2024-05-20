@@ -1,5 +1,8 @@
 package ast.types;
 
+import ast.expressions.Variable;
+import codegeneration.AddressCGVisitor;
+import codegeneration.CodeGenerator;
 import semantic.Visitor;
 
 import java.util.ArrayList;
@@ -66,5 +69,19 @@ public class StructType extends AbstractType {
         }
 
         return optField.get();
+    }
+
+    @Override
+    public void write(CodeGenerator cg, AddressCGVisitor addressCGVisitor, Variable v) {
+        for (StructField field: getFields()){
+            field.getType().write(cg, addressCGVisitor, v);
+
+
+            v.accept(addressCGVisitor, null);
+            cg.push("i", getOffset());
+            cg.add("i");
+            cg.load();
+            cg.write();
+        }
     }
 }
