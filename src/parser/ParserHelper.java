@@ -10,19 +10,18 @@ import ast.statements.Write;
 import ast.types.*;
 import dto.FunctionBody;
 
-import javax.swing.plaf.nimbus.State;
 import java.util.*;
 
 public class ParserHelper {
 
     public static For createFor(int line,
                                 int column,
-                                List<Statement> initializer,
+                                Statement initializer,
                                 Expression exp,
-                                List<Statement> incremental,
+                                Statement incremental,
                                 List<Statement> block){
 
-
+        return new For(line, column, initializer, exp, incremental, block);
 
     }
 

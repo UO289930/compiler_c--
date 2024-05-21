@@ -44,14 +44,15 @@ statements returns [List<Statement> ast = new ArrayList<>()]:
          | WHILE='while' '(' e=expression ')' b=block { $ast.add( new While( $WHILE.getLine(), $WHILE.getCharPositionInLine()+1, $e.ast, $b.ast ) ); }
          | IF='if' '(' e=expression ')' b=block    { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b.ast, null ) ); }
          | IF='if' '(' e=expression ')' b1=block 'else' b2=block { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b1.ast, $b2.ast ) ); }
-         | FOR='for' '(' s1=for_statements ';' e=expression ';' s2=for_statements ')' b=block { $ast.add( ParserHelper.createFor($FOR.getLine(), $FOR.getCharPositionInLine()+1, $s1.ast, $e.ast, $s2.ast, $block.ast) );}
+         | FOR='for' '(' s1=for_statement ';' e=expression ';' s2=for_statement ')' b=block { $ast.add( ParserHelper.createFor($FOR.getLine(), $FOR.getCharPositionInLine()+1, $s1.ast, $e.ast, $s2.ast, $block.ast) );}
          | WRITE='write' es=expressions ';' { $ast.addAll( ParserHelper.createWriteStatements($WRITE.getLine(), $WRITE.getCharPositionInLine()+1, $es.ast) ); }
          | READ='read' es=expressions ';' { $ast.addAll( ParserHelper.createReadStatements($READ.getLine(), $READ.getCharPositionInLine()+1, $es.ast) ); }
          | RET='return' e=expression ';'  { $ast.add( new Return( $RET.getLine(), $RET.getCharPositionInLine()+1, $e.ast ) ); }
          ;
 
-for_statements returns [List<Statement> ast = new ArrayList<>()]:
-    s=statements { $ast.addAll($s.ast); }
+for_statement returns [Statement ast]:
+      fi=function_invocation              { $ast = $fi.ast; }
+    | e1=expression '=' e2=expression    { $ast = new Assignment( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ); }
     |
     ;
 

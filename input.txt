@@ -23,19 +23,25 @@ int[10][10] matrix;
 
 void fill(int row, int value, int increment) {
 	int i,inc;
-	i=0;
 	inc=increment;
-	while (i<10) {
-		matrix[row][i]=value+inc; 
-		i=i+1;
-		inc=inc+increment;
+
+	for(i=0; i<10; i=i+1){
+	    matrix[row][i]=value+inc;
+        inc=inc+increment;
 	}
 }
+
+void x(){
+    write ' ', '-', ' ';
+}
+
 
 void show(int row) {
 	int i;
 	i=0;
-	while (i<10) {
+
+	for (x() ;i<10; x()) {
+	//for ( ;i<10; ) {
 		write '(', row, ',', i, ')', ':', matrix[row][i], ' ';
 		i=i+1;
 	}
@@ -57,12 +63,13 @@ void main() {
 
 	i=0;
 	j=0;
-	while (i<10) {
-		fill(i, j, 1); 
-		show(i);
-		i=i+1;
-		j=i*10;
-	}
+
+	for(  ; i<10 ;  ){
+        fill(i, j, 1);
+        show(i);
+        i=i+1;
+        j=i*10;
+    }
 
 }
 

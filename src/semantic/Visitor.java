@@ -70,4 +70,6 @@ import ast.types.*;
      TR visit(StructField structField, TP param);
 
      TR visit(VoidType voidType, TP param);
-}
+
+     TR visit(For forS, TP param);
+ }

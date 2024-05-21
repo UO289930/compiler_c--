@@ -207,4 +207,10 @@ public abstract class AbstractCGVisitor<TP,TR> implements Visitor<TP,TR> {
         assert false;
         throw new UnsupportedOperationException("Void type cannot be visited by this code generation visitor");
     }
+
+    @Override
+    public TR visit(For forS, TP param) {
+        assert false;
+        throw new UnsupportedOperationException("For loops cannot be visited by this code generation visitor");
+    }
 }

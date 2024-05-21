@@ -336,4 +336,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         return null;
     }
+
+    @Override
+    public Void visit(For forS, Type functionReturnType) {
+        forS.setReturnType(functionReturnType);
+        super.visit(forS,functionReturnType);
+        return null;
+    }
 }

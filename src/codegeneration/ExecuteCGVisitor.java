@@ -277,4 +277,34 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
 
         return null;
     }
+
+    @Override
+    public Void visit(For forS, StackMemoryState state) {
+
+        String condLabel = cg.nextLabel(), exitLabel = cg.nextLabel();
+
+        cg.comment(forS.toString());
+
+        if(forS.getInitializer()!=null){
+            forS.getInitializer().accept(this, state);
+        }
+
+        cg.label(condLabel);
+
+        forS.getCondition().accept(valueCGVisitor, null);
+        cg.jump("jz", exitLabel);
+
+        forS.getForStatements().forEach(stmt -> stmt.accept(this, state));
+
+        if(forS.getIncrement()!=null){
+            forS.getIncrement().accept(this, state);
+        }
+
+        cg.jump("jmp", condLabel);
+
+        cg.label(exitLabel);
+
+        return null;
+
+    }
 }
