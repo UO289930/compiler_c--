@@ -1,0 +1,408 @@
+
+#source "input.txt"
+
+' * Invocation to the main function
+call main
+halt
+' * Global variables:
+' * int i (offset 0)
+' * int n (offset 2)
+' * int j (offset 4)
+' * char c (offset 6)
+' * struct((int integer)(char character)) pair (offset 7)
+' * [10, [10, int]] matrix (offset 10)
+
+#line 12
+p:
+enter 0
+ret 0, 0, 0
+
+#line 14
+f:
+' * Parameters:
+' * double r (offset 6)
+' * int e (offset 4)
+' * Local variables:
+' * double real (offset -4)
+' * char c (offset -5)
+enter 5
+
+#line 17
+' * Assignment
+pusha bp
+pushi -4
+addi
+pusha 7
+pushi 2
+addi
+loadb
+b2i
+i2f
+pusha 7
+pushi 0
+addi
+loadi
+i2f
+addf
+pusha bp
+pushi 6
+addi
+loadf
+addf
+pusha bp
+pushi 4
+addi
+loadi
+i2f
+addf
+storef
+
+#line 18
+' * Assignment
+pusha bp
+pushi -5
+addi
+pushb 48
+storeb
+
+#line 19
+' * Return
+pusha bp
+pushi -5
+addi
+loadb
+b2i
+ret 2, 5, 6
+
+#line 24
+fill:
+' * Parameters:
+' * int row (offset 8)
+' * int value (offset 6)
+' * int increment (offset 4)
+' * Local variables:
+' * int i (offset -2)
+' * int inc (offset -4)
+enter 4
+
+#line 26
+' * Assignment
+pusha bp
+pushi -4
+addi
+pusha bp
+pushi 4
+addi
+loadi
+storei
+
+#line 28
+' * for
+' * Assignment
+pusha bp
+pushi -2
+addi
+pushi 0
+storei
+label1:
+pusha bp
+pushi -2
+addi
+loadi
+pushi 10
+lti
+jz label2
+' * Assignment
+pusha 10
+pusha bp
+pushi 8
+addi
+loadi
+pushi 20
+muli
+addi
+pusha bp
+pushi -2
+addi
+loadi
+pushi 2
+muli
+addi
+pusha bp
+pushi 6
+addi
+loadi
+pusha bp
+pushi -4
+addi
+loadi
+addi
+storei
+' * Assignment
+pusha bp
+pushi -4
+addi
+pusha bp
+pushi -4
+addi
+loadi
+pusha bp
+pushi 4
+addi
+loadi
+addi
+storei
+' * Assignment
+pusha bp
+pushi -2
+addi
+pusha bp
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+jmp label1
+label2:
+ret 0, 4, 6
+
+#line 34
+x:
+enter 0
+
+#line 35
+' * Write
+pushb 32
+outb
+
+#line 35
+' * Write
+pushb 45
+outb
+
+#line 35
+' * Write
+pushb 32
+outb
+ret 0, 0, 0
+
+#line 39
+show:
+' * Parameters:
+' * int row (offset 4)
+' * Local variables:
+' * int i (offset -2)
+enter 2
+
+#line 41
+' * Assignment
+pusha bp
+pushi -2
+addi
+pushi 0
+storei
+
+#line 43
+' * for
+' * Function invocation to x
+call x
+label3:
+pusha bp
+pushi -2
+addi
+loadi
+pushi 10
+lti
+jz label4
+' * Write
+pushb 40
+outb
+' * Write
+pusha bp
+pushi 4
+addi
+loadi
+outi
+' * Write
+pushb 44
+outb
+' * Write
+pusha bp
+pushi -2
+addi
+loadi
+outi
+' * Write
+pushb 41
+outb
+' * Write
+pushb 58
+outb
+' * Write
+pusha 10
+pusha bp
+pushi 4
+addi
+loadi
+pushi 20
+muli
+addi
+pusha bp
+pushi -2
+addi
+loadi
+pushi 2
+muli
+addi
+loadi
+outi
+' * Write
+pushb 32
+outb
+' * Assignment
+pusha bp
+pushi -2
+addi
+pusha bp
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+' * Function invocation to x
+call x
+jmp label3
+label4:
+
+#line 48
+' * Write
+pushb 10
+outb
+ret 0, 2, 2
+
+#line 53
+main:
+' * Local variables:
+' * int i (offset -2)
+enter 2
+
+#line 56
+' * Function invocation to p
+call p
+
+#line 57
+' * Assignment
+pusha bp
+pushi -2
+addi
+pushi 0
+storei
+
+#line 58
+' * Assignment
+pusha 7
+pushi 2
+addi
+pushb 48
+storeb
+
+#line 59
+' * Assignment
+pusha 7
+pushi 0
+addi
+pushb 48
+b2i
+storei
+
+#line 60
+' * Write
+pusha bp
+pushi -2
+addi
+loadi
+i2f
+pusha 7
+pushi 2
+addi
+loadb
+b2i
+call f
+outi
+
+#line 60
+' * Write
+pushb 10
+outb
+
+#line 62
+' * Function invocation to f
+pushf 1.3
+pushi 2
+call f
+popi
+
+#line 64
+' * Assignment
+pusha bp
+pushi -2
+addi
+pushi 0
+storei
+
+#line 65
+' * Assignment
+pusha 4
+pushi 0
+storei
+
+#line 67
+' * for
+label5:
+pusha bp
+pushi -2
+addi
+loadi
+pushi 10
+lti
+jz label6
+' * Function invocation to fill
+pusha bp
+pushi -2
+addi
+loadi
+pusha 4
+loadi
+pushi 1
+call fill
+' * Function invocation to show
+pusha bp
+pushi -2
+addi
+loadi
+call show
+' * Assignment
+pusha bp
+pushi -2
+addi
+pusha bp
+pushi -2
+addi
+loadi
+pushi 1
+addi
+storei
+' * Assignment
+pusha 4
+pusha bp
+pushi -2
+addi
+loadi
+pushi 10
+muli
+storei
+jmp label5
+label6:
+ret 0, 2, 0
