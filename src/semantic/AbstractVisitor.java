@@ -222,4 +222,11 @@ public abstract class AbstractVisitor<TP,TR> implements Visitor<TP,TR> {
         forS.getForStatements().forEach(stmt -> stmt.accept(this, param));
         return null;
     }
+
+    @Override
+    public TR visit(MultipleAssignment multipleAssignment, TP param) {
+        multipleAssignment.getLeftExpressions().forEach(expression -> expression.accept(this, param));
+        multipleAssignment.getRightExpressions().forEach(expression -> expression.accept(this, param));
+        return null;
+    }
 }

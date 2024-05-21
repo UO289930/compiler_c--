@@ -1,0 +1,144 @@
+
+#source "inputMultipleAssignment.txt"
+
+' * Invocation to the main function
+call main
+halt
+' * Global variables:
+' * char myChar (offset 0)
+
+#line 11
+right:
+' * Parameters:
+' * char charp (offset 10)
+' * int intp (offset 8)
+' * double doublep (offset 4)
+' * Local variables:
+' * int myInt (offset -2)
+' * double myDouble (offset -6)
+' * [5, char] charArray (offset -11)
+' * struct((double field)) record (offset -15)
+enter 15
+
+#line 17
+' * Multiple Assignment
+pusha 0
+pusha bp
+pushi 10
+addi
+loadb
+storeb
+pusha bp
+pushi -2
+addi
+pusha bp
+pushi 8
+addi
+loadi
+storei
+pusha bp
+pushi -6
+addi
+pusha bp
+pushi 4
+addi
+loadf
+storef
+
+#line 18
+' * Write
+pusha 0
+loadb
+outb
+
+#line 18
+' * Write
+pusha bp
+pushi -2
+addi
+loadi
+outi
+
+#line 18
+' * Write
+pusha bp
+pushi -6
+addi
+loadf
+outf
+
+#line 20
+' * Multiple Assignment
+pusha bp
+pushi -11
+addi
+pushi 0
+pushi 1
+muli
+addi
+pushb 98
+storeb
+pusha bp
+pushi -2
+addi
+pushi 2
+storei
+pusha bp
+pushi -15
+addi
+pushi 0
+addi
+pushf 0
+pushf 1.1
+subf
+storef
+
+#line 21
+' * Write
+pusha bp
+pushi -11
+addi
+pushi 0
+pushi 1
+muli
+addi
+loadb
+outb
+
+#line 21
+' * Write
+pusha bp
+pushi -2
+addi
+loadi
+outi
+
+#line 21
+' * Write
+pusha bp
+pushi -15
+addi
+pushi 0
+addi
+loadf
+outf
+ret 0, 15, 7
+
+#line 42
+main:
+enter 0
+
+#line 43
+' * Function invocation to right
+pushb 97
+pushi 32
+pushf 0
+pushf 3.4
+subf
+call right
+
+#line 44
+' * Write
+pushb 10
+outb
+ret 0, 0, 0

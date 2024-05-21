@@ -343,4 +343,47 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
         super.visit(forS,functionReturnType);
         return null;
     }
+
+    @Override
+    public Void visit(MultipleAssignment multipleAssignment, Type functionReturnType) {
+        multipleAssignment.setReturnType(functionReturnType);
+        super.visit(multipleAssignment, null);
+
+        List<Expression> leftExpressions = multipleAssignment.getLeftExpressions();
+        List<Expression> rightExpressions = multipleAssignment.getRightExpressions();
+
+        if(rightExpressions.size()==1){
+
+            List<Type> leftTypes = leftExpressions.stream().map(Expression::getType).toList();
+            leftTypes.stream().forEach(type -> rightExpressions.get(0).getType().mustBePromotable(
+                    multipleAssignment.getLine(),
+                    multipleAssignment.getColumn(),
+                    type)
+            );
+
+        } else if(leftExpressions.size()!=rightExpressions.size()){
+
+            new ErrorType(multipleAssignment.getLine(), multipleAssignment.getColumn(),
+                    "The number of the left and right expressions of a multiple assignment must be the same");
+
+        } else if(!leftExpressions.stream().allMatch(Expression::isLvalue)){
+
+            new ErrorType(multipleAssignment.getLine(), multipleAssignment.getColumn(),
+                    "All left hand-side expressions of an assignment should be l-value");
+
+        } else {
+
+            List<Type> leftTypes = leftExpressions.stream().map(Expression::getType).toList();
+            List<Type> rightTypes = rightExpressions.stream().map(Expression::getType).toList();
+
+            for (int i = 0; i < leftTypes.size(); i++) {
+                Type type1 = leftTypes.get(i);
+                Type type2 = rightTypes.get(i);
+                type1.mustBeAssignableTo(multipleAssignment.getLine(), multipleAssignment.getColumn(), type2);
+            }
+
+        }
+
+        return null;
+    }
 }

@@ -24,4 +24,5 @@ public interface Type extends ASTNode {
     String convertTo(Type type1);
     String suffix();
     Type superType(Type type);
+    void mustBePromotable(int line, int column, Type type);
 }

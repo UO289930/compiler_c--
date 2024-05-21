@@ -41,6 +41,7 @@ variable_definitions returns [List<VariableDefinition> ast = new ArrayList<>()]:
 statements returns [List<Statement> ast = new ArrayList<>()]:
            fi=function_invocation ';'   { $ast.add( $fi.ast ); }
          | e1=expression '=' e2=expression ';'    { $ast.add( new Assignment( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ) ); }
+         | left=arguments OP='=' right=arguments ';'   { $ast.add( new MultipleAssignment( $OP.getLine(), $OP.getCharPositionInLine(), $left.ast, $right.ast ) ); }
          | WHILE='while' '(' e=expression ')' b=block { $ast.add( new While( $WHILE.getLine(), $WHILE.getCharPositionInLine()+1, $e.ast, $b.ast ) ); }
          | IF='if' '(' e=expression ')' b=block    { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b.ast, null ) ); }
          | IF='if' '(' e=expression ')' b1=block 'else' b2=block { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b1.ast, $b2.ast ) ); }

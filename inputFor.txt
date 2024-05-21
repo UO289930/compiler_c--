@@ -1,0 +1,48 @@
+char[10] message;
+int i;
+
+void initMessage(){
+message[0]='h';
+message[1]='e';
+message[2]='l';
+message[3]='l';
+message[4]='o';
+message[5]='w';
+message[6]='!';
+message[7]=' ';
+message[8]='_';
+message[9]='$';
+}
+
+void printMessage(){
+int size;
+size=10;
+for(i=0;i<size;i=i+1)
+    write message[i];
+
+write '\n';
+}
+
+void main(){
+int firstNonLetterIndex;
+
+firstNonLetterIndex=6;
+initMessage();
+//Should print hellow! _$
+
+printMessage();
+//should print 9
+write i, '\n';
+
+//substitute non-letters to *
+for(i=i-1;i>=firstNonLetterIndex;i=i-1)
+    message[i]='*';
+
+//should print 5
+write i, '\n';
+
+//should print "hellow****"
+printMessage();
+
+}
+

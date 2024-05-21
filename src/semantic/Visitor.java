@@ -72,4 +72,6 @@ import ast.types.*;
      TR visit(VoidType voidType, TP param);
 
      TR visit(For forS, TP param);
+
+     TR visit(MultipleAssignment multipleAssignment, TP param);
  }

@@ -1,0 +1,303 @@
+
+#source "inputMultipleAssignment2.txt"
+
+' * Invocation to the main function
+call main
+halt
+' * Global variables:
+' * char myChar (offset 0)
+
+#line 15
+right:
+' * Parameters:
+' * char charp (offset 10)
+' * int intp (offset 8)
+' * double doublep (offset 4)
+' * Local variables:
+' * int myInt (offset -2)
+' * int x (offset -4)
+' * int y (offset -6)
+' * double myDouble (offset -10)
+' * [5, char] charArray (offset -15)
+' * struct((double field)) record (offset -19)
+enter 19
+
+#line 21
+' * Multiple Assignment
+pusha 0
+pusha bp
+pushi 10
+addi
+loadb
+storeb
+pusha bp
+pushi -2
+addi
+pusha bp
+pushi 8
+addi
+loadi
+storei
+pusha bp
+pushi -10
+addi
+pusha bp
+pushi 4
+addi
+loadf
+storef
+
+#line 22
+' * Write
+pusha 0
+loadb
+outb
+
+#line 22
+' * Write
+pushb 44
+outb
+
+#line 22
+' * Write
+pusha bp
+pushi -2
+addi
+loadi
+outi
+
+#line 22
+' * Write
+pushb 44
+outb
+
+#line 22
+' * Write
+pusha bp
+pushi -10
+addi
+loadf
+outf
+
+#line 22
+' * Write
+pushb 10
+outb
+
+#line 24
+' * Multiple Assignment
+pusha bp
+pushi -15
+addi
+pushi 0
+pushi 1
+muli
+addi
+pushb 98
+storeb
+pusha bp
+pushi -2
+addi
+pushi 2
+storei
+pusha bp
+pushi -19
+addi
+pushi 0
+addi
+pushf 0
+pushf 1.1
+subf
+storef
+
+#line 25
+' * Write
+pusha bp
+pushi -15
+addi
+pushi 0
+pushi 1
+muli
+addi
+loadb
+outb
+
+#line 25
+' * Write
+pushb 44
+outb
+
+#line 25
+' * Write
+pusha bp
+pushi -2
+addi
+loadi
+outi
+
+#line 25
+' * Write
+pushb 44
+outb
+
+#line 25
+' * Write
+pusha bp
+pushi -19
+addi
+pushi 0
+addi
+loadf
+outf
+
+#line 25
+' * Write
+pushb 10
+outb
+
+#line 27
+' * Multiple Assignment
+pusha 0
+pushb 97
+storeb
+pusha bp
+pushi -2
+addi
+pushb 97
+b2i
+storei
+pusha bp
+pushi -10
+addi
+pushb 97
+b2i
+i2f
+storef
+
+#line 28
+' * Write
+pusha 0
+loadb
+outb
+
+#line 28
+' * Write
+pushb 44
+outb
+
+#line 28
+' * Write
+pusha bp
+pushi -2
+addi
+loadi
+outi
+
+#line 28
+' * Write
+pushb 44
+outb
+
+#line 28
+' * Write
+pusha bp
+pushi -10
+addi
+loadf
+outf
+
+#line 28
+' * Write
+pushb 10
+outb
+
+#line 30
+' * Assignment
+pusha bp
+pushi -4
+addi
+pushi 1
+storei
+
+#line 30
+' * Assignment
+pusha bp
+pushi -6
+addi
+pushi 2
+storei
+
+#line 31
+' * Multiple Assignment
+pusha bp
+pushi -4
+addi
+pusha bp
+pushi -4
+addi
+loadi
+pusha bp
+pushi -6
+addi
+loadi
+addi
+storei
+pusha bp
+pushi -6
+addi
+pusha bp
+pushi -6
+addi
+loadi
+pusha bp
+pushi -4
+addi
+loadi
+addi
+storei
+
+#line 32
+' * Write
+pusha bp
+pushi -4
+addi
+loadi
+outi
+
+#line 32
+' * Write
+pushb 44
+outb
+
+#line 32
+' * Write
+pusha bp
+pushi -6
+addi
+loadi
+outi
+
+#line 32
+' * Write
+pushb 10
+outb
+ret 0, 19, 7
+
+#line 55
+main:
+enter 0
+
+#line 56
+' * Function invocation to right
+pushb 97
+pushi 32
+pushf 0
+pushf 3.4
+subf
+call right
+
+#line 57
+' * Write
+pushb 10
+outb
+ret 0, 0, 0

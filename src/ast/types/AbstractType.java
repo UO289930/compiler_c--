@@ -132,4 +132,9 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
         IntType intT = new IntType(this.getLine(),this.getColumn());
         return String.format("%s\n%s", this.convertTo(intT), intT.convertTo(type1));
     }
+
+    @Override
+    public void mustBePromotable(int line, int column, Type type) {
+        new ErrorType(line, column, String.format("%s cannot be converted into %s", this, type));
+    }
 }

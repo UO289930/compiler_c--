@@ -101,4 +101,11 @@ public class DoubleType extends AbstractType {
         assert false;
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void mustBePromotable(int line, int column, Type type) {
+        if(!(type instanceof DoubleType)){
+            super.mustBePromotable(line, column, type); // error
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package codegeneration;
 
+import ast.expressions.Expression;
 import ast.expressions.FunctionInvocation;
 import ast.program.Definition;
 import ast.program.FunctionDefinition;
@@ -305,6 +306,40 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
         cg.label(exitLabel);
 
         return null;
+    }
 
+    @Override
+    public Void visit(MultipleAssignment multipleAssignment, StackMemoryState param) {
+
+        cg.comment(multipleAssignment.toString());
+
+        List<Expression> leftExpressions = multipleAssignment.getLeftExpressions();
+        List<Expression> rightExpressions = multipleAssignment.getRightExpressions();
+
+        if(rightExpressions.size()==1){
+
+            Expression expression2 = rightExpressions.get(0);
+
+            for (Expression expression1 : leftExpressions) {
+                expression1.accept(addressCGVisitor, null);
+                expression2.accept(valueCGVisitor, null);
+                cg.convert(expression2.getType(), expression1.getType());
+                cg.store(expression1.getType().suffix());
+            }
+
+        } else{
+
+            for (int i = 0; i < leftExpressions.size(); i++) {
+                Expression expression1 = leftExpressions.get(i);
+                Expression expression2 = rightExpressions.get(i);
+
+                expression1.accept(addressCGVisitor, null);
+                expression2.accept(valueCGVisitor, null);
+                cg.store(expression1.getType().suffix());
+            }
+
+        }
+
+        return null;
     }
 }
