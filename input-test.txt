@@ -1,0 +1,11 @@
+void main(){
+
+    int a;
+    double b;
+
+    a = 10;
+    b = 2.5;
+
+    write a*b+5.6972354658;
+
+}

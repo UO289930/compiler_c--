@@ -45,6 +45,7 @@ statements returns [List<Statement> ast = new ArrayList<>()]:
          | WHILE='while' '(' e=expression ')' b=block { $ast.add( new While( $WHILE.getLine(), $WHILE.getCharPositionInLine()+1, $e.ast, $b.ast ) ); }
          | IF='if' '(' e=expression ')' b=block    { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b.ast, null ) ); }
          | IF='if' '(' e=expression ')' b1=block 'else' b2=block { $ast.add( new IfElse( $IF.getLine(), $IF.getCharPositionInLine()+1, $e.ast, $b1.ast, $b2.ast ) ); }
+         | SWITCH='switch' '(' e=expression ')' c=cases  {$ast.add( ParserHelper.createSwitch( $SWITCH.getLine(), $SWITCH.getCharPositionInLine(), $e.ast, $c.ast ) );}
          | FOR='for' '(' s1=for_statement ';' e=expression ';' s2=for_statement ')' b=block { $ast.add( ParserHelper.createFor($FOR.getLine(), $FOR.getCharPositionInLine()+1, $s1.ast, $e.ast, $s2.ast, $block.ast) );}
          | WRITE='write' es=expressions ';' { $ast.addAll( ParserHelper.createWriteStatements($WRITE.getLine(), $WRITE.getCharPositionInLine()+1, $es.ast) ); }
          | READ='read' es=expressions ';' { $ast.addAll( ParserHelper.createReadStatements($READ.getLine(), $READ.getCharPositionInLine()+1, $es.ast) ); }
@@ -57,8 +58,14 @@ for_statement returns [Statement ast]:
     |
     ;
 
+cases returns [List<SwitchCase> ast = new ArrayList<>()]:
+    '{' (CASE='case' e=expression ':'  b=block  {$cases.add( ParserHelper.createSwitchCase( $CASE.getLine(), $CASE.getCharPositionInLine, $e.ast, $b.ast) );})+ '}'
+    ;
+
 expression returns [Expression ast]:
             fi=function_invocation   { $ast = $fi.ast; }
+          | OP=('++' | '--') e=expression { $ast.add( ParserHelper.createPreOrderImplicitAssignment($OP.getLine(), $OP.getCharPositionInLine(), $OP.getText(), $e.ast) ); }
+          | e=expression OP=('++' | '--') { $ast.add( ParserHelper.createPostOrderImplicitAssignment($OP.getLine(), $OP.getCharPositionInLine(), $OP.getText(), $e.ast) ); }
           | '(' e=expression ')'  { $ast = $e.ast; }
           | e1=expression '[' e2=expression ']'   { $ast = new Indexing( $e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast ); }
           | e=expression '.' ID   { $ast = new FieldAccess( $e.ast.getLine(), $e.ast.getColumn(), $e.ast, $ID.text ); }

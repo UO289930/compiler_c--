@@ -131,7 +131,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     @Override
     public Void visit(Comparison comparison, Void param) {
-        Type superType = comparison.getOperand1().getType().superType(comparison.getType());
+        Type superType = comparison.getOperand1().getType().superType(comparison.getOperand2().getType());
 
         comparison.getOperand1().accept(this, null);
         cg.convert(comparison.getOperand1().getType(), superType);

@@ -95,7 +95,7 @@ public class DoubleType extends AbstractType {
 
     @Override
     public Type superType(Type type) {
-        if(type instanceof DoubleType){
+        if(type instanceof CharType || type instanceof IntType || type instanceof DoubleType){
             return this;
         }
         assert false;

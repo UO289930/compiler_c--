@@ -219,4 +219,22 @@ public abstract class AbstractCGVisitor<TP,TR> implements Visitor<TP,TR> {
         assert false;
         throw new UnsupportedOperationException("Multiple assignment cannot be visited by this code generation visitor");
     }
+
+    @Override
+    public TR visit(SwitchCase switchCase, TP param) {
+        assert false;
+        throw new UnsupportedOperationException("Switch case cannot be visited by this code generation visitor");
+    }
+
+    @Override
+    public TR visit(Switch switchS, TP param) {
+        assert false;
+        throw new UnsupportedOperationException("Switch statement cannot be visited by this code generation visitor");
+    }
+
+    @Override
+    public TR visit(ImplicitAssignment implicitAssignment, TP param) {
+        assert false;
+        throw new UnsupportedOperationException("Switch statement cannot be visited by this code generation visitor");
+    }
 }

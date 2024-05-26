@@ -74,4 +74,10 @@ import ast.types.*;
      TR visit(For forS, TP param);
 
      TR visit(MultipleAssignment multipleAssignment, TP param);
+
+     TR visit(SwitchCase switchCase, TP param);
+
+     TR visit(Switch switchS, TP param);
+
+     TR visit(ImplicitAssignment implicitAssignment, TP param);
  }

@@ -186,4 +186,8 @@ public class CodeGenerator {
     public void pop(String suffix) {
         writeLine( String.format("pop%s", suffix) );
     }
+
+    public String potentialNextLabel() {
+        return String.format("label%s", nthLabel);
+    }
 }

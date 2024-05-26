@@ -3,16 +3,41 @@ package parser;
 import ast.expressions.*;
 import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
-import ast.statements.For;
-import ast.statements.Read;
-import ast.statements.Statement;
-import ast.statements.Write;
+import ast.statements.*;
 import ast.types.*;
 import dto.FunctionBody;
 
 import java.util.*;
 
 public class ParserHelper {
+
+    public static ImplicitAssignment createPreOrderImplicitAssignment(int line,
+                                                                      int column,
+                                                                      String operator,
+                                                                      Expression expression){
+        return new ImplicitAssignment(line, column, ImplicitAssignment.PRE, expression, operator);
+    }
+
+    public static ImplicitAssignment createPostOrderImplicitAssignment(int line,
+                                                                      int column,
+                                                                      String operator,
+                                                                      Expression expression){
+        return new ImplicitAssignment(line, column, ImplicitAssignment.POST, expression, operator);
+    }
+
+    public static SwitchCase createSwitchCase(int line,
+                                              int column,
+                                              Expression expression,
+                                              List<Statement> block){
+        return new SwitchCase(line, column, expression, block);
+    }
+
+    public static Switch createSwitch(int line,
+                                      int column,
+                                      Expression expression,
+                                      List<SwitchCase> cases){
+        return new Switch(line, column, expression, cases);
+    }
 
     public static For createFor(int line,
                                 int column,

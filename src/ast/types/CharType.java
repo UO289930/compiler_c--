@@ -27,9 +27,7 @@ public class CharType extends AbstractType {
             return type;
         }
 
-        return type instanceof CharType ?
-                new IntType(line, column) :
-                new ErrorType(line, column, "Second arithmetic operand type must also be a character");
+        return superType(type);
     }
 
     @Override
@@ -107,7 +105,7 @@ public class CharType extends AbstractType {
 
     @Override
     public Type superType(Type type) {
-        if(type instanceof IntType){
+        if(type instanceof IntType || type instanceof DoubleType){
             return type;
         }
         if(type instanceof CharType){

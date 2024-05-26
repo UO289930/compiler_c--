@@ -316,7 +316,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
         List<Expression> leftExpressions = multipleAssignment.getLeftExpressions();
         List<Expression> rightExpressions = multipleAssignment.getRightExpressions();
 
-        if(rightExpressions.size()==1){
+        if (rightExpressions.size() == 1) {
 
             Expression expression2 = rightExpressions.get(0);
 
@@ -327,7 +327,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
                 cg.store(expression1.getType().suffix());
             }
 
-        } else{
+        } else {
 
             for (int i = 0; i < leftExpressions.size(); i++) {
                 Expression expression1 = leftExpressions.get(i);
@@ -340,6 +340,22 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
 
         }
 
+        return null;
+    }
+
+    @Override
+    public Void visit(Switch switchS, StackMemoryState state) {
+        switchS.getCases().forEach(caseX -> {
+
+            String label = cg.nextLabel();
+
+            switchS.getCaseExpression().accept(valueCGVisitor, null);
+            caseX.getCaseElement().accept(valueCGVisitor, null);
+            cg.comparison("eq", switchS.getCaseExpression().getType().suffix());
+            cg.jump("jz", cg.potentialNextLabel());
+
+            caseX.getStatements().forEach(stmt -> stmt.accept(this, state));
+        });
         return null;
     }
 }

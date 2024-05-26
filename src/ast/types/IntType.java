@@ -27,7 +27,7 @@ public class IntType extends AbstractType {
             return type;
         }
 
-        return type instanceof IntType ? this : new ErrorType(line, column, "Arithmetic operand types must also be integer");
+        return superType(type);
     }
 
     @Override
@@ -130,7 +130,10 @@ public class IntType extends AbstractType {
 
     @Override
     public Type superType(Type type) {
-        if(type instanceof IntType){
+        if(type instanceof DoubleType){
+            return type;
+        }
+        if(type instanceof IntType || type instanceof CharType){
             return this;
         }
         assert false;

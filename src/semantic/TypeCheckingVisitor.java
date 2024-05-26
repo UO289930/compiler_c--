@@ -386,4 +386,22 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
         return null;
     }
+
+    @Override
+    public Void visit(SwitchCase switchCase, Type param) {
+        super.visit(switchCase, param);
+        return null;
+    }
+
+    @Override
+    public Void visit(Switch switchS, Type param) {
+        switchS.getCases().forEach(casex -> switchS.getCaseExpression().getType().mustBeReturnedAs(casex.getLine(), casex.getColumn(), casex.getCaseElement().getType()));
+        return null;
+    }
+
+    @Override
+    public Void visit(ImplicitAssignment implicitAssignment, Type param) {
+        //implicitAssignment.getType().mustBeBuiltIn();
+        return null;
+    }
 }

@@ -229,4 +229,24 @@ public abstract class AbstractVisitor<TP,TR> implements Visitor<TP,TR> {
         multipleAssignment.getRightExpressions().forEach(expression -> expression.accept(this, param));
         return null;
     }
+
+    @Override
+    public TR visit(SwitchCase switchCase, TP param) {
+        switchCase.getCaseElement().accept(this, param);
+        switchCase.getStatements().forEach(stmt -> stmt.accept(this, null));
+        return null;
+    }
+
+    @Override
+    public TR visit(Switch switchS, TP param) {
+        switchS.getCaseExpression().accept(this, param);
+        switchS.getCases().forEach(casex -> casex.accept(this, param));
+        return null;
+    }
+
+    @Override
+    public TR visit(ImplicitAssignment implicitAssignment, TP param) {
+        implicitAssignment.getExpression().accept(this, param);
+        return null;
+    }
 }
