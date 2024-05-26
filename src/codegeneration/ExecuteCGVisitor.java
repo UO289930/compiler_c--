@@ -6,7 +6,9 @@ import ast.program.FunctionDefinition;
 import ast.program.Program;
 import ast.program.VariableDefinition;
 import ast.statements.*;
+import ast.types.ArrayType;
 import ast.types.FunctionType;
+import ast.types.Type;
 import ast.types.VoidType;
 import dto.StackMemoryState;
 
@@ -197,7 +199,26 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
 
         write.getExpression().accept(valueCGVisitor, null);
 
-        cg.write(write.getExpression().getType().suffix());
+        if(write.getExpression() instanceof ArrayType){
+
+            Type elementType = write.getExpression().getType();
+            int size = 1;
+
+            while( elementType instanceof ArrayType ){
+                size *= ((ArrayType) elementType).getSize();
+                elementType = ((ArrayType) elementType).getElementType();
+            }
+
+            for (int i=0; i<size; i++){
+                cg.write(elementType.suffix());
+            }
+
+        } else{
+
+            cg.write(write.getExpression().getType().suffix());
+
+        }
+
         return null;
     }
 

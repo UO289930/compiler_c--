@@ -1,6 +1,7 @@
 package codegeneration;
 
 import ast.expressions.*;
+import ast.types.ArrayType;
 import ast.types.Type;
 
 /**
@@ -194,6 +195,29 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     @Override
     public Void visit(Variable variable, Void param) {
+
+        if(variable.getType() instanceof ArrayType){
+
+            Type elementType = variable.getType();
+            int size = 1;
+
+            while( elementType instanceof ArrayType ){
+                size *= ((ArrayType) elementType).getSize();
+                elementType = ((ArrayType) elementType).getElementType();
+            }
+
+            int elementTypeNumberOfBytes = elementType.numberOfBytes();
+
+            for (int i = size-1; i >=0; i--) {
+                variable.accept(addressCGVisitor, null);
+                cg.push("i", i*elementTypeNumberOfBytes);
+                cg.add("i");
+
+                cg.load(elementType.suffix());
+            }
+
+        }
+
         variable.accept(addressCGVisitor, null);
         cg.load(variable.getType().suffix());
         return null;
