@@ -38,10 +38,10 @@ import java.util.List;
  *
  *  (( FunctionInvocation: expression1 -> variable expression* )) -->> variable is useless!!!
  *  (P) FunctionInvocation: expression1 -> expression2 expression*
- *  (R) expression1.type = expression2.type.parenthesis( expression*.stream().map( exp -> exp.type ).toArray() );
+ *  (R) expression1.type = expression2.type.parenthesis( expression*.stream().map( exp -> exp.type ).toList() );
  *
  *  (P) FunctionInvocation: statement -> expression expression*
- *  (R) expression.type.parenthesis( expression*.stream().map( exp -> exp.type ).toArray() );
+ *  (R) expression.type.parenthesis( expression*.stream().map( exp -> exp.type ).toList() );
  *
  *  (P) Assignment: statement -> expression1 expression2
  *  (R) expression2.type.mustBeAssignableTo( expression1.type );

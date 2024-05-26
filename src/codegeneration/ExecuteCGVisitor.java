@@ -51,12 +51,12 @@ import java.util.List;
  *      exitLabel<:>
  *
  *
- * execute[[VariableDefinition: definition -> type ID]] =
+ * execute[[VariableDefinition: definition -> type ID]](int bytesRet, int bytesLocals, int bytesArgs) =
  *  <'* > definition.type.toString()
  *
- * execute[[FunctionDefinition: definition -> type ID varDefinition* statement*]] =
+ * execute[[FunctionDefinition: definition -> type ID varDefinition* statement*]](int bytesRet, int bytesLocals, int bytesArgs) =
  *  ID<:>
- *  execute[[type]]
+ *  execute[[type]](int bytesRet, int bytesLocals, int bytesArgs)
  *  varDefinition*.forEach(varDefinition -> execute[[varDefinition]])
  *  <enter > -varDefinition*.get( varDefinition*.size()-1 ).offset
  *  statement*.forEach(stmt -> execute[[stmt]](bytesReturn, bytesLocals, bytesArgs))
@@ -65,14 +65,14 @@ import java.util.List;
  *  }
  *
  *
- *  execute[[FunctionType: type1 -> type2 varDefinition*]] =
- *   varDefinition*.forEach(varDefinition -> execute[[varDefinition]])
+ *  execute[[FunctionType: type1 -> type2 varDefinition*]](int bytesRet, int bytesLocals, int bytesArgs) =
+ *   varDefinition*.forEach(varDefinition -> execute[[varDefinition]](int bytesRet, int bytesLocals, int bytesArgs))
  *
- * execute[[Program: program -> definition*]] =
- *  definition*.forEach(def -> execute[[def]])
+ * execute[[Program: program -> definition*]](int bytesRet, int bytesLocals, int bytesArgs) =
+ *  definition*.forEach(def -> execute[[def]](int bytesRet, int bytesLocals, int bytesArgs))
  *
- * execute[[Return: statement -> exp]](int bytesRet, int bytesLocals, int bytesArgs) =
- *  value[[exp]]
+ * execute[[Return: statement -> expression]](int bytesRet, int bytesLocals, int bytesArgs) =
+ *  value[[expression]]
  *  <ret > bytesRet <, > bytesLocals <, > bytesArgs
  *
  * execute[[FunctionInvocation: statement -> expression expression*]](int bytesRet, int bytesLocals, int bytesArgs) =

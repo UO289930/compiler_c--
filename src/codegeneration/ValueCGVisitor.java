@@ -65,7 +65,7 @@ import ast.types.Type;
  *
  * value[[Cast: expression1 -> type expression2]] =
  * 	value[[expression2]]
- * 	expression2.convertTo(type)
+ * 	expression2.type.convertTo(type)
  *
  * 	value[[UnaryMinus: expression1 -> expression2]] =
  * 	    <push> expression1.suffix 0
@@ -90,7 +90,7 @@ import ast.types.Type;
  *
  *  value[[FunctionInvocation: expression1 -> expression2 expression*]] =
  *      expression*.forEach(exp -> value[[exp]]);
- *      <call > expression.name
+ *      <call > expression2.name
  *
  */
 public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
