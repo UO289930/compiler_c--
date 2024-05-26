@@ -1,0 +1,86 @@
+
+#source "input_custom.txt"
+
+' * Invocation to the main function
+call main
+halt
+' * Global variables:
+
+#line 37
+main:
+' * Local variables:
+' * [2, struct((int integer)([5, [5, double]] c))] b (offset -204)
+enter 204
+
+#line 44
+' * Assignment
+pusha bp
+pushi -204
+addi
+pushi 0
+pushi 102
+muli
+addi
+pushi 0
+addi
+pushi 619
+storei
+
+#line 45
+' * Assignment
+pusha bp
+pushi -204
+addi
+pushi 1
+pushi 102
+muli
+addi
+pushi 2
+addi
+pushi 2
+pushi 20
+muli
+addi
+pushi 2
+pushi 4
+muli
+addi
+pushf 777.777
+storef
+
+#line 47
+' * Write
+pusha bp
+pushi -204
+addi
+pushi 0
+pushi 102
+muli
+addi
+pushi 0
+addi
+loadi
+outi
+
+#line 48
+' * Write
+pusha bp
+pushi -204
+addi
+pushi 1
+pushi 102
+muli
+addi
+pushi 2
+addi
+pushi 2
+pushi 20
+muli
+addi
+pushi 2
+pushi 4
+muli
+addi
+loadf
+outf
+ret 0, 204, 0

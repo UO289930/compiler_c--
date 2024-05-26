@@ -1,3 +1,4 @@
+/*
 void g(int a){
     //return 2;
 }
@@ -30,10 +31,29 @@ int f(int n, double r) {
 int z(){
     return 2;
 }
-
+*/
 
 // * Main function
 void main() {
+
+    struct{
+        int integer;
+        double[5][5] c;
+    }[2] b;
+
+
+    /* VA BIEN
+    struct{
+        int integer;
+        double[5][5] c;
+    } b;
+
+    b.integer = 2;
+    b.c[2][2] = 1.0;
+
+    write b.integer;
+    write b.c[2][2];
+    */
 }
 
 
