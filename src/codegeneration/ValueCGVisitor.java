@@ -2,7 +2,11 @@ package codegeneration;
 
 import ast.expressions.*;
 import ast.types.ArrayType;
+import ast.types.StructField;
+import ast.types.StructType;
 import ast.types.Type;
+
+import java.util.List;
 
 /**
  * value[[IntLiteral: expression -> INT_CONSTANT]] =  <pushi > expression.value
@@ -216,10 +220,17 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
                 cg.load(elementType.suffix());
             }
 
+        } if(variable.getType() instanceof StructType){
+            List<StructField> fields = ((StructType) variable.getType()).getFields();
+            for (int i = fields.size()-1; i >= 0 ; i--) {
+                fields.get(i).accept(this, null);
+            }
+
+        }else{
+            variable.accept(addressCGVisitor, null);
+            cg.load(variable.getType().suffix());
         }
 
-        variable.accept(addressCGVisitor, null);
-        cg.load(variable.getType().suffix());
         return null;
     }
 

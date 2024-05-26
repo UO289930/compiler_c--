@@ -199,7 +199,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
 
         write.getExpression().accept(valueCGVisitor, null);
 
-        if(write.getExpression() instanceof ArrayType){
+        if(write.getExpression().getType() instanceof ArrayType){
 
             Type elementType = write.getExpression().getType();
             int size = 1;
@@ -209,9 +209,13 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<StackMemoryState, Void> 
                 elementType = ((ArrayType) elementType).getElementType();
             }
 
-            for (int i=0; i<size; i++){
+            for (int i=0; i<size-1; i++){
                 cg.write(elementType.suffix());
+                cg.push("b", (int)',');
+                cg.write("b");
             }
+            cg.write(elementType.suffix());
+
 
         } else{
 
